@@ -1,0 +1,70 @@
+---
+
+- name: install the EPEL release rpm
+  become: yes
+  become_user: root
+  apt:
+    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    state: present
+
+- name: Ensure Apache is at the Latest version
+  become: yes
+  become_user: it
+  tags:
+    - web
+  apt:
+    name: httpd
+    state: latest
+
+- name: "Create sites-available and sites-enabled Directories"
+  become: yes
+  become_user: it
+  tags:
+    - web
+  file:
+    dest: "{{ item }}"
+    owner: "root"
+    group: "root"
+    mode: 0644
+    state: directory
+  with_items:
+    - "/etc/httpd/sites-enabled"
+    - "/etc/httpd/sites-available"
+
+- name: Modify the Default Apache Configuration file
+  become: yes
+  become_user: it
+  tags:
+    - web
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: root
+    group: root
+    mode: 0644
+  with_items:
+    - {src: 'basic_vh.conf.j2', dest: '/etc/apache2/sites-available/{{ domain }}.conf'}
+    - {src: 'apache2.conf.j2', dest: '/etc/apache2/apavhe2.conf'}
+
+- name: Create the Document Root Direcotory
+  become_user: it
+  become: yes
+  tags:
+    - web
+  file:
+    dest: "{{ docroot }}"
+    mode: 0755
+    owner: apache
+    group: apache
+    state: directory
+
+- name: Symlink the sites-available VH file to sites-enabled
+  become: yes
+  become_user: it
+  tags:
+    - web
+  file:
+    src: "/etc/apache2/sites-available/{{ domain }}.conf"
+    dest: "/etc/apache2/sites-enabled/{{ domain }}.conf"
+    state: link
+  notify: restart apache2

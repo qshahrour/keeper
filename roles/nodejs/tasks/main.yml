@@ -1,0 +1,80 @@
+---
+
+- name: Install Node and NPM
+  become: true
+  become_user: it
+  register: aptinstall
+  apt:
+    name:
+      - nodejs
+      - npm
+      - git
+
+- name: Validate the nodejs installation
+  debug: msg="Installation of node is Successfull"
+
+- name: Install Node and NPM
+  become: true
+  become_user: it
+  shell:
+    "npm -v && nodejs -v"
+  register: versioninfo
+
+- name:
+  become: true
+  become_user: it
+  sell: npm install
+  args:
+    chdir: "{{ destdir }}"
+  register: npminstall
+
+- name: Start Node
+  become: true
+  become_user: it
+  async: 10
+  poll: 0
+  shell:
+    "sh deploy.sh"
+  args:
+    chdir: "{{ destdir }}"
+  register: appstart
+
+- name:
+  become: true
+  become_user: it
+  shell:
+    "mv example.env .env"
+  args:
+    chdir: "{{ destdir }}"
+  register: Renamingenv
+
+- name: Replacing the port in rnv file
+  become: true
+  become_user: it
+  lineinfile:
+    path: "{{ destdir }}"
+    regexp: "NUXT_PORT=3000"
+    line: "NUXT_PORT=3010"
+    state: present
+  register: envreplace
+
+- name: Comment the Exisiting in env
+  become: true
+  become_user: it
+  lineinfile:
+    path: "{{ destdir }}"
+    regexp: '(^DEBUG=.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+  register: envcomment
+
+- name: Validating the port is open
+  tags: nodevalidate
+  wait_for:
+    host: "localhost"
+    port: 3010
+    delay: 10
+    timeout: 30
+    state: started
+    msg: "NodeJS server is not running"

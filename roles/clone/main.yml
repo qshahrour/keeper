@@ -1,0 +1,10 @@
+---
+
+- name: Git
+  become: true
+  git:
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    accept_hostkey: yes
+    key_file: "files/id_rsa_uat"
+    dest: "/var/www/ingotbrokers-admin"
+

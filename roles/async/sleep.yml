@@ -1,0 +1,14 @@
+---
+
+- name:
+  become:
+  become_user:
+  shell: "chmod a+x /tmp/longrunningscript.sh &&  /tmp/longrunningscript.sh 60"
+  # Run for 60 seconds async: 120 # Maximum allowed time in Seconds
+  async: 120 
+  poll: 05
+  register: scrout
+
+- name: task to debug
+  debug: var=scrout.stdout_lines
+

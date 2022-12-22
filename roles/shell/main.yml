@@ -1,0 +1,11 @@
+---
+
+- name:
+  become:
+  become_user:
+  shell:
+    /tmp/findoldern.sh
+  register: srcout
+
+- name: running debug module
+  debug: var=stdout.stdout_lines

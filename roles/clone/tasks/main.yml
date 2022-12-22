@@ -1,0 +1,21 @@
+---
+
+- name: Creates ingotbrokers-admin directory
+  become: true
+  become_user: it
+  file:
+    path: /var/www/ingotbrokers-admin
+    state: directory
+    owner: "it"
+    group: "www-data"
+    mode: "0775"
+
+- name: Git
+  become_user: it
+  become: true
+  git:
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    accept_hostkey: yes
+    key_file: "files/id_rsa_uat"
+    dest: "/var/www/ingotbrokers-admin"
+
