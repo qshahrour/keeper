@@ -68,3 +68,51 @@
     dest: "/etc/apache2/sites-enabled/{{ domain }}.conf"
     state: link
   notify: restart apache2
+
+- name: Make Sure mime.types file is available
+  tags:
+    - web
+  file:
+    dest: /etc/apache2/mime.types
+    state: file
+  register: mimeout
+  ignore_errors: True
+
+- name: Copy the /etc/mime.types file to httpd conf
+  become: yes
+  become_user: it
+  tags:
+    - web
+  shell: "cp /etc/mime.types /etc/apache2/mime.types"
+  when: mimeout is failed
+
+- name: Download the home page of www.middlewareinventory.com to tmp
+  tags:
+    - web
+  become: yes
+  become_user: it
+  shell:
+    "wget https://www.middlewareinventory.com"
+  args:
+    chdir: "/tmp"
+    creates: "index.html"
+
+- name : Changing file permission of downloaded index.html and copy to DocRoot
+  tags:
+    - web
+  become: yes
+  become_user: it
+  copy:
+    remote_src: yes
+    src: "/tmp/index.html"
+    dest: "{{docroot}}/index.html"
+    owner: "apache2"
+    group: "apache2"
+    mode: "0755"
+
+- name: Make Sure the Apache is Running
+  tags:
+    - web
+  become: yes
+  become_user: it
+  service: name=apache2 state=restarted enabled=yes
