@@ -1,0 +1,17 @@
+---
+
+- name: Install Needed Packages
+  become: true
+  become_user: ubuntu
+  apt: name={{ item }} update_cache=yes state=latest
+  with_items:
+    - git
+    - curl
+    - sysstat
+
+- name: Install updates
+  become: true
+  become_user: ubuntu
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600

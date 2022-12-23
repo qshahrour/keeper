@@ -1,0 +1,34 @@
+---
+
+- name:
+  hosts:
+  tasks:
+
+  - name: Update and distrebution upgrade
+    become: yes
+    become_user: root
+    shell: "apt -y update && apt dist-upgrade"
+    register: patchresult
+
+  - name:
+    tags: reboot
+    become:
+    become_user:
+    shell: "sleep 5 && reboot"
+    async: 1
+    poll: 0
+
+  - name:
+    wait_for:
+      port: ssh
+      host: '{{ (ansible_ssh_host|default(ansible_host))default(inventory_hostname) }}'
+      search_regex: OpenSSH
+      delay: 10
+      time_out: 60
+    connection: local
+
+  - name:
+    shell: "uptime"
+    register: Uptime
+
+  - debug: var=Uptime

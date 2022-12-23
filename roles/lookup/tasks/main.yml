@@ -1,0 +1,22 @@
+---
+
+- name: Ansible Lookup examples
+  hosts: app
+  become: true
+  tasks:
+  # BOTH TASKS ARE EXACLY DOING THE SAME JOB
+  # IN TASK1: WE ARE KEEPING THE PUBLIC KEY AS A TEXT IN PLAYBOOK
+
+  - name: "Copy the public Key Using the Key directly within Playbook"
+    authorized_key:
+      user: ubuntu
+      state: present
+      key: "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQCgZK/24RLnvMhFeeDMdRk2OWf3xBK/4MYheJgddeJuN3UfljukhdlX7xlAR9NHEACXezcLN0A4jvQCMXc5tBrOBAzneEPX9rPnTsYmuoi5y5Mkg3w0ir1DzJ4yvrhqVO5GPQzVh79DRwxB2aCQ8T8Vx0XKVg+rMlAJ79mIMwVqZHQbDPKUWmJ5YdiqUW/qRxsJkqAbipMCaS6bVWDuA1Gi7Rg+6SNtth8H6OwJ9QDl7fGBilOPGVuaOMuqpg5WusdFbWF8vY7fi3+/eglQpb1mfyDidsPXipTfJZl7hobCwfdCZjGv7EPJepxKTTpUjgCiYKP/RHLXCdFg4ryHyaabAdbAQ03g8+x2wpVvBjESuuHPa2OdUh41S39YBYE7WLQ8ulEiBYUvhMsYiBo1chUmsLr0AWLjRc9R9z8pPnkAcACeMgmCq6CH6oG22SGCHo8ZNNljQA24O+X4vaaIOdxUm40S0fTOIz5LgIa+1TvAgOPOK2uDjHQznYdugl6pdgs= ubuntu@main-server"
+
+  # IN TASK2: WE ARE READING THE PUBLIC KEY FROM THE FILE DIRECTLY USING LOOKUP
+  # ANSIBLE FILE LOOKUP PLUGIN HELPS TO READ THE FILE CONTENTS WITHIN THE ANSIBLE PLAYBOOK
+  - name: "Copy the public Key using Lookup"
+    authorized_key:
+      user:
+      state: present
+      key: "{{ lookup(‘file’, ‘~/.ssh/id_rsa.pub’) }}"
