@@ -1,11 +1,11 @@
 [web_servers]
-#172.20.10.240
-#172.20.10.243
-194.31.194.47
+#beta ansible_host=172.20.10.240 ansible_user=it
+uatbeta ansible_host=172.20.10.243 ansible_user=it
+#vpntunnel ansible_host=194.31.194.47 ansible_user=ubuntu
 
 [api_servers]
-172.20.10.37
-172.20.10.38
+apibeta ansible_host=172.20.10.37 ansible_user=it
+apiuatbeta ansible_host=172.20.10.38 ansible_user=it
 
 [db_srvers]
-172.20.10.46
+#db ansible_host=172.20.10.46 ansible_user=q.shahrour ansible_ssh_pass=@oxbXFNAsh%%4202

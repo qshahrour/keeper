@@ -1,0 +1,12 @@
+---
+
+- name: Start Node
+  tags: node
+  become: true
+  async: 3600
+  poll: 10
+  shell:
+    "sh deploy.sh && pm2 start ingot-portal"
+  args:
+    chdir: "/var/www/ingotbrokers-admin"
+  register: appstart

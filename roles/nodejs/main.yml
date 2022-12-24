@@ -6,6 +6,7 @@
         #   "npm -v && nodejs -v"
         #  register: versioninfo
 - name: Copying example.env file
+  tags: project,env
   shell:
     "mv example.env .env"
   args:
@@ -13,6 +14,7 @@
   register: Renamingenv
 
 - name: Replacing Variable in Env file
+  tags: envnode,node
   lineinfile:
     path: /var/www/ingotbrokers-admin/.env
     regexp: "3002"
@@ -22,6 +24,7 @@
   register: oldport
 
 - name: Validate that's the port is 3010
+  tags: envnode,node
   lineinfile:
     path: /var/www/ingotbrokers-admin/.env
     regexp: "3010"
@@ -30,7 +33,9 @@
   register: newport
 
 - name: Replace Portal Type in Env file
+
   lineinfile:
+    tags: envnode,node
     path: /var/www/ingotbrokers-admin/.env
     regexp: "NUXT_ENV_PORTAL_TYPE=.*"
     line: "NUXT_ENV_PORTAL_TYPE=employee"
@@ -39,6 +44,7 @@
   register: portaltype
 
 - name: Validate that's the portal type is employee
+  tags: envnode,node
   lineinfile:
     path: /var/www/ingotbrokers-admin/.env
     regexp: NUXT_ENV_PORTAL_TYPE=employe
@@ -47,6 +53,7 @@
   register: typeemployee
 
 - name: Comment a line in env file
+  tags: envnode
   lineinfile:
     path: /var/www/ingotbrokers-admin/.env
     regexp: '(^DEBUG=.*)'
@@ -56,6 +63,7 @@
   register: commentinenv
 
 - name: Comment HOST  in Env file
+  tags: envnode,node
   lineinfile:
     path: /var/www/ingotbrokers-admin/.env
     regexp: '(^NUXT_HOST==.*)'
@@ -65,6 +73,7 @@
   register: commenthost
 
 - name: Install npm in the project directory
+  tags: node
   become: true
   async: 60
   poll: 10
@@ -78,8 +87,8 @@
   #  debug: msg="Installation of node is Successfull"
 
 - name: Start Node
+  tags: node
   become: true
-  become_user: it
   async: 240
   poll: 10
   shell:
@@ -89,7 +98,7 @@
   register: appstart
 
 - name: Validating the port is open
-  tags: nodevalidate
+  tags: nodevalidate,node
   wait_for:
     host: "localhost"
     port: 3010

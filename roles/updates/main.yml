@@ -1,0 +1,7 @@
+---
+
+- name: Update Servers
+  tags: always
+  package:
+    upgrade: dist
+    update_cache: yes

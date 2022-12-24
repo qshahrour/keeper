@@ -1,0 +1,11 @@
+---
+
+- name: Validating the port is open
+  tags: portvalidate
+  wait_for:
+    host: "localhost"
+    port: 443
+    delay: 10
+    timeout: 30
+    state: started
+    msg: "apache2 server is not running"

@@ -1,0 +1,26 @@
+---
+
+- name: Copy Default html file
+  tags: apache,apache2
+  copy:
+    src: basic.html
+    dest: /var/www/html/index.html
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "0664"
+
+- name:
+  tags: unzip
+  become: true
+  package:
+    name: unzip
+
+- name: Install Terraform
+  tags: terraform,unarchive
+  unarchive:
+    src: https://releases.hashicorp.com/terraform/1.3.6/terraform_1.3.6_linux_amd64.zip
+    dest: /usr/local/bin
+    remote_src: yes
+    mode: "0775"
+    owner: "root"
+    group: "root"
