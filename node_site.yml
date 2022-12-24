@@ -1,0 +1,9 @@
+---
+
+- name: NodeJs Site
+  hosts: [web_servers]
+
+  tasks:
+    #  - include_tasks: roles/clone/main.yml
+    #  - include_tasks: roles/nodejs/main.yml
+  - include_tasks: roles/nodejs/start_node.yml

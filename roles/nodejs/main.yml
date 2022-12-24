@@ -5,57 +5,61 @@
         #  shell:
         #   "npm -v && nodejs -v"
         #  register: versioninfo
-- name: Copying example.env file
-  tags: project,env
-  shell:
-    "mv example.env .env"
-  args:
-    chdir: "{{ destdir }}"
-  register: Renamingenv
+        #- name: Copying example.env file
+        #  tags: project,env
+        #  shell:
+        #    "mv example.env .env"
+        #  args:
+        #    chdir: "/var/www/ingotbrokers-portal"
+        #  register: RenamingEnv
 
-- name: Replacing Variable in Env file
+  #- name: Replacing Variable in Env file
+  #  tags: envnode,node
+  #  lineinfile:
+  #    path: /var/www/ingotbrokers-admin/.env
+  #    regexp: "3002"
+  #    line: "3010"
+  #    state: present
+  #    backup: yes
+  #  register: oldport
+  #
+- name: Set Env File Variables
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_PORT=' line=NUXT_PORT=3003
+
+- name: Validate that's the port is 3003
   tags: envnode,node
   lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "3002"
-    line: "3010"
-    state: present
-    backup: yes
-  register: oldport
-
-- name: Validate that's the port is 3010
-  tags: envnode,node
-  lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "3010"
+    path: /var/www/ingotbrokers-portal/.env
+    regexp: "3003"
     state: absent
     backup: yes
   register: newport
 
-- name: Replace Portal Type in Env file
+- name: Replace Project Name in Env File
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PROJECT_NAME=' line=NUXT_ENV_PROJECT_NAME=ingot-client
 
-  lineinfile:
-    tags: envnode,node
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "NUXT_ENV_PORTAL_TYPE=.*"
-    line: "NUXT_ENV_PORTAL_TYPE=employee"
-    state: present
-    backup: yes
-  register: portaltype
+- name: Replace Portal Type in Env File
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PORTAL_TYPE=' line=NUXT_ENV_PORTAL_TYPE==client
 
 - name: Validate that's the portal type is employee
-  tags: envnode,node
   lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: NUXT_ENV_PORTAL_TYPE=employe
+    path: /var/www/ingotbrokers-portal/.env
+    regexp: NUXT_ENV_PORTAL_TYPE=client
     state: absent
     backup: yes
   register: typeemployee
 
-- name: Comment a line in env file
-  tags: envnode
+- name: Validate that's the Project Name is ingot-client
   lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
+    path: /var/www/ingotbrokers-portal/.env
+    regexp: NUXT_ENV_PROJECT_NAME=ingot-client
+    state: absent
+    backup: yes
+  register: typeclient
+
+- name: Comment a line in env file
+  lineinfile:
+    path: /var/www/ingotbrokers-portal/.env
     regexp: '(^DEBUG=.*)'
     line: '# \1'
     backrefs: yes
@@ -63,24 +67,32 @@
   register: commentinenv
 
 - name: Comment HOST  in Env file
-  tags: envnode,node
   lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
+    path: /var/www/ingotbrokers-portal/.env
     regexp: '(^NUXT_HOST==.*)'
     line: '# \1'
     backrefs: yes
     state: present
   register: commenthost
 
+- name: Add a line in Env File
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_DEFAULT_ENTITY=' line=NUXT_ENV_DEFAULT_ENTITY=dev.ingotbrokers.com
+
+- name: Add a line in Env File
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PROXY_TARGET_BASE_URL=' line=NUXT_ENV_PROXY_TARGET_BASE_URL=https://dev.ingotbrokers.com
+
+- name: Add a line in Env File
+  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_TRANSLATIONS_API_URL=' line=NUXT_ENV_TRANSLATIONS_API_URL=https://dev.ingotbrokers.com
+
 - name: Install npm in the project directory
   tags: node
   become: true
-  async: 60
+  async: 3600
   poll: 10
   shell:
-    "npm install"
+    "npm install && pm2 update"
   args:
-    chdir: "{{ destdir }}"
+    chdir: "/var/www/ingotbrokers-portal"
   register: npminstall
 
   #- name: Validate npm installation
@@ -89,20 +101,20 @@
 - name: Start Node
   tags: node
   become: true
-  async: 240
+  async: 3600
   poll: 10
   shell:
-    "sh deploy.sh"
+    "sh deploy.sh && pm2 start"
   args:
-    chdir: "{{ destdir }}"
+    chdir: "/var/www/ingotbrokers-portal"
   register: appstart
 
 - name: Validating the port is open
   tags: nodevalidate,node
   wait_for:
     host: "localhost"
-    port: 3010
-    delay: 10
-    timeout: 30
+    port: "3003"
+    delay: "10"
+    timeout: "30"
     state: started
     msg: "NodeJS server is not running"

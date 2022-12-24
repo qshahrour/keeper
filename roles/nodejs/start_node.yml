@@ -6,7 +6,7 @@
   async: 3600
   poll: 10
   shell:
-    "sh deploy.sh && pm2 start ingot-portal"
+    "sh deploy.sh && pm2 start"
   args:
-    chdir: "/var/www/ingotbrokers-admin"
+    chdir: "/var/www/ingotbrokers-portal"
   register: appstart
