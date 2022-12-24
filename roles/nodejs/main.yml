@@ -13,15 +13,16 @@
     chdir: "{{ destdir }}"
   register: Renamingenv
 
-- name: Replacing Variable in Env file
-  tags: envnode,node
-  lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "3002"
-    line: "3010"
-    state: present
-    backup: yes
-  register: oldport
+  #- name: Replacing Variable in Env file
+  #  tags: envnode,node
+  #  lineinfile:
+  #    path: /var/www/ingotbrokers-admin/.env
+  #    regexp: "3002"
+  #    line: "3010"
+  #    state: present
+  #    backup: yes
+  #  register: oldport
+- name
 
 - name: Validate that's the port is 3010
   tags: envnode,node
