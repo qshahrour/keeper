@@ -1,0 +1,18 @@
+---
+
+- name: Create Node Directory
+  tags: node
+  file:
+    path: "{{ dest_dir[3] }}"
+    state: directory
+    owner: "it"
+    group: "it"
+    mode: "0775"
+
+- name: Clone Git to Directory
+  #  become: true
+  git:
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    accept_hostkey: yes
+    key_file: "files/id_rsa_uat"
+    dest: "{{ dest_dir[3] }}"

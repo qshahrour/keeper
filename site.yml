@@ -2,10 +2,13 @@
 
 - name: Main Site Setup and Testing
   become: true
-  become_user: ubuntu
+  #  become_user: ubuntu
   hosts: [web_servers]
+  vars_files: 
+    - vars/main.yml
 
   tasks:
-  - include_tasks: roles/pkginstall/main.yml
-  - include_tasks: roles/chkip/main.yml
+    #- include_tasks: roles/pkginstall/main.yml
+    #- include_tasks: roles/chkip/main.yml
+    - include_tasks: roles/updates/packgs.yml
 

@@ -2,8 +2,13 @@
 
 - name: NodeJs Site
   hosts: [web_servers]
+  vars_files:
+    - vars/main.yml
 
   tasks:
-    #  - include_tasks: roles/clone/main.yml
-    #  - include_tasks: roles/nodejs/main.yml
-  - include_tasks: roles/nodejs/start_node.yml
+    #- include_tasks: roles/clone/main.yml
+    #- include_tasks: roles/nodejs/main.yml
+    #- include_tasks: roles/nodejs/envfile.yml
+    #- include_tasks: roles/nodejs/deploy_node.yml
+    - include_tasks: roles/nodejs/start_node.yml
+    #- include_tasks: roles/clone/client_node.yml

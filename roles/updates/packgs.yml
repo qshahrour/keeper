@@ -1,0 +1,8 @@
+---
+
+- name: Install Main Packages
+  tags: always
+  apt:
+    name: "{{ item }}"
+    state: present
+  loop: "{{ list_of_packages }}"
