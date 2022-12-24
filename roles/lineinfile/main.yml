@@ -1,0 +1,25 @@
+---
+
+#- name: set example
+#  lineinfile: dest={ "destdir" }/{ "filename" } regexp={ '^text_to_match' } line={ text_to_match }={ "added_text" }
+
+- name: set env file variables
+  lineinfile: dest=/var/www/ingotbrokers-admin/.env regexp='^=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
+
+  #- name: set DB_MT5_HOST
+  #  lineinfile: dest=/var/www/ingotbrokers/.env regexp='^DB_MT5_HOST=' line=DB_MT5_HOST="172.20.10.46"
