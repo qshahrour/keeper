@@ -1,0 +1,21 @@
+---
+
+- name: Create ingotbrokers-admin Directory
+  tags: node,admin
+  file:
+    path: path: "{{ dest_dir[2] }}"
+    state: directory
+    owner: "it"
+    group: "it"
+    mode: "0775"
+
+- nmae: Git ingotbrokers-admin Repo
+  tags: clone,admin
+  git:
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    accept_hostkey: yes
+    key_file: "files/id_rsa_uat"
+    dest: "{{ dest_dir[2] }}"
+
+
+

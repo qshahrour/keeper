@@ -1,0 +1,12 @@
+---
+
+- name: Install NPM
+  tags: node,npm
+  async: 3600
+  poll: 10
+  shell:
+    "npm install"
+  args:
+    chdir: "{{ dest_dir[2] }}"
+  register: npm
+
