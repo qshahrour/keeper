@@ -17,6 +17,7 @@
   chdir: "{{ destdir[2] }}"
   register: Env_File
 
+<<<<<<< HEAD
 - name: Replacing NUXT_PORT Value
   tags: envnode,node
   lineinfile:
@@ -26,6 +27,18 @@
     state: present
   register: NUXT_PORT
 >>>>>>> local
+=======
+  #- name: Replacing Variable in Env file
+  #  tags: envnode,node
+  #  lineinfile:
+  #    path: /var/www/ingotbrokers-admin/.env
+  #    regexp: "3002"
+  #    line: "3010"
+  #    state: present
+  #    backup: yes
+  #  register: oldport
+- name
+>>>>>>> f0f0988 (hosts file)
 
 - name: Validate NUXT_PORT is
   lineinfile:
