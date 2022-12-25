@@ -12,10 +12,15 @@
   args:
 <<<<<<< HEAD
     chdir: "{{ destdir }}"
+<<<<<<< HEAD
   register: RenamingEnv
 =======
   chdir: "{{ destdir[2] }}"
   register: Env_File
+=======
+<<<<<<< HEAD
+  register: Renamingenv
+>>>>>>> dc4a20f (in rebase mode)
 
 <<<<<<< HEAD
 - name: Replacing NUXT_PORT Value
@@ -38,7 +43,13 @@
   #    backup: yes
   #  register: oldport
 - name
+<<<<<<< HEAD
 >>>>>>> f0f0988 (hosts file)
+=======
+=======
+  register: RenamingEnv
+>>>>>>> 80e7faf (Resloving merge conflict with local)
+>>>>>>> dc4a20f (in rebase mode)
 
 - name: Validate NUXT_PORT is
   lineinfile:
