@@ -5,134 +5,123 @@
     "npm -v && nodejs -v"
   register: versioninfo
 
-- name: Copying example.env file
-  tags: project,env
-  shell:
-    "mv example.env .env"
-  args:
-<<<<<<< HEAD
-    chdir: "{{ destdir }}"
-<<<<<<< HEAD
-  register: RenamingEnv
-=======
-  chdir: "{{ destdir[2] }}"
-  register: Env_File
-=======
-<<<<<<< HEAD
-  register: Renamingenv
->>>>>>> dc4a20f (in rebase mode)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-- name: Replacing NUXT_PORT Value
-  tags: envnode,node
+- name: Replace NUXT_ENV_API_BASE_URL Value in env file
   lineinfile:
     path: "{{ destdir[2] }}"
-    regexp: '^NUXT_PORT='
-    line: NUXT_PORT=
+    regexp: '^NUXT_ENV_API_BASE_URL='
+    line: NUXT_ENV_API_BASE_URL=/
     state: present
-  register: NUXT_PORT
->>>>>>> local
-=======
-=======
->>>>>>> f0f0988 (hosts file)
-  #- name: Replacing Variable in Env file
-  #  tags: envnode,node
-  #  lineinfile:
-  #    path: /var/www/ingotbrokers-admin/.env
-  #    regexp: "3002"
-  #    line: "3010"
-  #    state: present
-  #    backup: yes
-  #  register: oldport
-- name
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> f0f0988 (hosts file)
-=======
-=======
-  register: RenamingEnv
->>>>>>> 80e7faf (Resloving merge conflict with local)
->>>>>>> dc4a20f (in rebase mode)
-=======
->>>>>>> f0f0988 (hosts file)
+  register: API_BASE_URL
 
-- name: Validate NUXT_PORT is
+- name: Validate's API_BASE_URL
   lineinfile:
-<<<<<<< HEAD
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "3010"
-    state: absent
-    backup: yes
-  register: newport
-
-- name: Validate that's the portal type is employee
-  tags: envnode,node
-  lineinfile:
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: NUXT_ENV_PORTAL_TYPE=employe
-    state: absent
-    backup: yes
-  register: typeemployee
-=======
     path: "{{ destdir[2] }}"
-    regexp: NUXT_PORT=
+    regexp: NUXT_ENV_API_BASE_URL=/
     state: present
-  register: NUXT_PORT
->>>>>>> local
+  register: API_BASE_URL
+
+- name: Replace PROJECT_NAME in Env File
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_ENV_PROJECT_NAME='
+    line: NUXT_ENV_PROJECT_NAME=ingot-client
+    state: present
+  register: PROJECT_NAME
+
+- name: Validate's PROJECT_NAME
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: NUXT_ENV_PROJECT_NAME=ingot-client
+    state: present
+  register: PROJECT_NAME
+
+- name: Replace PORTAL_TYPE in Env File
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_ENV_PORTAL_TYPE='
+    line: NUXT_ENV_PORTAL_TYPE=client
+    state: present
+  register: PORTAL_TYPE
+
+- name: Validate's PORTAL_TYPE
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: NUXT_ENV_PORTAL_TYPE=client
+    state: present
+  register: PORTAL_TYPE
 
 - name: Comment a line in env file
   lineinfile:
-    path: /var/www/ingotbrokers-portal/.env
+    path: "{{ destdir[2] }}"
     regexp: '(^DEBUG=.*)'
     line: '# \1'
     backrefs: yes
     state: present
-  register: DEBUGHASHED
+  register: commentinenv
 
-- name: Comment HOST  in Env file
+- name: Comment NUXT_HOST  in Env File
   lineinfile:
-    path: /var/www/ingotbrokers-portal/.env
-    regexp: '(^NUXT_HOST=.*)'
+    path: "{{ destdir[2] }}"
+    regexp: '(^NUXT_HOST=localhost)'
     line: '# \1'
     backrefs: yes
     state: present
   register: NUXT_HOST
 
-- name:
+- name: Replace NUXT_ENV_PROXY_TARGET_BASE_URL in Env File
   lineinfile:
     path: "{{ destdir[2] }}"
-    regexp: 
-    line:
+    regexp: '^NUXT_ENV_PROXY_TARGET_BASE_URL='
+    line: NUXT_ENV_PROXY_TARGET_BASE_URL=https://dev.ingotbrokers.com
     state: present
-  register:
+  register: PROXY_TARGET_BASE_URL
 
-- name:
+- name: Validate's PROXY_TARGET_BASE_URL
   lineinfile:
     path: "{{ destdir[2] }}"
-    regexp:
-    line:
+    regexp: NUXT_ENV_PROXY_TARGET_BASE_URL=https://dev.ingotbrokers.com
     state: present
-  register:
+    register: PROXY_TARGET_BASE_URL
 
-- name:
+- name: Replace NUXT_ENV_TRANSLATIONS_API_URL in Env File
   lineinfile:
     path: "{{ destdir[2] }}"
-    regexp:
-    line:
+    regexp: '^NUXT_ENV_TRANSLATIONS_API_URL='
+    line: NUXT_ENV_TRANSLATIONS_API_URL=https://dev.ingotbrokers.com
     state: present
-  register:
+  register: TRANSLATIONS_API_URL
 
-- name: Install npm in the project directory
-  tags: node
-  become: true
+- name: Validate's TRANSLATIONS_API_URL
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: NUXT_ENV_TRANSLATIONS_API_URL=https://dev.ingotbrokers.com
+    state: present
+  register: TRANSLATIONS_API_URL
+
+- name: Replace NUXT_ENV_DEFAULT_ENTITY Value in Env File
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_ENV_DEFAULT_ENTITY='
+    line: NUXT_ENV_DEFAULT_ENTITY=dev.ingotbrokers.com
+    state: present
+  register: DEFAULT_ENTITY
+
+- name: Validate's DEFAULT_ENTITY
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: NUXT_ENV_DEFAULT_ENTITY=dev.ingotbrokers.com
+    state: present
+  register: DEFAULT_ENTITY
+
+- name: Install NPM
+  tags: node,npm
   async: 3600
   poll: 10
   shell:
-    "npm install && pm2 update"
+    "npm install"
   args:
-    chdir: "/var/www/ingotbrokers-portal"
-  register: npminstall
+    chdir: "{{ destdir[2] }}"
+  register: NPM
 
 - name: Validate npm installation
   debug: msg="Installation of node is Successfull"
@@ -145,8 +134,8 @@
   shell:
     "sh deploy.sh && pm2 start"
   args:
-    chdir: "/var/www/ingotbrokers-portal"
-  register: appstart
+    chdir: "{{ dest_dir[2] }}"
+  register: NUXT_START
 
 - name: Validating the port is open
   tags: nodevalidate,node

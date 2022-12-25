@@ -8,5 +8,5 @@
     "npm install"
   args:
     chdir: "{{ dest_dir[2] }}"
-  register: npm
+  register: NPM
 

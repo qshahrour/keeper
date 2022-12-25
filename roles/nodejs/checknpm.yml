@@ -1,0 +1,13 @@
+---
+
+- name: check Install Node and NPM
+  shell:
+    "npm -v && nodejs -v"
+  chdir: "{{ dest_dir[2] }}"
+  register: NODE_VERSION
+
+- name: Check Install Node and NPM
+  shell:
+    "npm -v && nodejs -v"
+  chdir: "{{ dest_dir[3] }}"
+  register: NODE_VERSION
