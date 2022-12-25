@@ -1,10 +1,18 @@
 ---
 
-- name: Git
+- name: Create a Directory
   become: true
+  file:
+      path: /var/www/ingotbrokers-portal
+      state: directory
+      owner: "it"
+      group: "it"
+      mode: "0775"
+
+- name: Git
   git:
     repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
     accept_hostkey: yes
     key_file: "files/id_rsa_uat"
-    dest: "/var/www/ingotbrokers-admin"
+    dest: /var/www/ingotbrokers-portal
 
