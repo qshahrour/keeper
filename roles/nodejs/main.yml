@@ -23,6 +23,7 @@
 >>>>>>> dc4a20f (in rebase mode)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 - name: Replacing NUXT_PORT Value
   tags: envnode,node
   lineinfile:
@@ -33,6 +34,8 @@
   register: NUXT_PORT
 >>>>>>> local
 =======
+=======
+>>>>>>> f0f0988 (hosts file)
   #- name: Replacing Variable in Env file
   #  tags: envnode,node
   #  lineinfile:
@@ -44,12 +47,15 @@
   #  register: oldport
 - name
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> f0f0988 (hosts file)
 =======
 =======
   register: RenamingEnv
 >>>>>>> 80e7faf (Resloving merge conflict with local)
 >>>>>>> dc4a20f (in rebase mode)
+=======
+>>>>>>> f0f0988 (hosts file)
 
 - name: Validate NUXT_PORT is
   lineinfile:
