@@ -12,6 +12,7 @@
   args:
     chdir: "{{ destdir }}"
 <<<<<<< HEAD
+<<<<<<< HEAD
   register: Renamingenv
 
   #- name: Replacing Variable in Env file
@@ -24,6 +25,9 @@
   #    backup: yes
   #  register: oldport
 - name
+=======
+  register: RenamingEnv
+>>>>>>> 80e7faf (Resloving merge conflict with local)
 =======
   register: RenamingEnv
 >>>>>>> 80e7faf (Resloving merge conflict with local)
