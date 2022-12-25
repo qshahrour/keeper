@@ -1,0 +1,22 @@
+---
+
+list_of_packages:
+  - sysstat
+  - net-tools
+  - lynx
+  - git
+
+destdir:
+  - /var/www/ingotbrokers/.env
+  - /var/www/ingotbrokers-nuxt/.env
+  - /var/www/ingotbrokers-admin/.env
+  - /var/www/ingotbrokers-client/.env
+  - /var/www/ingot-api/.env
+
+dest_dir:
+  - /var/www/ingotbrokers
+  - /var/www/ingotbrokers-nuxt
+  - /var/www/ingotbrokers-admin
+  - /var/www/ingotbrokers-client
+  - /var/www/ingot-api
+
