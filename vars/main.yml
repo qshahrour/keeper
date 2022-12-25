@@ -1,5 +1,37 @@
 ---
 
+apache_site:
+  - apache2
+  - libapache2-mod-php8.0
+  - libapache2-mod-php8.1
+  - php8.0-fpm
+  - php8.1-fpm
+  - apachetop
+
+front_sites:
+  - /etc/apache2/sites-available/ingotbrokers_com.conf
+  - /etc/apache2/sites-available/ingotbrokers_com_jo.conf
+  - /etc/apache2/sites-available/ingotbrokers_com_au.conf
+  - /etc/apache2/sites-available/ingotbrokersafrica_com.conf
+  - /etc/apache2/sites-available/ingotbrokersrsa_com.conf
+  - /etc/apache2/sites-available/ingotbrokersllc_com.conf
+
+portal_sites:
+  - /etc/apache2/sites-available/portal_ingotbrokers_com.conf
+  - /etc/apache2/sites-available/portal_ingotbrokers_com_jo.conf
+  - /etc/apache2/sites-available/portal_ingotbrokers_com_au.conf
+  - /etc/apache2/sites-available/portal_ingotbrokersafrica_com.conf
+  - /etc/apache2/sites-available/portal_ingotbrokersrsa_com.conf
+  - /etc/apache2/sites-available/portal_ingotbrokersllc_com.conf
+
+campains_sites:
+  - /etc/apache2/sites-available/campains_ingotbrokers_com.conf
+  - /etc/apache2/sites-available/campains_ingotbrokers_com_jo.conf
+  - /etc/apache2/sites-available/campains_ingotbrokers_com_au.conf
+  - /etc/apache2/sites-available/campains_ingotbrokersafrica_com.conf
+  - /etc/apache2/sites-available/campains_ingotbrokersrsa_com.conf
+  - /etc/apache2/sites-available/campains_ingotbrokersllc_com.conf
+
 #region: "{{ region[0] }}", region: "{{ region[1] }}"
 region:
   - frankfort
