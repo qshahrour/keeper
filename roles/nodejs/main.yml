@@ -11,6 +11,7 @@
     "mv example.env .env"
   args:
     chdir: "{{ destdir }}"
+<<<<<<< HEAD
   register: Renamingenv
 
   #- name: Replacing Variable in Env file
@@ -23,6 +24,9 @@
   #    backup: yes
   #  register: oldport
 - name
+=======
+  register: RenamingEnv
+>>>>>>> 80e7faf (Resloving merge conflict with local)
 
 - name: Validate that's the port is 3010
   tags: envnode,node
@@ -32,17 +36,6 @@
     state: absent
     backup: yes
   register: newport
-
-- name: Replace Portal Type in Env file
-
-  lineinfile:
-    tags: envnode,node
-    path: /var/www/ingotbrokers-admin/.env
-    regexp: "NUXT_ENV_PORTAL_TYPE=.*"
-    line: "NUXT_ENV_PORTAL_TYPE=employee"
-    state: present
-    backup: yes
-  register: portaltype
 
 - name: Validate that's the portal type is employee
   tags: envnode,node
