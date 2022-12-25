@@ -1,61 +1,33 @@
 ---
-        #- name: check Install Node and NPM
-        #  become: true
-        #  become_user: it
-        #  shell:
-        #   "npm -v && nodejs -v"
-        #  register: versioninfo
-        #- name: Copying example.env file
-        #  tags: project,env
-        #  shell:
-        #    "mv example.env .env"
-        #  args:
-        #    chdir: "/var/www/ingotbrokers-portal"
-        #  register: RenamingEnv
 
-  #- name: Replacing Variable in Env file
-  #  tags: envnode,node
-  #  lineinfile:
-  #    path: /var/www/ingotbrokers-admin/.env
-  #    regexp: "3002"
-  #    line: "3010"
-  #    state: present
-  #    backup: yes
-  #  register: oldport
-  #
-- name: Set Env File Variables
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_PORT=' line=NUXT_PORT=3003
+- name: check Install Node and NPM
+  shell:
+    "npm -v && nodejs -v"
+  register: versioninfo
 
-- name: Validate that's the port is 3003
+- name: Copying example.env file
+  tags: project,env
+  shell:
+    "mv example.env .env"
+  args:
+  chdir: "{{ destdir[2] }}"
+  register: Env_File
+
+- name: Replacing NUXT_PORT Value
   tags: envnode,node
   lineinfile:
-    path: /var/www/ingotbrokers-portal/.env
-    regexp: "3003"
-    state: absent
-    backup: yes
-  register: newport
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_PORT='
+    line: NUXT_PORT=
+    state: present
+  register: NUXT_PORT
 
-- name: Replace Project Name in Env File
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PROJECT_NAME=' line=NUXT_ENV_PROJECT_NAME=ingot-client
-
-- name: Replace Portal Type in Env File
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PORTAL_TYPE=' line=NUXT_ENV_PORTAL_TYPE==client
-
-- name: Validate that's the portal type is employee
+- name: Validate NUXT_PORT is
   lineinfile:
-    path: /var/www/ingotbrokers-portal/.env
-    regexp: NUXT_ENV_PORTAL_TYPE=client
-    state: absent
-    backup: yes
-  register: typeemployee
-
-- name: Validate that's the Project Name is ingot-client
-  lineinfile:
-    path: /var/www/ingotbrokers-portal/.env
-    regexp: NUXT_ENV_PROJECT_NAME=ingot-client
-    state: absent
-    backup: yes
-  register: typeclient
+    path: "{{ destdir[2] }}"
+    regexp: NUXT_PORT=
+    state: present
+  register: NUXT_PORT
 
 - name: Comment a line in env file
   lineinfile:
@@ -64,25 +36,40 @@
     line: '# \1'
     backrefs: yes
     state: present
-  register: commentinenv
+  register: DEBUGHASHED
 
 - name: Comment HOST  in Env file
   lineinfile:
     path: /var/www/ingotbrokers-portal/.env
-    regexp: '(^NUXT_HOST==.*)'
+    regexp: '(^NUXT_HOST=.*)'
     line: '# \1'
     backrefs: yes
     state: present
-  register: commenthost
+  register: NUXT_HOST
 
-- name: Add a line in Env File
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_DEFAULT_ENTITY=' line=NUXT_ENV_DEFAULT_ENTITY=dev.ingotbrokers.com
+- name:
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: 
+    line:
+    state: present
+  register:
 
-- name: Add a line in Env File
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_PROXY_TARGET_BASE_URL=' line=NUXT_ENV_PROXY_TARGET_BASE_URL=https://dev.ingotbrokers.com
+- name:
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp:
+    line:
+    state: present
+  register:
 
-- name: Add a line in Env File
-  lineinfile: dest=/var/www/ingotbrokers-portal/.env regexp='^NUXT_ENV_TRANSLATIONS_API_URL=' line=NUXT_ENV_TRANSLATIONS_API_URL=https://dev.ingotbrokers.com
+- name:
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp:
+    line:
+    state: present
+  register:
 
 - name: Install npm in the project directory
   tags: node
@@ -95,8 +82,8 @@
     chdir: "/var/www/ingotbrokers-portal"
   register: npminstall
 
-  #- name: Validate npm installation
-  #  debug: msg="Installation of node is Successfull"
+- name: Validate npm installation
+  debug: msg="Installation of node is Successfull"
 
 - name: Start Node
   tags: node
