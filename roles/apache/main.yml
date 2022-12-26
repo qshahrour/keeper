@@ -2,32 +2,32 @@
 
 - name: install the EPEL release rpm
   become: yes
-  become_user: root
+  become_user: "{{ ansible_user }}"
   apt:
     name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
     state: present
 
 - name: Ensure Apache is at the Latest version
   become: yes
-  become_user: root
-  tags: web
+  become_user: "{{ ansible_user }}"
+  tags: apache2
   apt:
-    name: apache2
+    name: "{{ apps[0] }}"
     state: latest
 
-- name: "Create sites-available and sites-enabled Directories"
+- name: Create sites-available and sites-enabled Directories
   become: yes
-  become_user: root
-  tags: web
+  become_user: "{{ ansible_user }}"
+  tags: apache2
   file:
     dest: "{{ item }}"
-    owner: root
-    group: root
-    mode: 0644
+    owner: "{{ ansible_user }}"
+    group: "{{ ansible_user }}"
+    mode: "0644"
     state: directory
-  with_items:
-    - "/etc/apache2/sites-enabled"
-    - "/etc/apache2/sites-available"
+    # with_items:
+  loop: "{{ apache_sites }}"
+  #- "/etc/apache2/sites-available"
 
 - name: Modify the Default Apache Configuration file
   become: yes
