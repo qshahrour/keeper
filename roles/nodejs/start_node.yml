@@ -7,5 +7,5 @@
   shell:
     "sh deploy.sh && pm2 start"
   args:
-    chdir: "{{ dest_dir[3] }}"
+    chdir: "{{ dest_dir[2] }}"
   register: NUXT_START

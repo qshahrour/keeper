@@ -1,0 +1,5 @@
+---
+
+- name: Show STDOUT_LINES
+  debug:
+    msg: "{{ RESULT.STDOUT_LINES }}"

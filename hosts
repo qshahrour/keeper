@@ -1,5 +1,5 @@
 [web_servers]
-beta ansible_host=172.20.10.240 ansible_user=it
+#beta ansible_host=172.20.10.240 ansible_user=it
 uatbeta ansible_host=172.20.10.243 ansible_user=it
 
 [api_servers]

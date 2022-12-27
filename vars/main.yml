@@ -57,3 +57,12 @@ dest_dir:
   - /var/www/ingotbrokers-admin
   - /var/www/ingotbrokers-client
   - /var/www/ingot-api
+
+vars:
+  RESULT:
+    STDOUT_LINES:
+      - "npm started"
+      - "npm installed"
+      - "node started"
+
+

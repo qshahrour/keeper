@@ -1,0 +1,7 @@
+---
+
+- name: Show lines with TRUE only
+  debug:
+    msg: "{{ item }}"
+  when: "'TRUE' in item"
+  loop: "{{ RESULT.STDOUT_LINES }}"
