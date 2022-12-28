@@ -1,6 +1,6 @@
 ---
 
-- name: Start Node
+- name: Start Portal
   tags: node
   async: 3600
   poll: 10
@@ -8,4 +8,4 @@
     "sh deploy.sh"
   args:
     chdir: "{{ dest_dir[2] }}"
-  register: ADMIN_START
+  register: PORTAL_START

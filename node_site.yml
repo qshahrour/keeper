@@ -15,7 +15,9 @@
     #- include_tasks: roles/nodejs/deploy_node.yml
     #- include_tasks: roles/updates/main.yml
     #- include_tasks: roles/nodejs/start_node.yml
-    - include_tasks: roles/nodejs/checkport.yml
+    #- include_tasks: roles/nodejs/start_nuxt.yml
+    #- include_tasks: roles/nodejs/checkport.yml
+    - include_tasks: roles/nodejs/pm2.yml
       #- include_tasks: roles/common/stdout_hello.yml 
       #- include_tasks: roles/common/stdout_loop.yml
       #- include_tasks: roles/common/stdout_

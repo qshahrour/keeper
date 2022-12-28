@@ -1,0 +1,9 @@
+---
+
+- name: Git ingotbrokers-admin Repo
+  tags: clone,admin
+  git:
+    repo: "git@bitbucket.org:sigmaltd/ingot-api.git"
+    accept_hostkey: yes
+    key_file: "files/id_rsa_uat"
+    dest: "{{ dest_dir[5] }}"

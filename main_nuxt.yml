@@ -1,0 +1,9 @@
+---
+
+- name:
+  hosts: [web_servers]
+
+  tasks:
+    - include_tasks: roles/nodejs/checknpm.yml
+    - include_tasks: roles/nodejs/deploy_npm.yml
+    - incluse_tasks: roles/nodejs/start_nuxt.yml

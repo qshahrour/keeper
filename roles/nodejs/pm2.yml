@@ -1,0 +1,9 @@
+---
+
+- name: Start PM2
+  tages: PM2
+  shell:
+    "pm2 start all"
+    # args:
+    #chdir: "{{ dest_die[1] }}"
+  register: PM2

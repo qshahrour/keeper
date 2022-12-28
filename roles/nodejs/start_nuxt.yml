@@ -1,0 +1,11 @@
+---
+
+- name: Start Nuxt
+  tags: NUXT
+  async: 3600
+  poll: 10
+  shell:
+    "sh deploy.sh"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: NUXT_START
