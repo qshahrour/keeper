@@ -10,3 +10,5 @@
     chdir: "{{ dest_dir[2] }}"
   register: NPM
 
+- name: Validate npm installation
+  debug: msg="Installation of node is Successfull"

@@ -1,5 +1,25 @@
 ---
 
+repo_dest:
+  - /var/www/ingotbrokers
+  - /var/www/ingotbrokers-nuxt
+  - /var/www/ingotbrokers-admin
+  - /var/www/ingot-api
+  - /var/www/ingotbrokers-campaigns
+  - /var/www/ingotbrokers-cronjobs
+  - /var/www/ingotbrokers-python
+  - /var/www/ingotbrokers-auth
+
+repo_url:
+  - git@bitbucket.org:sigmaltd/ingotbrokers.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
+  - git@bitbucket.org:sigmaltd/ingot-api.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-campaigns.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-cronjobs.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-python.git
+  - git@bitbucket.org:m_kanaan/ingotbrokers-auth.git
+
 apache_site:
   - apache2
   - libapache2-mod-php8.0
@@ -58,11 +78,11 @@ dest_dir:
   - /var/www/ingotbrokers-client
   - /var/www/ingot-api
 
-vars:
-  RESULT:
-    STDOUT_LINES:
-      - "npm started"
-      - "npm installed"
-      - "node started"
+RESULT:
+  STDOUT_LINES:
+    - "npm started"
+    - "npm installed"
+    - "node started"
+    - "true"
 
 

@@ -4,7 +4,8 @@
   shell:
     "npm -v"
   args:
-    chdir: "$HOME"
+    #chdir: "$HOME"
+    chdir: "{{ dest_dir[1] }}"
   register: RESULT
 
   #- name: Install PM2
@@ -13,22 +14,10 @@
   #global: yes
 
 - name: Show STDOUT_LINES
-  debug: 
-    msg: "{{ RESULT.stdout_lines }}"
+  debug: msg=RESULT.STDOUT_LINES
 
   #- name: Check Install Node and NPM
   #shell:
   #  "npm -v && nodejs -v"
   #chdir: "{{ dest_dir[3] }}"
   #register: NODE_VERSION
-  #
-  #- name: Install packages based on package.json using the npm installed with nvm v0.10.1.
-  #npm:
-  #path: /app/location
-  #executable: /opt/nvm/v0.10.1/bin/npm
-  #state: present
-  #
-  #- name: Install "coffee-script" node.js package from custom registry.
-  #npm:
-  #name: coffee-script
-  #registry: 'http://registry.mysite.com

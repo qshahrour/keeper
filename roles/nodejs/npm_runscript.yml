@@ -1,0 +1,6 @@
+---
+
+- name: Install "coffee-script" node.js package from custom registry.
+  npm:
+    name: coffee-script
+  registry: 'http://registry.mysite.com

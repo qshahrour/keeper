@@ -4,13 +4,13 @@
   become: true
   tags: node,admin
   file:
-    path: path: "{{ dest_dir[2] }}"
+    path: "{{ dest_dir[2] }}"
     state: directory
     owner: "it"
     group: "it"
     mode: "0775"
 
-- nmae: Git ingotbrokers-admin Repo
+- name: Git ingotbrokers-admin Repo
   tags: clone,admin
   git:
     repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"

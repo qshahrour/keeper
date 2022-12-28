@@ -1,0 +1,17 @@
+---
+
+- name: print to stdout
+  command: echo "hello"
+  register: hello
+
+- debug:
+    msg: "{{ hello.stdout }}"
+
+- debug: 
+    msg: "{{ hello.stderr }}"
+
+- name: Run Script and output "ls /"
+  script: ls.sh
+  register: out
+
+- debug: var=out.stdout_lines

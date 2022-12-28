@@ -6,7 +6,7 @@
     - vars/main.yml
 
   tasks:
-    - include_tasks: roles/nodejs/checknpm.yml
+    #- include_tasks: roles/nodejs/checknpm.yml
     #- include_tasks: roles/clone/main.yml
     #- include_tasks: roles/clone/client_node.yml
     #- include_tasks: roles/clone/admin_node.yml
@@ -15,4 +15,7 @@
     #- include_tasks: roles/nodejs/deploy_node.yml
     #- include_tasks: roles/updates/main.yml
     #- include_tasks: roles/nodejs/start_node.yml
-    #- include_tasks: roles/nodejs/checkport.yml
+    - include_tasks: roles/nodejs/checkport.yml
+      #- include_tasks: roles/common/stdout_hello.yml 
+      #- include_tasks: roles/common/stdout_loop.yml
+      #- include_tasks: roles/common/stdout_

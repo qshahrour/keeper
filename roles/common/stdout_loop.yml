@@ -1,0 +1,16 @@
+---
+
+- name: Show lines with TRUE only
+  debug:
+    msg: "{{ item }}"
+  when: "'installed' in item"
+  loop: "{{ RESULT.STDOUT_LINES }}"
+
+- name: Show lines with TRUE and line before
+  debug:
+    msg: "{{ RESULT.STDOUT_LINES[ansible_loop.index0 - 1] }}\n{{ item }}"
+  when: "'installed' in item"
+  loop: "{{ RESULT.STDOUT_LINES }}"
+  loop_control:
+    extended: true
+    label: "{{ ansible_loop.index0 }}"
