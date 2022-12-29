@@ -1,0 +1,9 @@
+---
+
+- name: Git Auth
+  git:
+    repo: "git@bitbucket.org:m_kanaan/ingotbrokers-auth.git"
+    accept_hostkey: yes
+    key_file: "~/.ssh/id_rsa"
+    dest: "{{ dest_dir[5] }}"
+

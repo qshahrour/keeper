@@ -1,0 +1,10 @@
+---
+
+- name: Create ingotbrokers-admin Directory
+  become: true
+  file:
+    path: "{{ dest_dir[5] }}"
+    state: directory
+    owner: "ubuntu"
+    group: "ubuntu"
+    mode: "0775"
