@@ -2,4 +2,4 @@
 
 - name: Show STDOUT_LINES
   debug:
-    msg: "{{ RESULT.STDOUT_LINES }}"
+    msg: "{{ RESULT.stdout_lines }}"

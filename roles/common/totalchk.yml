@@ -7,10 +7,10 @@
   debug:
     msg: "total RAM is {{ ansible_memory_mb.real.total }}"
   
-    #- name: Fails When
-    #fail:
-    #msg: "not enough RAM"
-    #when: ansible_memory_mb.real.total < 4096
+- name: Fails When
+  fail:
+    msg: "not enough RAM"
+  when: ansible_memory_mb.real.total < 4096
 
 - name: Check Swap RAM
   debug: 

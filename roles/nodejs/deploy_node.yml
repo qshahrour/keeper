@@ -10,5 +10,12 @@
     chdir: "{{ dest_dir[2] }}"
   register: NPM_START
 
+- name: Debug npm install command
+  debug:
+    msg: "{{ NPM_START.stdout_lines }}"
+
 - name: Validate npm installation
   debug: msg="Installation of node is Successfull"
+
+#- name: Debug npm install command
+#debug: msg='{{npminstlout.stdout_lines}}'

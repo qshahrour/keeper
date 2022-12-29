@@ -1,6 +1,18 @@
 ---
 
+- name: Create Directory
+  file:
+    dest: "{{ dest_dir[3] }}"
+    state: directory
+    owner: "it"
+    group: "it"
+    mode: "0775"
+
 - name: Clone Node Portal
   git:
-    repo:
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    key_file: "files/id_rsa"
+    dest: "{{ dest_dir[3] }}"
+
+
 

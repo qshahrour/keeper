@@ -1,9 +1,13 @@
 ---
 
 - name: Start PM2
-  tages: PM2
   shell:
-    "pm2 start all"
-    # args:
-    #chdir: "{{ dest_die[1] }}"
+    "cd /var/www/ingotbrokers-portal && pm2 start all"
+  args:
+    chdir: "{{ dest_dir[3] }}"
   register: PM2
+
+- name: Debug PM2 Start
+  debug:
+    msg:
+      - "started {{ PM2.stdout_lines }}"

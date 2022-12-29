@@ -7,5 +7,9 @@
   shell:
     "sh deploy.sh"
   args:
-    chdir: "{{ dest_dir[2] }}"
+    chdir: "{{ dest_dir[3] }}"
   register: PORTAL_START
+
+- name: Check Installation
+  debug:
+    msg: "{{ PORTAL_START.stdout_lines }}"

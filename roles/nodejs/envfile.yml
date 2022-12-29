@@ -5,17 +5,17 @@
   shell:
     "mv example.env .env"
   args:
-    chdir: "{{ dest_dir[2] }}"
+    chdir: "{{ dest_dir[3] }}"
   register: ENV_NODE
 
 - name: Add NUXT_PORT Value Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_PORT='
     #    insertbefore: '# NUXT_HOST=localhost'
-    line: NUXT_PORT=3003
+    line: NUXT_PORT=3002
     state: present
-  register: NUXT_PORT
+  register: NODE_PORT
 
 #- name: Validate that's if the port is 3003 present and remove if so
 #  tags: envnode,node
@@ -28,7 +28,7 @@
 
 - name: Replace NUXT_ENV_API_BASE_URL Value in env file
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_API_BASE_URL='
     line: NUXT_ENV_API_BASE_URL=/
     state: present
@@ -36,23 +36,23 @@
 
 - name: Replace PROJECT_NAME in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_PROJECT_NAME='
-    line: NUXT_ENV_PROJECT_NAME=ingot-client
+    line: NUXT_ENV_PROJECT_NAME=ingot-employee
     state: present
   register: PROJECT_NAME
 
 - name: Replace PORTAL_TYPE in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_PORTAL_TYPE='
-    line: NUXT_ENV_PORTAL_TYPE=client
+    line: NUXT_ENV_PORTAL_TYPE=employee
     state: present
   register: PORTAL_TYPE
 
 - name: Comment a line in env file
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '(^DEBUG=.*)'
     line: '# \1'
     backrefs: yes
@@ -61,7 +61,7 @@
 
 - name: Comment NUXT_HOST  in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '(^NUXT_HOST=localhost)'
     line: '# \1'
     backrefs: yes
@@ -70,7 +70,7 @@
 
 - name: Replace NUXT_ENV_PROXY_TARGET_BASE_URL in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_PROXY_TARGET_BASE_URL='
     line: NUXT_ENV_PROXY_TARGET_BASE_URL=https://dev.ingotbrokers.com
     state: present
@@ -78,7 +78,7 @@
 
 - name: Replace NUXT_ENV_TRANSLATIONS_API_URL in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_TRANSLATIONS_API_URL='
     line: NUXT_ENV_TRANSLATIONS_API_URL=https://dev.ingotbrokers.com
     state: present
@@ -86,7 +86,7 @@
 
 - name: Replace NUXT_ENV_DEFAULT_ENTITY Value in Env File
   lineinfile:
-    path: "{{ destdir[2] }}"
+    path: "{{ destdir[3] }}"
     regexp: '^NUXT_ENV_DEFAULT_ENTITY='
     line: NUXT_ENV_DEFAULT_ENTITY=dev.ingotbrokers.com
     state: present

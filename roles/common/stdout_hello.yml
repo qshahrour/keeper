@@ -14,4 +14,10 @@
   script: ls.sh
   register: out
 
-- debug: var=out.stdout_lines
+- name: Debug Script
+  debug: var=out.stdout_lines
+
+- name: Debug Msg
+  debug:
+    msg:
+      "{{ out.stdout_lines }}"
