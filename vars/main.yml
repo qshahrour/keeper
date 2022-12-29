@@ -4,28 +4,27 @@ repo_dest:
   - /var/www/ingotbrokers
   - /var/www/ingotbrokers-nuxt
   - /var/www/ingotbrokers-admin
+  - /var/www/ingotbrokers-portal
   - /var/www/ingot-api
+  - /var/www/ingotbrokers-auth
   - /var/www/ingotbrokers-campaigns
   - /var/www/ingotbrokers-cronjobs
   - /var/www/ingotbrokers-python
-  - /var/www/ingotbrokers-auth
 
 repo_url:
   - git@bitbucket.org:sigmaltd/ingotbrokers.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
   - git@bitbucket.org:sigmaltd/ingot-api.git
+  - git@bitbucket.org:m_kanaan/ingotbrokers-auth.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-campaigns.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-cronjobs.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-python.git
-  - git@bitbucket.org:m_kanaan/ingotbrokers-auth.git
 
-apache_site:
+apache2_site:
   - apache2
-  - libapache2-mod-php8.0
-  - libapache2-mod-php8.1
-  - php8.0-fpm
-  - php8.1-fpm
+  - apache2-utils
   - apachetop
 
 front_sites:
@@ -54,7 +53,7 @@ campains_sites:
 
 #region: "{{ region[0] }}", region: "{{ region[1] }}"
 region:
-  - frankfort
+  - eu-central-1
   - uae
 
 # "{{ destdir[0] }}", OR "{{ destdir[1] }}" ...etc.
@@ -62,10 +61,12 @@ destdir:
   - /var/www/ingotbrokers/.env
   - /var/www/ingotbrokers-nuxt/.env
   - /var/www/ingotbrokers-admin/.env
-  - /var/www/ingotbrokers-client/.env
+  - /var/www/ingotbrokers-portal/.env
   - /var/www/ingot-api/.env
+  - /var/www/ingotbrokers-auth
+  - /var/www/ingotbrokers-campains
 
-list_of_packages:
+packages:
   - sysstat
   - net-tools
   - lynx
@@ -75,8 +76,10 @@ dest_dir:
   - /var/www/ingotbrokers
   - /var/www/ingotbrokers-nuxt
   - /var/www/ingotbrokers-admin
-  - /var/www/ingotbrokers-client
+  - /var/www/ingotbrokers-portal
   - /var/www/ingot-api
+  - /var/www/ingotbrokers-auth
+  - /var/www/ingotbrokers-campains
 
 RESULT:
   STDOUT_LINES:
