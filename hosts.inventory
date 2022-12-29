@@ -19,3 +19,6 @@ ws ansible_host=141.95.102.17 ansible_user=ubuntu
 
 [cronjob]
 crons ansible_host=172.31.6.115 ansible_user=ubuntu
+
+[redis]
+redis ansible_host=172.31.21.99 ansible_user=ubuntu
