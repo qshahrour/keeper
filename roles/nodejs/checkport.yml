@@ -1,0 +1,21 @@
+---
+
+- name: Validating the port is open
+  tags: nodevalidate,node
+  wait_for:
+    host: "localhost"
+    port: "3003"
+    delay: "10"
+    timeout: "30"
+    state: started
+    msg: "NodeJS server is not running"
+
+    #- name: Validating the port is open
+    #tags: nodevalidate,node
+    #wait_for:
+    #host: "localhost"
+    #port: "3000"
+    #delay: "10"
+    #timeout: "30"
+    #state: started
+    #msg: "NodeJS server is not running"

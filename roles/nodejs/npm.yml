@@ -1,0 +1,7 @@
+---
+
+- name: Install packages based on package.json using the npm installed with nvm v0.10.1.
+  npm:
+    path: /app/location
+    executable: /opt/nvm/v0.10.1/bin/npm
+    state: present

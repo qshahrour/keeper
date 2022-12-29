@@ -1,0 +1,38 @@
+---
+# To install nvm, change the version based on your needs
+- name: Install node and set version
+  become: yes
+  become_user: root
+  shell: "source /root/.nvm/nvm.sh && nvm install 8.11.3"
+  args:
+    executable: /bin/bash
+    # OR
+- name: Source nvm in ~/.{{ item }}
+  lineinfile: >
+    dest=~/.{{ item }}
+    line="source ~/.nvm/nvm.sh"
+    create=yes
+  tags: nvm
+  with_items:
+    - bashrc
+    - profile
+
+- name: Install node and set version
+  become: yes
+  become_user: root
+  shell: nvm install 8.11.3
+
+  # OR
+- name: Install NVM
+  shell: >
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+  args:
+    creates: "/root/.nvm/nvm.sh"
+
+  - name: Install Node Versions
+    shell: ". /root/.bashrc && nvm install {{item}}"
+    with_items: 
+      - 'v10.24.1'
+      - 'v16.17.0'
+      - '--lts'
+      - 'node'
