@@ -50,4 +50,5 @@ dest_dir:
   - /var/www/ingotbrokers-admin
   - /var/www/ingotbrokers-client
   - /var/www/ingot-api
+  - /var/www/ingotbrokers-auth
 
