@@ -1,0 +1,9 @@
+---
+
+- name: check the physical memory
+  command: vmstat -s
+  register: phy_mem
+
+- assert:
+    that:
+      - ansible_memtotal_mb >= 128

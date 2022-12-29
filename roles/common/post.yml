@@ -1,0 +1,14 @@
+---
+
+- name: Ansible URI used for user reg
+  uri:
+    url: https://portal.igotbrokers.com/en/
+    method: POST
+    body: |-
+      {
+        "email": "qshahrour@outlook.com",
+        "Password": "Rhsl$%2022",
+        "enter": "login"
+      }
+    return_content: yes
+    #status_code: 200

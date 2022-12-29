@@ -1,0 +1,12 @@
+---
+
+- name: Login To Mysql
+  mysql_user:
+    config_file: /etc/mysql/my.cnf
+    login_host: cluster-lb.ingotbrokers.com
+    login_password: ""
+    login_port: 3307
+    login_unix_socket: '/var/run/mysqld/mysqld.sock'
+    login_user:
+    state: present
+  register: MYSQL_LOGIN

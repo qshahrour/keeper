@@ -1,0 +1,21 @@
+---
+
+- name:
+  hosts: all
+
+  tasks:
+    - include_tasks: roles/common/totalchk.yml
+    - include_tasks: roles/common/cpu.yml
+    - include_tasks: roles/common/assert_mem.yml
+
+  #  tasks:
+  #  - debug: var=ansible_memory_mb
+  #  - debug: 
+  #      msg: "total RAM is {{ ansible_memory_mb.real.total }}"
+  #  - fail:
+  #      msg: "not enough RAM"
+  #    when: ansible_memory_mb.real.total < 4096
+
+  #  - assert:
+  #      that:
+  #        - ansible_memory_mb.real.total >= 4096
