@@ -2,8 +2,11 @@
 
 - name:
   hosts: [web_servers]
+  vars_files:
+    - vars/main.yml
 
   pre_tasks:
+    - include_tasks: roles/common/inventory_loop.yml
     - include_tasks: roles/common/cpu.yml
     - include_tasks: roles/common/mem.yml
     - include_tasks: roles/common/totalchk.yml

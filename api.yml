@@ -1,0 +1,13 @@
+---
+
+- name: API Site
+  hosts: [api_servers]
+  vars_files:
+    - vars/main.yml
+
+
+  pre_tasks:
+    - include_tasks: roles/common/inventory_loop.yml
+
+  tasks:
+    - include_tasks: roles/common/updates.yml
