@@ -1,0 +1,9 @@
+---
+
+- name: Install PM2 with NPM
+  npm:
+    name: pm2
+    global: yes
+
+- name: Run ecosystem script with pm2
+  command: pm2 start "{{ dest_dir[0] }}"/ecosystem.json

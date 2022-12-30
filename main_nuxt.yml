@@ -3,7 +3,14 @@
 - name:
   hosts: [web_servers]
 
+  pre_tasks:
+    - include_tasks: roles/common/cpu.yml
+    - include_tasks: roles/common/mem.yml
+    - include_tasks: roles/common/totalchk.yml
+    - include_tasks: roles/common/assert_mem.yml
+
   tasks:
-    - include_tasks: roles/nodejs/checknpm.yml
-    - include_tasks: roles/nodejs/deploy_npm.yml
-    - incluse_tasks: roles/nodejs/start_nuxt.yml
+    #- include_tasks: roles/common/updates.yml
+    #- include_tasks: roles/nodejs/checknpm.yml
+    #- include_tasks: roles/nodejs/deploy_npm.yml
+    #- incluse_tasks: roles/nodejs/start_nuxt.yml

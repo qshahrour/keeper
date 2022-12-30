@@ -1,0 +1,8 @@
+---
+
+- name: Install updates
+  become: true
+  become_user: ubuntu
+  apt:
+    update_cache: yes
+    cache_valid_time: 3600

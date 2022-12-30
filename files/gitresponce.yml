@@ -1,0 +1,14 @@
+---
+
+- hosts: localhost
+  vars:
+    GIT_PERSONAL_ACCESS_TOKEN: !vault | $ANSIBLE_VAULT;1.1;AES256 62633262316636323931393934373335663965383531643663333531633331633263373966323935...
+  tasks:
+  - name: ECHO
+    debug: 
+    var: GIT_PERSONAL_ACCESS_TOKEN
+    - github_hooks:
+      action: create                           hookurl: http://34.210.70.136:8090/github-webhook/
+      user: khantilchoksi
+      oauthkey: '{{GIT_PERSONAL_ACCESS_TOKEN}}'
+    repo: https://api.github.com/repos/khantilchoksi/checkbox.io

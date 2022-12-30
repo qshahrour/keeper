@@ -1,0 +1,41 @@
+---
+
+- name: install parse-dashboard globally with npm
+   npm: name=parse-dashboard global=yes
+
+- name: Install pm2 with npm
+  npm: name=pm2 global=yes
+
+- name: Create parse-dashboard user and home directory
+  user: name=parse-dashboard system=yes createhome=yes password={{parse_dashboard_user_crypted_password}}
+
+- name: install setfacl support to allow becoming an unprivileged User
+  apt: name=acl
+
+- name: Copy pm2 ecosystem file
+  template: src=ecosystem.json.j2 dest=/home/parse-dashboard/ecosystem.json
+  become: yes
+  become_user: parse-dashboard
+
+- name: Run ecosystem script with pm2
+  command: pm2 start /home/parse-dashboard/ecosystem.json
+  become: yes
+  become_user: parse-dashboard
+
+- name: pm2 save the process list
+  command: pm2 save
+  become: yes
+  become_user: parse-dashboard
+
+- name: Check process list file
+  stat: path=/home/parse-dashboard/.pm2
+  become: yes
+  become_user: parse-dashboard
+  register: process_list_check
+
+- name: Fail if process list file does not exist
+  fail: msg="ERROR - Process list file /home/parse-dashboard/.pm2 could not be created"
+  when: not process_list_check.stat.exists
+
+- name: pm2 install initialization scripts
+  command: pm2 startup ubuntu -u parse-dashboard --hp /home/parse-dashboard/

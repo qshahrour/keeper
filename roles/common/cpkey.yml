@@ -3,7 +3,7 @@
 - name: Ansible Lookup Copy the public Key Using the Key directly within Playbook
   authorized_key:
   tags: key
-    user: ubuntu
+    user: "{{ ansible_user }}"
     state: present
     key: ""
 
@@ -12,7 +12,7 @@
 - name: Copy the public Key using Lookup
   authorized_key:
   tags: key
-    user: ubuntu
+    user: "{{ ansible_user }}"
     state: present
     key: "{{ lookup(‘file’, ‘~/.ssh/id_rsa.pub’) }}"
 

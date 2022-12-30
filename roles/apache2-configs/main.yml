@@ -1,0 +1,52 @@
+---
+
+- name: install the Apache2 release
+  become: yes
+  become_user: "{{ ansible_user }}"
+  apt:
+    name: apache2
+    state: present
+
+- name: Ensure Apache is at the Latest version
+  become: yes
+  become_user: "{{ ansible_user }}"
+  tags:
+    - web
+    - apache2
+  apt:
+    name: apache2
+    state: latest
+
+- name: Modify the Default Apache Configuration file
+  become: yes
+  become_user: "{{ ansible_user }}"
+  tags:
+    - web
+    - sites-available
+  template:
+    src: "{{ item.src }}"
+    dest: "{{ item.dest }}"
+    owner: "root"
+    group: "root"
+    mode: "0644"
+  with_items:
+    - {src: 'basic_vh.conf.j2', dest: '/etc/apache2/sites-available/{{ domain }}.conf'}
+    - {src: 'apache2.conf.j2', dest: '/etc/apache2/apache2.conf'}
+
+- name: Symlink the sites-available VH file to sites-enabled
+  become: yes
+  become_user: "{{ ansible_user }}"
+  tags:
+    - web
+  file:
+    src: "/etc/apache2/sites-available/{{ domain }}.conf"
+    dest: "/etc/apache2/sites-enabled/{{ domain }}.conf"
+    state: link
+  notify: restart apache2
+
+- name: Make Sure the Apache is Running
+  tags:
+    - web
+  become: yes
+  become_user: it
+  service: name=apache2 state=restarted enabled=yes

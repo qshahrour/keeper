@@ -1,0 +1,44 @@
+$ cat git-demo.yml
+---
+- name: git pull demo
+  hosts: localhost
+
+  tasks:
+
+  - name: create directory
+    file:
+      dest: /tmp/demo
+      state: directory
+
+  - name: init repo
+    shell: git -C /tmp/demo init
+
+  - name: create first commit
+    shell: date >> /tmp/demo/test.txt;git -C /tmp/demo add .;git -C /tmp/demo commit -m1
+
+  - name: clone demo
+    ansible.builtin.git:
+      repo: /tmp/demo
+      dest: /tmp/test
+
+  - name: create hook-script
+    copy:
+      dest: /tmp/test/.git/hooks/post-merge
+      content: |
+        #!/bin/sh
+        date +"%F %T Demonstrating git-hook" >> /tmp/demo/test.txt
+      mode: 0755
+
+  - name: create second commit
+    shell: date >> /tmp/demo/test.txt;git -C /tmp/demo commit -am2
+
+  - name: git pull without hook
+    ansible.builtin.git:
+      repo: /tmp/demo
+      dest: /tmp/test
+
+  - name: create third commit
+    shell: date >> /tmp/demo/test.txt;git -C /tmp/demo commit -am3
+
+  - name: git pull with hook-script
+    shell: git -C /tmp/test pull

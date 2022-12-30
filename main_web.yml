@@ -1,13 +1,17 @@
 ---
 
-- name:
-  become: true
+- name: Portal Servers Main Site Configurations
   hosts: [web_servers]
 
-  tasks:
+  pre_tasks:
+    - include_tasks: roles/common/cpu.yml
+    - include_tasks: roles/common/mem.yml
+    - include_tasks: roles/common/totalchk.yml
+    - include_tasks: roles/common/assert_mem.yml
 
-    #  - include_tasks: roles/updates/main.yml
-    #  - include_tasks: roles/wait/main.yml
-    #  - include_tasks: roles/copy/main.yml
-    #- include_tasks: roles/nodejs/start_node.yml
-  - include_tasks: roles/common/post.yml
+  tasks:
+    #- include_tasks: roles/common/updates.yml
+    #- include_tasks: roles/apache2-configs/main.yml
+    #- include_tasks: roles/wait/main.yml
+    #- include_tasks: roles/copy/main.yml
+    #- include_tasks: roles/common/post.yml
