@@ -1,0 +1,21 @@
+---
+
+- name: install packages
+  become: true
+  apt:
+    name:
+      - python3-boto3
+      - awscli
+    state: latest
+
+- name: create config directory
+  file:
+    path: '~/.aws'
+  state: directory
+
+- name: create default config
+  template:
+    src: config.j2
+    dest: '~/.aws/config'
+    mode: 0600
+    force: no

@@ -1,0 +1,39 @@
+# ZSH
+
+- name: install zshrc
+  template:
+    src: zshrc
+    dest: ~/.zshrc
+
+- name: download oh-my-zsh
+  git:
+    repo: "{{ ohmyzsh_repo }}"
+    dest: "{{ ohmyzsh_directory }}"
+
+- name: copy custom configuration
+  copy:
+    src: zsh/
+    dest: "{{ ohmyzsh_directory }}/custom"
+    #force: yes
+    backup: yes
+#- name: insert custom ohmyzsh config
+#  copy:
+#    src: "zsh/{{ item }}"
+#    dest: "{{ ohmyzsh_directory }}/custom/{{ item }}"
+#    backup: yes
+#  with_items:
+#    - aliases.zsh
+#    - environment.zsh
+#    - path.zsh
+#    - rvm.zsh
+#    - gt.zsh
+
+- name: set user shell
+  user:
+    name: "{{ ansible_user_id }}"
+    shell: /bin/zsh
+  become: yes
+Footer
+© 2022 GitHub, Inc.
+Footer navigation
+Term

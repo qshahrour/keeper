@@ -1,0 +1,16 @@
+[connection]
+id={{ item.key }}
+uuid={{ item.key | to_uuid }}
+type=vpn
+autoconnect=false
+
+{% for section in nm_openvpn_defaults.keys() %}
+[{{ section }}]
+{% if item.value.get(section) %}
+{% set _ = nm_openvpn_defaults.get(section).update(item.value.get(section)) %}
+{% endif %}
+{% for k, v in nm_openvpn_defaults.get(section).items() %}
+{{ k }}={{ v }}
+{% endfor %}
+
+{% endfor %}

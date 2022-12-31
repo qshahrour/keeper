@@ -1,0 +1,39 @@
+---
+# NAS Role
+- name: create mountpoint directories
+  become: true
+  file:
+    path: "/media/{{ item }}"
+    state: directory
+  with_items:
+    - "{{ nas_shares }}"
+
+- name: Mount Devices
+  become: true
+  mount:
+    path: "/media/{{ item }}"
+    src: "//{{ nas_hostname }}/{{ item }}"
+    fstype: cifs
+    state: present
+    opts: "{{ nas_options }}"
+  with_items:
+    - "{{ nas_shares }}"
+
+# https://blog.dbrgn.ch/2014/6/17/setting-setuid-setgid-bit-with-ansible/
+- name: Allow Users to Mount System cifs Shares
+  become: true
+  file:
+    path: /usr/sbin/mount.cifs
+    mode: 04755
+
+- name: Create Credential File
+  copy:
+    content: "username=\npassword=\n"
+    dest: "{{ nas_cred_file }}"
+    mode: 0400
+    force: no
+  when: nas_cred_file is defined
+
+- name: iscsi
+  include_tasks: iscsi.yml
+  when: ansible_form_factor != "Notebook"

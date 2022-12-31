@@ -1,0 +1,45 @@
+(39 sloc)  788 Bytes
+[connection]
+id={{ item.key }}
+uuid={{ item.key | to_uuid }}
+type=vpn
+autoconnect=false
+permissions=
+
+[vpn]
+authtype=password
+autoconnect-flags=0
+certsigs-flags=0
+cookie-flags=2
+enable_csd_trojan=no
+gateway={{ item.value.gateway }}
+gateway-flags=2
+gwcert-flags=2
+lasthost-flags=0
+pem_passphrase_fsid=no
+prevent_invalid_cert=no
+protocol=gp
+stoken_source=disabled
+xmlconfig-flags=0
+service-type=org.freedesktop.NetworkManager.openconnect
+
+[vpn-secrets]
+form:_login:user={{ item.value.username }}
+lasthost={{ item.value.gateway }}
+save_passwords=yes
+
+[ipv4]
+{% if item.value.search_domains is defined %}
+dns-search={{ item.value.search_domains | join(';') }};
+{% else %}
+dns-search=
+{% endif %}
+method=auto
+
+[ipv6]
+addr-gen-mode=stable-privacy
+dns-search=
+ip6-privacy=0
+method=auto
+
+[proxy]

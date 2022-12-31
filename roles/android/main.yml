@@ -1,0 +1,23 @@
+---
+
+- name: Android Things
+  become: true
+  apt:
+    name:
+      - android-tools
+      - python3-pyserial
+      - watchman
+    state: latest
+
+- name: Disable and Remove ModemManager
+  become: true
+  apt:
+    name: ModemManager
+    state: absent
+
+- name: Install Android Studio
+  become: yes
+  snap:
+    name: android-studio
+    state: present
+    classic: yes

@@ -1,0 +1,23 @@
+---
+# Python
+- name: Install Basic Python Tools
+  become: true
+  package:
+    name:
+      - python3-virtualenv
+      - python3-virtualenvwrapper
+    state: latest
+
+# Common System Tools
+- name: Install Common System Tools
+  become: true
+  package:
+    name: "{{ clitools_system_packages[ansible_distribution] }}"
+    state: latest
+
+# Software development tools
+- name: Install Software Development Tools
+  become: true
+  package:
+    name: "{{ clitools_development_packages[ansible_distribution] }}"
+    state: latest

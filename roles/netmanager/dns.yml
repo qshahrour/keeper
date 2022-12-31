@@ -1,0 +1,26 @@
+---
+
+- name: configure hosts file with sane defaults
+  become: true
+  lineinfile:
+    dest: "/etc/hosts"
+    regexp: "^{{ item.address }}(.*)$"
+    line: "{{ item.address }}    {{ item.names | join(' ') }}"
+  with_items:
+    - "{{ hosts_default }}"
+
+- name: configure hosts file with custom stuff
+  become: true
+  lineinfil:
+    dest: "/etc/hosts"
+    regexp: "^{{ item.address }}(.*)$"
+    line: "{{ item.address }}    {{ item.names | join(' ') }}"
+  with_items:
+    - "{{ hosts_custom }}"
+  when: hosts_custom is defined
+
+- name: configure digrc
+  copy:
+    dest: ~/.digrc
+    content: "+noedns"
+  when: dig_disable_edns

@@ -1,0 +1,43 @@
+---
+- name: install shell packages
+  package:
+    name: "{{ shell_packages[ansible_distribution] }}"
+    state: latest
+  become: yes
+
+- include_tasks: "{{ task_item }}"
+  with_items:
+    - homedir.yml
+    - zsh.yml
+    - git.yml
+    - rvm.yml
+    - nvm.yml
+  loop_control:
+    loop_var: task_item
+
+- name: install user dotfiles
+  copy:
+    dest: "~/.{{ item }}"
+    src: "{{ item }}"
+    backup: yes
+  with_items:
+    - vimrc
+    - screenrc
+    - tmux.conf
+
+- name: install root dotfiles
+  copy:
+    dest: "~/.{{ item }}"
+    src: "{{ item }}"
+  become: yes
+  with_items:
+    - vimrc
+    - screenrc
+    - tmux.conf
+
+# Setup root paths
+- name: install custom shell paths
+  copy:
+    src: localbin.sh
+    dest: /etc/profile.d/localbin.sh
+  become: yes
