@@ -1,0 +1,46 @@
+---
+
+- name: Authorized ssh Keys
+  authorized_key:
+    user: "{{ ansible_user_id }}"
+    key: "{{ item }}"
+  with_items:
+    - "{{ ssh_authorized_keys}}"
+
+- name: Test for Existing ssh Key
+  stat:
+    path: ~/.ssh/id_rsa
+  register: sshkey_stat
+
+- name: Generate ssh Key
+  shell:
+    cmd: ssh-keygen -t rsa -f ~/.ssh/id_rsa -N ''
+  when: sshkey_stat.stat.exists == False
+
+- name: SSH Config
+  template:
+    src: ssh_config.j2
+    dest: '~/.ssh/config'
+    mode: 0600
+    force: no
+  when: ssh_config_hosts is defined
+
+- name: Create ssh Public Keys
+  copy:
+    dest: "~/.ssh/{{ item.name }}.pub"
+    content: "{{ item.pub }}"
+    mode: 0644
+  with_items:
+    - "{{ ssh_keys }}"
+  when: ssh_keys is defined
+  no_log: yes
+
+- name: Create ssh Private Keys
+  copy:
+    dest: "~/.ssh/{{ item.name }}"
+    content: "{{ item.priv }}"
+    mode: 0600
+  with_items:
+    - "{{ ssh_keys }}"
+  when: ssh_keys is defined
+  no_log: yes

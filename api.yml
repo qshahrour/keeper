@@ -8,6 +8,11 @@
 
   pre_tasks:
     - include_tasks: roles/common/inventory_loop.yml
+    - include_tasks: roles/common/cpu.yml
+    - include_tasks: roles/common/mem.yml
+    - include_tasks: roles/common/assert_mem.yml
+    - include_tasks: roles/common/totalchk.yml
+    
 
   tasks:
     - include_tasks: roles/common/updates.yml

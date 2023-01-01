@@ -1,0 +1,44 @@
+---
+
+- name: Create Repository
+  become: true
+  yum_repository:
+    name: sublime-text
+    description: Sublime Text - x86_64 - Stable
+    baseurl: https://download.sublimetext.com/rpm/stable/x86_64
+    enabled: yes
+    gpgcheck: yes
+    gpgkey: https://download.sublimetext.com/sublimehq-rpm-pub.gpg
+
+- name: Install
+  become: true
+  dnf:
+    name: sublime-text
+    state: present
+
+- name: Create Config Directory
+  file:
+    path: "{{ item }}"
+    state: directory
+    recurse: yes
+  with_items:
+  - "{{ sublime_config_dir }}"
+  - "{{ sublime_config_dir }}/Installed Packages"
+  - "{{ sublime_config_dir }}/Packages/User"
+
+- name: Install Theme
+  get_url:
+    url: "{{ sublime_theme_file }}"
+    dest: "{{ sublime_config_dir }}/Packages/{{ sublime_theme_name }}"
+
+- name: Install Preferences
+  copy:
+    src: "{{ item }}"
+    dest: "{{ sublime_config_dir }}/Packages/User/{{ item }}"
+  with_items:
+    - Prefences.sublime-settings
+    - Default (Linux).sublime-keymap
+
+- name: Enable Package Control
+  get_url:
+    url: "{{ sublime_packagecontrol_package }}"

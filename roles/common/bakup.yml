@@ -1,0 +1,29 @@
+---
+
+- name: Create Backup Directory
+  become: true
+  file:
+    path: /backups
+    state: directory
+    owner: root
+    group: wheel
+    mode: 0750
+
+- name: Enable Network Services
+  become: true
+  service:
+    name: "{{ item }}"
+    enabled: yes
+    state: started
+  with_items:
+    - systemd-networkd
+
+- name: Cleanup Backups
+  become: true
+  cron:
+    name: cleanup backups
+    minute: 0
+    hour: 3
+    job: /usr/bin/find /opt/backups -type f -mtime +3 -delete
+    user: root
+    cron_file: cleanup_backups

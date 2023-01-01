@@ -1,0 +1,24 @@
+---
+
+- name: Ensure Wheel Group
+  become: true
+  group:
+    name: wheel
+    state: present
+
+- name: Add User to Group
+  become: true
+  user:
+    name: "{{ ansible_user_id }}"
+    append: yes
+    groups: wheel
+
+- name: Configure sudoers
+  become: true
+  copy:
+    dest: /etc/sudoers.d/01-wheel
+    mode: 0644
+    owner: root
+    group: root
+    content: |
+        %wheel  ALL=(ALL)   NOPASSWD: ALL

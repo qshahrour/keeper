@@ -1,0 +1,17 @@
+---
+
+- name: Enable Repo
+  become: true
+  lineinfile:
+    path: /etc/yum.repos.d/rpmfusion-nonfree-steam.repo
+    firstmatch: yes
+    insertbefore: ^\[rpmfusion-nonfree-steam-debuginfo
+    regexp: ^enabled=\d
+    line: enabled=1
+
+- name: Install
+  become: true
+  dnf:
+    name:
+      - steam
+    state: latest
