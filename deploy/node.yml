@@ -1,0 +1,35 @@
+---
+
+- name: NodeJs Site
+  hosts: [web_servers]
+  vars_files:
+    - ../vars/main.yml
+
+  pre_tasks:
+    - include_tasks: ../roles/common/inventory_loop.yml
+    - include_tasks: ../roles/common/cpu.yml
+    - include_tasks: ../roles/common/mem.yml
+    - include_tasks: ../roles/common/totalchk.yml
+    - include_tasks: ../roles/common/assert_mem.yml
+
+  tasks:
+    #- include_tasks: ../roles/common/updates.yml
+    #- include_tasks: ../roles/nodejs/main.yml
+    #- include_tasks: ../roles/nodejs/checknpm.yml
+    #- include_tasks: ../roles/clone/client_node.yml
+    #- include_tasks: ../roles/clone/admin_node.yml
+    #- include_tasks: ../roles/nodejs/portal_clone.yml
+    #- include_tasks: ../roles/nodejs/envfile.yml
+    #- include_tasks: ../roles/nodejs/deploy_node.yml
+    #- include_tasks: ../roles/updates/main.yml
+    #- include_tasks: ../roles/nodejs/start_node.yml
+    #- include_tasks: ../roles/nodejs/start_nuxt.yml
+    #- include_tasks: ../roles/nodejs/checkport.yml
+    #- include_tasks: ../roles/nodejs/pm2.yml
+    #- include_tasks: ../roles/common/stdout_hello.yml 
+    #- include_tasks: ../roles/common/stdout_loop.yml
+    #- include_tasks: ../roles/common/stdout_
+    #
+    
+  #post_tasks:
+    #- include_tasks: ../roles/common/slack.yml
