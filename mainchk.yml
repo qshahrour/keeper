@@ -1,11 +1,12 @@
 ---
 
-- name:
+- name: Check Health
   hosts: all
 
   tasks:
     - include_tasks: roles/common/totalchk.yml
     - include_tasks: roles/common/cpu.yml
+    - include_tasks: roles/common/mem.yml
     - include_tasks: roles/common/assert_mem.yml
 
   #  tasks:
