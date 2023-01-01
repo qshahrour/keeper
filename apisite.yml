@@ -1,0 +1,7 @@
+---
+
+- name:
+  hosts: [api_servers]
+
+  tasks:
+    - include_tasks: roles/common/updates.yml
