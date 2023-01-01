@@ -1,66 +1,68 @@
----
+--
 
-- name: install the EPEL release rpm
+- name: install the Apache2 release
   become: yes
-  become_user: root
+  become_user: "{{ ansible_user }}"
   apt:
-    name: http://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+    name: apache2
     state: present
 
 - name: Ensure Apache is at the Latest version
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   tags:
     - web
+    - apache2
   apt:
-    name: httpd
+    name: apache2
     state: latest
 
 - name: "Create sites-available and sites-enabled Directories"
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   tags:
     - web
+    - sites-available
   file:
     dest: "{{ item }}"
     owner: "root"
     group: "root"
-    mode: 0644
+    mode: "0644"
     state: directory
   with_items:
-    - "/etc/httpd/sites-enabled"
-    - "/etc/httpd/sites-available"
+    - "/etc/apache2/sites-enabled"
+    - "/etc/apache2/sites-available"
 
 - name: Modify the Default Apache Configuration file
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   tags:
     - web
   template:
     src: "{{ item.src }}"
     dest: "{{ item.dest }}"
-    owner: root
-    group: root
-    mode: 0644
+    owner: "root"
+    group: "root"
+    mode: "0644"
   with_items:
     - {src: 'basic_vh.conf.j2', dest: '/etc/apache2/sites-available/{{ domain }}.conf'}
-    - {src: 'apache2.conf.j2', dest: '/etc/apache2/apavhe2.conf'}
+    - {src: 'apache2.conf.j2', dest: '/etc/apache2/apache2.conf'}
 
 - name: Create the Document Root Direcotory
-  become_user: it
+  become_user: "{{ ansible_user }}"
   become: yes
   tags:
     - web
   file:
     dest: "{{ docroot }}"
-    mode: 0755
-    owner: apache
-    group: apache
+    mode: "0755"
+    owner: apache2
+    group: apache2
     state: directory
 
 - name: Symlink the sites-available VH file to sites-enabled
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   tags:
     - web
   file:
@@ -80,7 +82,7 @@
 
 - name: Copy the /etc/mime.types file to httpd conf
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   tags:
     - web
   shell: "cp /etc/mime.types /etc/apache2/mime.types"
@@ -90,7 +92,7 @@
   tags:
     - web
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   shell:
     "wget https://www.middlewareinventory.com"
   args:
@@ -101,7 +103,7 @@
   tags:
     - web
   become: yes
-  become_user: it
+  become_user: "{{ ansible_user }}"
   copy:
     remote_src: yes
     src: "/tmp/index.html"
