@@ -15,7 +15,7 @@
     section: Journal
     option: "{{ item.key }}"
     value: "{{ item.value }}"
-  notify: restart journald
+  notify: Restart Journald
   with_dict:
     SystemMaxUse: 1G
     MaxRetentionSec: 2d

@@ -1,0 +1,48 @@
+---
+
+- name: Clone or Update Repository
+  git:
+    repo: git@bitbucket.org:Geo6/{{ repo }}.git
+    dest: "{{ dest }}"
+    version: "{{ branch | default('master') }}"
+    key_file: ~/.ssh/ansible
+    accept_hostkey: yes
+    force: yes
+
+- name: Check if Locale/Exists
+  stat:
+    path: "{{ dest }}/locale"
+  register: locale
+
+- name: Generate MO Files
+  shell:
+    sh "{{ dest }}/locale/generate-mo.sh"
+  when: locale.stat.exists
+
+- name: Check if composer.json Exists
+  stat:
+    path: "{{ dest }}/composer.json"
+  register: composer
+
+- name: Install Packages Based on composer.json.
+  composer:
+    command: install
+    working_dir: "{{ dest }}"
+  when: composer.stat.exists
+
+- name: Check if Package.json Exists
+  stat:
+    path: "{{ dest }}/package.json"
+  register: package
+
+- name: Install Packages Based on package.json.
+  npm:
+    path: "{{ dest }}"
+    state: latest
+  when: package.stat.exists
+
+
+
+
+
+

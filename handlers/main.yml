@@ -1,42 +1,40 @@
 ---
 
-- name: restart f2b
+- name: Restart f2b
   become: true
   service:
     name: fail2ban
     state: restarted
 
 # The VPS doesn't do UEFI booting :(
-- name: rebuild grub
+- name: Rebuild Grub
   become: true
   command: grub2-mkconfig -o /boot/efi/EFI/fedora/grub.cfg && grub2-mkconfig -o /boot/grub2/grub.cfg
-
----
 # https://stackoverflow.com/questions/31618967/how-do-i-write-an-ansible-handler-with-multiple-tasks
-- name: restart NetworkManager
+- name: Restart NetworkManager
   become: true
   service:
     name: NetworkManager
-  state: restarted
-  listen: restart NetworkManager
+    state: restarted
+  listen: Restart NetworkManager
 
-- name: wait for networking
+- name: Wait For Networking
   shell:
     cmd: 'curl -m 2 -s https://google.com'
-  warn: false
+    warn: false
   register: result
   retries: 5
   delay: 2
   until: result.rc == 0
-  listen: restart NetworkManager
+  listen: Restart NetworkManager
 
 # Handlers For Docker
-- name: restart docker
+- name: Restart Docker
+  become: true
   service:
     name: docker
     state: restarted
-  become: yes
-  listen: restart docker
+  listen: Restart Docker
 
 # httpd Role
 - name: restart httpd
@@ -51,24 +49,37 @@
   service:
     name: sshd
     state: restarted
-  listen: restart sshd
+  listen: Restart sshd
 
 # Systemd Role Handler
-- name: Restart resolved
+- name: Restart Resolved
+  become: true
   service:
     name: systemd-resolved
     state: restarted
-  become: yes
-  listen: restart resolved
+  listen: Restart Resolved
 
-- name: Restart journald
+- name: Restart Journald
+  become: true
   service:
     name: systemd-journald
     state: restarted
-  become: yes
   listen: restart journald
 
 # TLS Role Handler
 - name: Update-CA-Trust
   shell: update-ca-trust
   become: yes
+
+# Apache Role Handlers
+- name: Reload Apache
+  become: true
+  service:
+    name: apache2
+    state: reloaded
+
+- name: Restart Apache
+  become: true
+  service:
+    name: apache2
+    state: restarted

@@ -1,0 +1,22 @@
+---
+
+- name: Download lite_php_browscap.ini
+  become: yes
+  get_url:
+    url: https://browscap.org/stream?q=Lite_PHP_BrowsCapINI
+    dest: /etc/php/{{ php_version }}/fpm/lite_php_browscap.ini
+    force: yes
+
+- name: Enable Browser Capabilities
+  become: yes
+  lineinfile:
+    dest: /etc/php/{{ php_version }}/fpm/php.ini
+    state: present
+    regexp: "^;?browscap = "
+    line: "browscap = /etc/php/{{ php_version }}/fpm/lite_php_browscap.ini"
+
+- name: Reload PHP-FPM
+  become: true
+  service:
+    name: "php{{ php_version }}-fpm"
+    state: reloaded

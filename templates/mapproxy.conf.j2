@@ -1,0 +1,29 @@
+<IfModule mod_wsgi.c>
+  WSGIScriptAlias /mapproxy /var/www/data/mapproxy/config.py
+
+  <Directory /var/www/data/mapproxy>
+    Require all granted
+  </Directory>
+
+  <IfModule auth_digest_module>
+    <LocationMatch /mapproxy(.*)>
+      AuthType Digest
+      AuthName "Map Access"
+
+      AuthDigestProvider file
+      AuthUserFile /etc/apache2/digest_pw
+
+      <RequireAny>
+        # Local
+        Require ip 127.0.0.1
+        {% for ipv4 in ansible_all_ipv4_addresses %}
+        Require ip {{ ipv4 }}
+        {% endfor %}
+        {% for ipv6 in ansible_all_ipv6_addresses %}
+        Require ip {{ ipv6 }}
+        {% endfor %}
+        Require valid-user
+      </RequireAny>
+    </LocationMatch>
+  </IfModule>
+</IfModule>

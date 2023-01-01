@@ -1,0 +1,29 @@
+---
+
+- name: Enable display_errors
+  become: true
+  lineinfile:
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/{{ pool | default('www') }}.conf
+    state: present
+    insertafter: EOF
+    line: "php_admin_value[display_errors] = on"
+  when: status | default('on') == "on"
+  notify:
+    - Reload PHP-FPM
+
+- name: Disable display_errors
+  become: true
+  lineinfile:
+    dest: /etc/php/{{ php_version }}/fpm/pool.d/{{ pool | default('www') }}.conf
+    state: absent
+    line: "php_admin_value[display_errors] = on"
+  when: status | default('on') == "off"
+  notify:
+    - Reload PHP-FPM
+
+handlers:
+  - name: Reload PHP-FPM
+    become: true
+    service:
+      name: "php{{ php_version }}-fpm"
+      state: reloaded

@@ -1,0 +1,56 @@
+---
+
+- name: Install Dependiecies
+  become: true
+  apt:
+    name:
+      - autoconf
+      - gcc
+      #- lib6
+      - make
+      - wget
+      - unzip
+      - apache2
+      - php
+      - libapache2-mod-php7.4
+      - libgdchart-gd2-xpm-dev
+      #- libgd2-xpm-dev
+    state: present
+  register: nagios
+
+- name: Configure Nagios
+  become: true
+  command: ./configure --with-httpd-conf=/etc/apache2/sites-enabled
+  args:
+    chdir:
+
+- name: Compile Nagios
+  become: true
+  make:
+    chdir:
+
+- name: Compile Install
+  become: true
+  make:
+    chdir:
+    target:
+  notify:
+    - Run
+
+- name: Enabling Rewrite Module
+  become: true
+  command: a2enmode rewrite
+  register: command_output
+  changed_when: "'Enabling rewrite module.' in command_output.stdout"
+  notify:
+    - Restart Apache
+
+- name: Enabling cgi Module
+  become: true
+  command: a2enmode cgi
+  register: command_output
+  changed_when: "'Enabling cgi nodule.' in command_output.stdout"
+  notify:
+    - Restart Apache
+
+  - name:

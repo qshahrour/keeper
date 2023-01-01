@@ -1,0 +1,13 @@
+---
+
+- name: "Start the Apache HTTPD Server"
+  become: true
+  shell:
+    "apache2 -k start"
+  args:
+    chdir: "$HOME"
+  changed_when: "'already running' not in starapache2out.stdout"
+
+- name: Debug Apache Start
+  debug:
+    msg: "{{ starapache2out.stdout }}"

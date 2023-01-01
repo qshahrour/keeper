@@ -1,0 +1,20 @@
+---
+
+- name: Making Sure the /tmp has more than 1G
+  shell: "df -h /tmp|grep -v Filesystem|awk '{print $4}'|cut -d G -f1"
+  register: tmpspace
+  failed_when: "tmpspace.stdout|float < 1"
+
+- name: Making Sure the /opt has more than 4G
+  shell: "df -h /opt|grep -v Filesystem|awk '{print $4}'|cut -d G -f1"
+  register: tmpspace
+  failed_when: "tmpspace.stdout|float < 4"
+
+- name: Making Sure the Physical Memory More than 2G
+  shell: "cat /proc/meminfo|grep -i memtotal|awk '{print $2/1024/1024}'"
+  register: memory
+  failed_when: "memory.stdout|float < 2"
+
+- name: Debug Memory
+  debug:
+    msg: "{{ not memory.stdout }}"
