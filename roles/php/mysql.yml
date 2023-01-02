@@ -1,0 +1,14 @@
+---
+
+- name: Create MySQL DB
+  mysql_db: name=laravel state=present
+
+- name: Generate DB password
+  shell: makepasswd --chars=32
+  args:
+    creates: /var/www/laravel/.dbpw
+  register: dbpwd
+
+- name: Create MySQL User
+  mysql_user: name=laravel password={{ dbpwd.stdout }} priv=laravel.*:ALL state=present
+  when: dbpwd.changed
