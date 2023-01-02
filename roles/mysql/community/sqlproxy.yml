@@ -1,0 +1,97 @@
+---
+# This example adds a server, it saves the mysql server config to disk, but
+# avoids loading the mysql server config to runtime (this might be because
+# several servers are being added and the user wants to push the config to
+# runtime in a single batch using the community.general.proxysql_manage_config
+# module).  It uses supplied credentials to connect to the proxysql admin
+# interface.
+
+- name: Add a server
+  community.proxysql.proxysql_backend_servers:
+    login_user: 'admin'
+    login_password: 'admin'
+    hostname: 'mysql01'
+    state: present
+    load_to_runtime: False
+
+# This example removes a server, saves the mysql server config to disk, and
+# dynamically loads the mysql server config to runtime.  It uses credentials
+# in a supplied config file to connect to the proxysql admin interface.
+
+- name: Remove a server
+  community.proxysql.proxysql_backend_servers:
+    config_file: '~/proxysql.cnf'
+    hostname: 'mysql02'
+    state: absent
+
+# This example sets the value of a variable, saves the mysql admin variables
+# config to disk, and dynamically loads the mysql admin variables config to
+# runtime. It uses supplied credentials to connect to the proxysql admin
+# interface.
+
+- name: Set the value of a variable
+  community.proxysql.proxysql_global_variables:
+    login_user: 'admin'
+    login_password: 'admin'
+    variable: 'mysql-max_connections'
+    value: 4096
+
+# This example gets the value of a variable.  It uses credentials in a
+# supplied config file to connect to the proxysql admin interface.
+
+- name: Get the value of a variable
+  community.proxysql.proxysql_global_variables:
+    config_file: '~/proxysql.cnf'
+    variable: 'mysql-default_query_delay'
+
+- name: Receive information about proxysql setup
+  community.proxysql.proxysql_info:
+    login_user: admin
+    login_password: admin
+
+# This example saves the mysql users config from memory to disk. It uses
+# supplied credentials to connect to the proxysql admin interface.
+
+- name: Save the mysql users config from memory to disk
+  community.proxysql.proxysql_manage_config:
+    login_user: 'admin'
+    login_password: 'admin'
+    action: "SAVE"
+    config_settings: "MYSQL USERS"
+    direction: "FROM"
+    config_layer: "MEMORY
+
+# This example loads the mysql query rules config from memory to runtime. It
+# uses supplied credentials to connect to the proxysql admin interface.
+
+- name: Load the mysql query rules config from memory to runtime
+  community.proxysql.proxysql_manage_config:
+    config_file: '~/proxysql.cnf'
+    action: "LOAD"
+    config_settings: "MYSQL QUERY RULES"
+    direction: "TO"
+    config_layer: "RUNTIME"
+
+# This example adds a user, it saves the mysql user config to disk, but
+# avoids loading the mysql user config to runtime (this might be because
+# several users are being added and the user wants to push the config to
+# runtime in a single batch using the community.general.proxysql_manage_config
+# module).  It uses supplied credentials to connect to the proxysql admin
+# interface.
+- name: Add a user
+  community.proxysql.proxysql_mysql_users:
+    login_user: 'admin'
+    login_password: 'admin'
+    username: 'productiondba'
+    state: present
+    load_to_runtime: False
+
+# This example removes a user, saves the mysql user config to disk, and
+# dynamically loads the mysql user config to runtime.  It uses credentials
+# in a supplied config file to connect to the proxysql admin interface.
+
+- name: Remove a user
+  community.proxysql.proxysql_mysql_users:
+    config_file: '~/proxysql.cnf'
+    username: 'mysqlboy'
+    state: absent

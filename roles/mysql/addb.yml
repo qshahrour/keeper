@@ -1,0 +1,43 @@
+---
+
+- name:
+  mysql_db:
+    name:
+      - db name
+      - db name
+    state: present
+
+- name: Copy Database Dump File
+  copy:
+    src: dump.sql.bz2
+    dest: /tmp
+
+- name: Restore Database
+  mysql_db:
+    name: my_db
+    state: import
+    target: /tmp/dump.sql.bz2
+
+- name: Dump Multi Databases
+  mysql_db:
+    state: dump
+    name: db_1,db_2
+    target: /tmp/dump.sql
+
+- name: Dump All Databases
+  mysql_db:
+    state: dump
+    name: all
+    target: /tmp/dump.sql
+
+- name: Import file.sql
+  mysql_db:
+    state: import
+    name: all
+    target: /tmp/dump.sql
+
+- name: Delete Database
+  mysql_db:
+    name:
+      - foo
+    state: absent

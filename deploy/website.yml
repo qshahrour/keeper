@@ -1,0 +1,28 @@
+---
+
+- name: Portal Servers Main Site
+  hosts: [web_servers]
+  vars_files:
+    - ../vars/main.yml
+
+  handlers:
+    - ../handlers/main.yml
+
+  pre_tasks:
+    - include_tasks: ../roles/common/inventory_loop.yml
+    - include_tasks: ../roles/common/chkcpu.yml
+    - include_tasks: ../roles/common/chkmem.yml
+    - include_tasks: ../roles/common/chkdisk.yml
+    - include_tasks: ../roles/common/chktotal.yml
+    - include_tasks: ../roles/common/assert.yml
+
+  tasks:
+    #- include_tasks: roles/
+    #- include_tasks: roles/common/upgrade.yml
+    #- include_tasks: roles/common/updates.yml
+    #- include_tasks: roles/apache2-configs/main.yml
+    #- include_tasks: roles/wait/main.yml
+    #- include_tasks: roles/copy/main.yml
+
+  post_tasks:
+    #- include_tasks: roles/common/post.yml

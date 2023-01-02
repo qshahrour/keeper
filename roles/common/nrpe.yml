@@ -1,0 +1,17 @@
+---
+
+- name: Download NRPE Plugins
+  unzip:
+    src: https://github.com/NagiosEnterprises/nrpe/archive/release4.0.1.tar.gz
+    dest:
+
+- name: Configure
+  shell:
+    "cd nrpe && ./configure --with-ssl-lib=/usr/local/x86_64-linux-gnu"
+  args:
+    chdir:
+
+- name:
+  make:
+    target:
+

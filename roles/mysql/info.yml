@@ -1,0 +1,12 @@
+---
+
+- name: My Sql Info
+  become: yes
+  mysql_info:
+    login_user:
+    login_password:
+    filter:
+    - databases
+    - version
+    - master_status
+    - slave_status

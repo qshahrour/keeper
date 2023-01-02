@@ -1,0 +1,12 @@
+---
+
+- name: Copy Config File
+  template:
+    src: mysqld.cnf.j2
+    dest: /etc/mysql/mysql.conf.d/mysqld.cnf
+    owner: root
+    group: root
+    mode: 0644
+    backup: true
+  notify:
+    - Restart Mysql

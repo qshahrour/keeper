@@ -1,0 +1,118 @@
+---
+
+# This example adds a rule to redirect queries from a specific user to another
+# hostgroup, it saves the mysql query rule config to disk, but avoids loading
+# the mysql query config config to runtime (this might be because several
+# rules are being added and the user wants to push the config to runtime in a
+# single batch using the community.general.proxysql_manage_config module). It
+# uses supplied credentials to connect to the proxysql admin interface.
+
+- name: Add a rule
+  community.proxysql.proxysql_query_rules:
+    login_user: admin
+    login_password: admin
+    username: 'guest_ro'
+    match_pattern: "^SELECT.*"
+    destination_hostgroup: 1
+    active: 1
+    retries: 3
+    state: present
+    load_to_runtime: False
+
+# This example demonstrates the situation, if your application tries to set a
+# variable that will disable multiplexing, and you think it can be filtered out,
+# you can create a filter that returns OK without executing the request.
+
+- name: Add a filter rule
+  community.proxysql.proxysql_query_rules:
+    login_user: admin
+    login_password: admin
+    match_digest: '^SET @@wait_timeout = ?'
+    active: 1
+    OK_msg: 'The wait_timeout variable is ignored'
+
+# This example adds a caching rule for a query that matches the digest.
+# The query digest can be obtained from the `stats_mysql_query_digest`
+# table. `cache_ttl` is specified in milliseconds. Empty responses are
+# not cached.
+
+- name: Add a cache rule
+  community.proxysql.proxysql_query_rules:
+    login_user: admin
+    login_password: admin
+    rule_id: 1
+    digest: 0xECA450EA500A9A55
+    cache_ttl: 30000
+    cache_empty_result: no
+    destination_hostgroup: 1
+    active: yes
+    state: present
+    save_to_disk: yes
+    load_to_runtime: yes
+
+# This example demonstrates how to prevent disabling multiplexing for
+# situations where a request contains @.
+
+- name: Add a rule with multiplex
+  community.proxysql.proxysql_query_rules:
+    login_user: admin
+    login_password: admin
+    rule_id: 1
+    active: 1
+    match_digest: '^SELECT @@max_allowed_packet'
+    multiplex: 2
+
+# This example demonstrates how to use next_query_flagIN argument. It allows
+# ProxySQL query rules to be chained. The examples shows how you can have SELECTS
+# immediately follow INSERT/UPDATE/DELETE statements to query the primary hostgroup
+# and avoid replication lag
+
+- name: Add insert query rule
+  proxysql_query_rules:
+    match_digest: "^INSERT"
+    destination_hostgroup: 1,
+    next_query_flagIN: 1
+
+- name: Add update query rule
+  proxysql_query_rules:
+    match_digest: "^UPDATE"
+    destination_hostgroup: 1,
+    next_query_flagIN: 1
+
+- name: Add delete query rules
+  proxysql_query_rules:
+    match_digest: "^DELETE"
+    destination_hostgroup: 1,
+    next_query_flagIN: 1
+
+- name: Add insert query rules
+  proxysql_query_rules:
+    match_digest: ".*"
+    destination_hostgroup: 1,
+    next_query_flagIN: 1
+    comment: Match every queries after an INSERT/UPDATE/DELETE query
+
+# This example removes all rules that use the username 'guest_ro', saves the
+# mysql query rule config to disk, and dynamically loads the mysql query rule
+# config to runtime.  It uses credentials in a supplied config file to connect
+# to the proxysql admin interface.
+
+- name: Remove rules
+  community.proxysql.proxysql_query_rules:
+    config_file: '~/proxysql.cnf'
+    username: 'guest_ro'
+    state: absent
+    force_delete: true
+
+# This example adds a rule for fast routing
+- name: Add a rule
+  community.proxysql.proxysql_query_rules_fast_routing:
+    login_user: admin
+    login_password: admin
+    username: 'user_ro'
+    schemaname: 'default'
+    destination_hostgroup: 1
+    comment: 'fast route user_ro to default schema'
+    state: present
+    save_to_disk: yes
+    load_to_runtime: yes

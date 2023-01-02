@@ -7,4 +7,9 @@
 - assert:
     that:
       - ansible_memory_mb.swap.total > 2048
+
+#- assert:
+     #that:
+       #- 
+      
     
