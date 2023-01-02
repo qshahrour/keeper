@@ -1,0 +1,23 @@
+---
+
+- name: Check if Composer Exists
+  stat:
+    path: /usr/local/bin/composer
+  register: composer_file
+
+- name: Download Composer
+  get_url:
+    url: https://getcomposer.org/installer
+    dest: /root/composer-setup.php
+  when: composer_file.stat.isreg is not defined or not composer_file.stat.isreg
+
+- name: Remove
+  become: true
+  shell:
+    "mv composer.phar"
+  args:
+    chdir: /usr/local/bin/composer
+
+- name: Add Composer
+  command: php "{{ dest_dir[0] }}"/composer-setup.php --install-dir=/usr/local/bin --filename=composer
+  when: composer_file.stat.isreg is not defined or not composer_file.stat.isreg

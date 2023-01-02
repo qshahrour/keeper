@@ -1,29 +1,30 @@
 ---
 
 - name: Main Site Setup and Testing
-  hosts: localhost
+  hosts: all
   vars_files: 
     - vars/main.yml
     #- vars/mysql.yml
 
-  handlers:
-    - handlers/main.yml
+ #handlers:
+   #- handlers/main.yml
     #- handlers/
 
   pre_tasks:
-    - include_tasks: roles/common/chktotal.yml
-    - include_tasks: roles/common/chkcpu.yml
-    - include_tasks: roles/common/chkmem.yml
-    - include_tasks: roles/common/chkdisk.yml
-    - include_tasks: roles/common/assert.yml
-    - include_tasks: roles/common/failwhen.yml
-    - include_tasks: roles/common/updates.yml
+    #- include_tasks: roles/common/chktotal.yml
+    #- include_tasks: roles/common/chkcpu.yml
+    #- include_tasks: roles/common/chkmem.yml
+    #- include_tasks: roles/common/chkdisk.yml
+    #- include_tasks: roles/common/assert.yml
+    #- include_tasks: roles/common/failwhen.yml
+    #- include_tasks: roles/common/updates.yml
 
   tasks:
     #- include_tasks: roles/common/chkip.yml
     #- include_tasks: roles/httpd/apachek.yml
     #- include_tasks: roles/common/user.yml
     #- include_tasks: roles/common/nagios.yml
+    - include_tasks: roles/common/nrpe.yml
     #- include_tasks: roles/mysql/
     #- include_tasks: roles/mysql/
     #- include_tasks: roles/mysql/

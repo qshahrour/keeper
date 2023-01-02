@@ -1,0 +1,28 @@
+---
+
+- name: install packages
+  apt:
+    name: "{{ item }}"
+  update_cache: yes 
+  with_items:
+    - git
+    - mcrypt
+    - php8.0-cli
+    - php8.0-curl
+    - php8.0-fpm
+    - php8.0-intl
+    - php8.0-json
+    - php8.0-mcrypt
+    - php8.0-mysql
+    - php8.0-common
+    - php8.0-opcache
+    - php8.0-zip
+    - php8.0-xml
+    - php8.0-mbcache
+    - mysql-client-8.1
+    - apache2
+    - libapache2-mod-php8.0
+  notify:
+    - restart apache2
+    - restart php8.0-fpm
+  
