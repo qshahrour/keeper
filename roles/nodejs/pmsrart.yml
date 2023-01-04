@@ -1,0 +1,8 @@
+---
+
+- name: PM2 Start
+  shell:
+    "pm2 --update-env"
+  args:
+    chdir: "{{ dest_dir[2] }}"
+  register: pmt start

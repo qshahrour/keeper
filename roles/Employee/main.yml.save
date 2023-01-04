@@ -1,0 +1,71 @@
+---
+
+
+- name: Copying example.env file
+  tags: project,env
+  shell:
+    "mv example.env .env"
+  args:
+    chdir: "{{ dest_dir[2] }}"
+  register: ENV_NODE
+
+- name: Add NUXT_PORT Value Env File
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_PORT='
+#    insertbefore: '# NUXT_HOST=localhos>
+    line: NUXT_PORT=3033
+    state: present
+  register: NODE_PORT
+
+- name: Replace NUXT_ENV_API_BASE_URL Value
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '^NUXT_ENV_API_BASE_URL='
+    line: NUXT_ENV_API_BASE_URL=/
+    state: present
+  register: API_BASE_URL
+
+- name: Replace PROJECT_NAME in Env File
+
+
+- name: Install NPM
+  lineinfile:
+  tags: NODE,NPM
+  async:
+  3600 poll: 10 shell:
+     path: "{{ destdi  r[2] }}" "npm 
+  install" args:
+    regexp: '^NUXT_ENV_PROJECT_NAME=' 
+  chdir: "{{ dest_dir[2] }}" 
+  register: NPM_START
+    line: 
+NUXT_ENV_PROJECT_NAME=ingot-client - 
+name: Debug npm install command
+    state: present debug: msg: "{{ 
+    NPM_START.stdout_lines }}"
+  register: PROJECT_NAME - name: 
+Validate npm installation - name: 
+Replace PORTAL_TYPE in Env File 
+debug: msg="Installation of node 
+isSucces> - name: PM2 Install
+  lineinfile: become: true npm: path: 
+    "{{ destdir[2] }}" name: pm2 
+    global: yes regexp: 
+    '^NUXT_ENV_POR  TAL_TYPE=' line: 
+    NUXT_ENV_PORTAL_TYPE=client- 
+    name: Start Node state: present 
+    tags: node
+  register: PORTAL_TYPE async: 3600 
+  poll: 10 shell:
+- name: Comment a line in env file 
+  "sh deploy.sh" args: lineinfile: 
+  chdir: "{{ dest_dir[2] }}" 
+  register: ADMIN_START
+    path: "{{ destdir[2] }}" - name: 
+Start PM2
+    regexp: '(^DEBUG=.*)' command: 
+  "pm2 start" args:
+    line: '# \1' chdir: "{{ 
+  dest_dir[2] ))" register: pm2
+    backrefs: yes0

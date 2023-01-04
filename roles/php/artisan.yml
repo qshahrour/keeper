@@ -1,0 +1,55 @@
+---
+
+- name: Optimize Clear
+  shell:
+    "php artisan optimize:clear"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: optimize
+
+- name: Clear Cache
+  become: true
+  shell:
+    "rm -R storage/framework/cache/*"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: cache
+
+- name: Clear Views
+  become: true
+  shell:
+    "rm -R storage/framework/views/*"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: views
+
+- name: Chown
+  become: true
+  shell:
+    "chown -R www-data:www-data storage/framework/cache/*"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: chown
+
+- name: Storage
+  become: true
+  shell:
+    "chmod -R 775 storage/"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: storage
+
+- name: Queue
+  shell:
+    "php artisan queue:restart"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  rgister: queue
+
+- name: Composer
+  shell:
+    "composer du -o"
+  args:
+    chdir: "{{ dest_dir[0] }}"
+  register: composer
+  
