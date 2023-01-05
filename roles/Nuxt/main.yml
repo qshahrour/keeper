@@ -1,0 +1,130 @@
+---
+
+- name: Create Directory portalbeta
+  file:
+    dest: "{{ dest_dir[1] }}"
+    state: directory
+    owner: "it"
+    group: "it"
+    mode: "0775"
+
+- name: Git ingotbrokers-admin Repo
+  tags: clone,admin
+  git:
+    repo: "git clone git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git"
+    key_file: "files/id_rsa"
+    accept_hostkey: yes
+    dest: "{{ dest_dir[1] }}"
+
+- name: Copying example.env file
+  tags: project,env
+  shell:
+    "cp example.env .env"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: ENV_NODE
+
+- name: Replace SSR_API_BASE_URL Value
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^SSR_API_BASE_URL='
+    line: SSR_API_BASE_URL=https://apibeta.ingotbrokers.com
+    state: present
+  register: API_BASE_URL
+
+- name: Add BROWSER_API_BASE_URL Value Env File
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^BROWSER_API_BASE_URL='
+    line: BROWSER_API_BASE_URL=https://apibeta.ingotbrokers.com
+    state: present
+  register: BROWSER_API
+
+- name: Set Portal Tybe To client
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^NUXT_ENV_PORTAL_TYPE='
+    line: PORTAL_PREFIX=portal
+    state: present
+  register: PORTAL_PREFIX
+
+- name: Replace INSTITUTIONAL_LINK in Env File
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^INSTITUTIONAL_LINK='
+    line: INSTITUTIONAL_LINK=institutional
+    state: present
+  register: INSTITUTIONAL
+
+- name: Replace DDE_SOCKET_URL Value in Env File
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^DDE_SOCKET_URL='
+    line: DDE_SOCKET_URL=wss://ws.ingotbrokers.com
+    state: present
+  register: DDE
+
+- name: Add NODE_TLS_REJECT_UNAUTHORIZED
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^NODE_TLS_REJECT_UNAUTHORIZED'
+    line: NODE_TLS_REJECT_UNAUTHORIZED=0
+    state: present
+  register: INSTITUTIONAL
+  
+- name: Comment a line ENTITY_ALIAS=
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '(^ENTITY_ALIAS=)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+  register: ENTITY_ALIAS
+
+- name: Install NPM
+  tags: node
+  async: 3600
+  poll: 10
+  shell:
+    "npm install"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: NPM_START
+
+- name: Debug npm install command
+  debug:
+    msg: "{{ NPM_START.stdout_lines }}"
+
+- name: Validate npm installation
+  debug: msg="Installation of node Succes"
+
+- name: PM2 Install
+  become: true
+  npm:
+    name: pm2
+    global: yes
+
+- name: deply.sh
+  tags: node,build
+  async: 3600
+  poll: 10
+  shell:
+    "sh deploy.sh"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: NODE_START
+
+- name: Start PM2
+  command: pm2 start
+  args:
+    chdir: "{{ dest_dir[1] ))"
+  register: PM2_START
+
+- name: Validating the port is open
+  tags: node_validate,node
+  wait_for:
+    host: "localhost"
+    port: "3000"
+    delay: "10"
+    timeout: "30"
+    state: started
