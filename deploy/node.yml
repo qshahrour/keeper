@@ -5,18 +5,20 @@
   vars_files:
     - ../vars/main.yml
 
-  handlers:
-    - ../handlers/main.yml
+    #handlers:
+    #- ../handlers/main.yml
 
   pre_tasks:
     - include_tasks: ../roles/common/inventory_loop.yml
-    - include_tasks: ../roles/common/cpu.yml
-    - include_tasks: ../roles/common/mem.yml
-    - include_tasks: ../roles/common/totalchk.yml
+    - include_tasks: ../roles/common/chkcpu.yml
+    - include_tasks: ../roles/common/chkmem.yml
+    - include_tasks: ../roles/common/chkdisk.yml
+    - include_tasks: ../roles/common/chktotal.yml
     - include_tasks: ../roles/common/assert.yml
     - include_tasks: ../roles/common/updates.yml
 
   tasks:
+    - include_tasks: ../roles/Clients/main.yml
     #- include_tasks: ../roles/nodejs/main.yml
     #- include_tasks: ../roles/nodejs/checknpm.yml
     #- include_tasks: ../roles/clone/client_node.yml

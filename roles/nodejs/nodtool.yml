@@ -1,0 +1,12 @@
+---
+
+ task: NodeTool@0
+  inputs:
+    versionSpec: '12.x'
+- task: Npm@1
+  inputs:
+    command: 'install'
+- task: Npm@1
+  inputs:
+    command: 'custom'
+    customCommand: 'run build'

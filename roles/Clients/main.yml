@@ -17,7 +17,7 @@
     dest: "{{ dest_dir[2] }}"
 
 - name: Copying example.env file
-  tags: project,env
+  tags: ENV_FILE
   shell:
     "cp example.env .env"
   args:
@@ -33,6 +33,7 @@
   register: API_BASE_URL
 
 - name: Add NUXT_PORT Value Env File
+  tags: NODE_PORT
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_PORT='
@@ -42,6 +43,7 @@
 
 
 - name: Replace PROJECT_NAME in Env File
+  tags: PROJECT
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_ENV_PROJECT_NAME='
@@ -50,6 +52,7 @@
   register: PROJECT_NAME
 
 - name: Set Portal Tybe To client
+  tags: PORTAL_TYPE
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_ENV_PORTAL_TYPE='
@@ -58,6 +61,7 @@
   register: PORTAL_TYPE
 
 - name: Replace NUXT_ENV_PROXY_TARGET_BASE_URL in Env File
+  tags: PROXY_URL
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_ENV_PROXY_TARGET_BASE_URL='
@@ -66,6 +70,7 @@
   register: PROXY_TARGET_BASE_URL
 
 - name: Replace NUXT_ENV_TRANSLATIONS_API_URL in Env File
+  tags: API_URL
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_ENV_TRANSLATIONS_API_URL='
@@ -74,6 +79,7 @@
   register: TRANSLATIONS_API_URL
 
 - name: Replace NUXT_ENV_DEFAULT_ENTITY Value in Env File
+  tags: ENTITY
   lineinfile:
     path: "{{ destdir[2] }}"
     regexp: '^NUXT_ENV_DEFAULT_ENTITY='
@@ -104,14 +110,14 @@
   async: 3600
   poll: 10
   shell:
-    "npm install"
+    "npm init && npm install"
   args:
     chdir: "{{ dest_dir[2] }}"
-  register: NPM_START
+  register: NPM_INSTALLED
 
-- name: Debug npm install command
-  debug:
-    msg: "{{ NPM_START.stdout_lines }}"
+#- name: Debug npm install command
+   #debug:
+   #msg: "{{ NPM_START.stdout_lines }}"
 
 - name: Validate npm installation
   debug: msg="Installation of node Succes"
@@ -122,15 +128,15 @@
     name: pm2
     global: yes
 
-- name: deply.sh
-  tags: node,build
+- name: Run dev
+  tags: node,dev
   async: 3600
   poll: 10
   shell:
     "sh deploy.sh"
   args:
     chdir: "{{ dest_dir[2] }}"
-  register: NODE_START
+  register: NODE_STARTED
 
 - name: Start PM2
   command: pm2 start
@@ -139,10 +145,10 @@
   register: PM2_START
 
 - name: Validating the port is open
-  tags: node_validate,node
+  tags: validate,node
   wait_for:
     host: "localhost"
     port: "3001"
     delay: "10"
     timeout: "30"
-    state: started
+    state: NODE_STARTED
