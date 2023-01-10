@@ -20,6 +20,7 @@
     - php8.0-xml
     - php8.0-mbcache
     - mysql-client-8.1
+    - php8.0-mbstring
     - apache2
     - libapache2-mod-php8.0
   notify:

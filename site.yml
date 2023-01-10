@@ -20,15 +20,19 @@
     #- include_tasks: roles/common/updates.yml
 
   tasks:
+    #- include_tasks: roles/PortalServer/packages.yml
+    #- include_tasks: roles/PortalServer/repo.yml
+    - include_tasks: roles/PortalServer/composer.yml
+    #- include_tasks: roles/PortalServer/
     #- include_tasks: roles/common/chkip.yml
     #- include_tasks: roles/httpd/apachek.yml
     #- include_tasks: roles/common/user.yml
     #- include_tasks: roles/common/nagios.yml
-    - include_tasks: roles/common/nrpe.yml
+    #- include_tasks: roles/common/nrpe.yml
     #- include_tasks: roles/mysql/
     #- include_tasks: roles/mysql/
     #- include_tasks: roles/mysql/
     #- include_tasks: roles/mysql/
 
-  post_tasks:
+  #post_tasks:
 

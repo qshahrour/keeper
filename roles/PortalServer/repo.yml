@@ -1,0 +1,24 @@
+---
+
+- name: Create a Directory
+  become: true
+  file:
+      path: "{{ dest_dir }}"
+      state: directory
+      owner: "it"
+      group: "it"
+      mode: "0775"
+
+- name: Clone or Update Repository
+  git:
+    repo: git@bitbucket.org:Geo6/{{ repo }}.git
+    dest: "{{ dest_dir }}"
+    version: "{{ branch | default('master') }}"
+    key_file: ~/.ssh/ansible
+    accept_hostkey: yes
+    force: yes
+
+- name: Check if Locale/Exists
+  stat:
+    path: "{{ dest_dir }}/.env"
+  register: locale
