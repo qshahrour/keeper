@@ -1,0 +1,33 @@
+---
+
+- name: NodeJs Employee Type Site
+  hosts: [web_servers]
+  vars_files:
+    - ../vars/main.yml
+
+    #handlers:
+    #- ../handlers/main.yml
+
+  #pre_tasks:
+    #- include_tasks: ../roles/common/inventory_loop.yml
+    #- include_tasks: ../roles/common/chkcpu.yml
+    #- include_tasks: ../roles/common/chkmem.yml
+    #- include_tasks: ../roles/common/chkdsk.yml
+    #- include_tasks: ../roles/common/chkmemp.yml
+    #- include_tasks: ../roles/common/assert.yml
+
+  tasks:
+
+    - include_tasks: ../roles/common/updates.yml
+    - include_tasks: ../roles/nodejs/chknpm.yml
+    - include_tasks: ../roles/clone/empnod.yml
+    - include_tasks: ../roles/nodejs/empenv.yml
+    #- include_tasks: ../roles/nodejs/nvm-builtin.yml
+    - include_tasks: ../roles/nodejs/empnpm.yml
+    - include_tasks: ../roles/nodejs/empdeploy.yml
+    - include_tasks: ../roles/nodejs/pm2.yml
+    - include_tasks: ../roles/nodejs/chkport2.yml
+    
+  #post_tasks:
+    #- include_tasks: ../roles/common/slack.yml
+    #- include_tasks: ../roles/common/updates.yml

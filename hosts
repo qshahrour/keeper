@@ -13,3 +13,11 @@ cronjob ansible_host=172.20.10.248 ansible_user=it
 
 [redis_servers]
 #redis ansible_host=172.20.10.245 ansible_user=it
+
+[web_servers]
+crmbeta ansible_host=172.20.10.43 ansible_user=it
+portal ansible_host=172.20.10.243 ansible_user=it
+
+[services]
+cronjob ansible_host=172.20.10.248 ansible_user=it
+redis ansible_host=172.20.10.245 ansible_user=it

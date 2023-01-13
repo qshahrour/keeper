@@ -1,16 +1,16 @@
 ---
 
-- name: Install NPM
-  tags: NODE,NPM
+- name: Installing NPM
+  tags: NPM
   async: 3600
   poll: 10
   shell:
     "npm install"
   args:
-    chdir: "{{ dest_dir[2] }}"
+    chdir: "{{ dest_dir[4] }}"
   register: NPM_START
 
-- name: Debug npm install command
+- name: Debuging NPM installation
   debug:
     msg: "{{ NPM_START.stdout_lines }}"
 

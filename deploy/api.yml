@@ -5,13 +5,13 @@
   vars_files:
     - ../vars/main.yml
 
-
   pre_tasks:
     - include_tasks: ../roles/common/inventory_loop.yml
-    - include_tasks: ../roles/common/cpu.yml
-    - include_tasks: ../roles/common/mem.yml
-    - include_tasks: ../roles/common/assert.yml
-    - include_tasks: ../roles/common/totalchk.yml
+    - include_tasks: ../roles/common/chkcpu.yml
+    - include_tasks: ../roles/common/chkmem.yml
+    - include_tasks: ../roles/common/chkdsk.yml
+    - include_tasks: ../roles/common/chkmemp.yml
 
   tasks:
     - include_tasks: ../roles/common/updates.yml
+    - include_tasks: ../roles/

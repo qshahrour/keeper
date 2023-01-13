@@ -4,8 +4,9 @@ repo_dest:
   - /var/www/ingotbrokers
   - /var/www/ingotbrokers-nuxt
   - /var/www/ingot-api
-  - /var/www/ingotbrokers-admin
-  - /var/www/ingotbrokers-portal
+  - /var/www/ingotbrokers-employee
+  - /var/www/ingotbrokers-client
+  - /var/www/ingotbrokers-partners
   - /var/www/ingotbrokers-auth
   - /var/www/ingotbrokers-campaigns
   - /var/www/ingotbrokers-cronjobs
@@ -14,9 +15,10 @@ repo_dest:
 repo_url:
   - git@bitbucket.org:sigmaltd/ingotbrokers.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git
-  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
-  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
   - git@bitbucket.org:sigmaltd/ingot-api.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
+  - git@bitbucket.org:sigmaltd/ingotbrokers-admin.git
   - git@bitbucket.org:m_kanaan/ingotbrokers-auth.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-campaigns.git
   - git@bitbucket.org:sigmaltd/ingotbrokers-cronjobs.git
@@ -61,8 +63,9 @@ destdir:
   - /var/www/ingotbrokers/.env
   - /var/www/ingotbrokers-nuxt/.env
   - /var/www/ingot-api
-  - /var/www/ingotbrokers-admin/.env
-  - /var/www/ingotbrokers-portal/.env
+  - /var/www/ingotbrokers-employee/.env
+  - /var/www/ingotbrokers-client/.env
+  - /var/www/ingotbrokers-partners/.env
   - /var/www/ingotbrokers-auth
   - /var/www/ingotbrokers-campains
 
