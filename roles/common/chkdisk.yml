@@ -1,9 +1,19 @@
 ---
 
-- name: Disk Usage From command Module
-  command: df -hT
-  register: space
+- name: Disk Usage From overall
+  shell:
+    "df -hT | grep /dev/mapper/vgubuntu-root | awk '{print $4}'"
+  register: USED
 
-- name: Debug Disk Usage
+- name: Debug Disk Used
   debug:
-    "{{ space.stdout_lines }}"
+    msg: "Used Disk is {{ USED.stdout_lines }}"
+
+- name: Disk Available From overall
+  shell:
+    "df -hT | grep /dev/mapper/vgubuntu-root | awk '{print $5}'"
+  register: AVAILABLE
+
+- name: Debug Disk Available
+  debug:
+    msg: "Available Disk is {{ AVAILABLE.stdout_lines }}"

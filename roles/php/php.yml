@@ -1,0 +1,70 @@
+---
+
+- name: Installation install software-properties-common
+  apt: name=software-properties-common
+
+- name: "Repo PHP 8.0"
+  apt_repository:
+    repo:
+      "ppa:ondrej/php"
+  register: ADD_REPO
+
+- name: "Updating the repo"
+  apt: update_cache=yes
+
+- name: Installation PHP
+  apt: 
+    name: php8.0
+    state: present
+
+- name: install packages
+  sudo: true
+  apt: name={{ item }} update_cache=yes state=latest
+    with_items:
+      - git
+      - mcrypt
+      - nginx
+      - mbstring
+      - bcmath
+      - opcahe
+      - php8.0-common
+      - php8.0-cli
+      - php8.0-curl
+      - php8.0-fpm
+      - php8.0-intl
+      - php5-json
+      - php8.0-mcrypt
+      - php8.0-gd
+      - libapache2-mod-php8.0
+    state: present
+    update_cache: yes
+
+- name: ensure php5-fpm cgi.fix_pathinfo=0
+  lineinfile: dest=/etc/php5/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
+    notify:
+      - restart php5-fpm
+      - restart nginx
+
+- name: enable php5 mcrypt module
+  shell: php5enmod mcrypt
+    args:
+    creates: /etc/php5/cli/conf.d/20-mcrypt.ini
+
+- name: Clone git repository
+  git: >
+    dest=/var/www/laravel
+    repo=https://github.com/laravel/laravel.git
+    update=no
+  sudo: yes
+  sudo_user: www-data
+  when: cloned|changed
+
+- name: install composer
+  shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+  args:
+    creates: /usr/local/bin/composer
+
+- name: composer create-project
+  composer: command=create-project working_dir=/var/www/laravel optimize_autoloader=no
+  sudo: yes
+  sudo_user: www-dat

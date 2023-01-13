@@ -1,0 +1,7 @@
+---
+
+- name: create /var/www/.ssh/ directory
+  file: dest=/var/www/.ssh/ state=directory owner=www-data group=www-data mode=0700
+
+- name: copy private ssh key
+  copy: src=deploykey_rsa dest=/var/www/.ssh/id_rsa owner=www-data group=www-data mode=0600

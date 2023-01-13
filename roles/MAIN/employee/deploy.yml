@@ -1,0 +1,32 @@
+---
+
+- name: deply.sh
+  tags: node,build
+  async: 3600
+  poll: 10
+  shell:
+    "sh deploy.sh"
+  args:
+    chdir: "{{ dest_dir[3] }}"
+  register: NODE_START
+
+- name: Update PM2
+  command: npm update -g pm2
+  args:
+    chdir: "{{ dest_dir[3] ))"
+  register: PM2_UPDATE
+
+- name: Start PM2
+  command: pm2 start
+  args:
+    chdir: "{{ dest_dir[3] ))"
+  register: PM2_START
+
+- name: Validating the port is open
+  tags: node_validate,node
+  wait_for:
+    host: "localhost"
+    port: "3002"
+    delay: "10"
+    timeout: "30"
+    state: started

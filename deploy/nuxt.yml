@@ -5,19 +5,19 @@
   vars_files:
     - ../vars/main.yml
 
-  handlers:
-    - ../handlers/main.yml
+  #handlers:
+    #- ../handlers/main.yml
 
   pre_tasks:
-    - include_tasks: ../roles/common/inventory_loop.yml
-    - include_tasks: ../roles/common/cpu.yml
-    - include_tasks: ../roles/common/mem.yml
-    - include_tasks: ../roles/common/totalchk.yml
-    - include_tasks: ../roles/common/assert.yml
-    - include_tasks: ../roles/common/updates.yml
+    #- include_tasks: ../roles/common/inventory_loop.yml
+    #- include_tasks: ../roles/common/cpu.yml
+    #- include_tasks: ../roles/common/mem.yml
+    #- include_tasks: ../roles/common/totalchk.yml
+    #- include_tasks: ../roles/common/assert.yml
+    #- include_tasks: ../roles/common/updates.yml
 
   tasks:
-    - include_tasks: ../roles/nuxt/main.yml
-    #- include_tasks: ../roles/nodejs/checknpm.yml
+    #- include_tasks: ../roles/Nuxt/main.yml
+    - include_tasks: ../roles/Nuxt/deploy.yml
     #- include_tasks: ../roles/nodejs/deploy_npm.yml
     #- incluse_tasks: ../roles/nodejs/start_nuxt.yml

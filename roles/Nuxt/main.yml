@@ -11,7 +11,7 @@
 - name: Git ingotbrokers-admin Repo
   tags: clone,admin
   git:
-    repo: "git clone git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git"
+    repo: "git@bitbucket.org:sigmaltd/ingotbrokers-nuxt.git"
     key_file: "files/id_rsa"
     accept_hostkey: yes
     dest: "{{ dest_dir[1] }}"
@@ -19,7 +19,7 @@
 - name: Copying example.env file
   tags: project,env
   shell:
-    "cp example.env .env"
+    "cp .example.env .env"
   args:
     chdir: "{{ dest_dir[1] }}"
   register: ENV_NODE

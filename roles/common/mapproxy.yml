@@ -1,28 +1,25 @@
+---
 # https://mapproxy.org/docs/latest/install.html
-# ---
-# - hosts: all
-#   remote_user: debian
-#
-#     tasks:
-#         - name: Install dependencies
-#               apt:
-#                       name: "{{ item }}"
-#                               state: latest
-#                                       update_cache: yes
-#                                             with_items:
-#                                                     - build-essential
-#                                                             - libapache2-mod-wsgi
-#                                                                     - libfreetype6-dev
-#                                                                             - libgeos-dev
-#                                                                                     - libgdal-dev
-#                                                                                             - libjpeg-dev
-#                                                                                                     - libproj0
-#                                                                                                             - python-dev
-#                                                                                                                     - python-imaging
-# - python-lxml
-# - python-pip
-# - python-shapely
-# - python-virtualenv
-# - python-yaml
-# - zlib1g-dev
-become: yes
+#   
+- name: Install dependencies
+  become: true
+  apt:
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  with_items:
+#   - build-essential
+#   - libapache2-mod-wsgi
+#   - libfreetype6-dev
+#   - libgeos-dev
+#   - libgdal-dev
+#   - libjpeg-dev
+#   - libproj0
+#   - python-dev
+#   - python-imaging
+#   - python-lxml
+#   - python-pip
+#   - python-shapely
+#   - python-virtualenv
+#   - python-yaml
+#   - zlib1g-dev

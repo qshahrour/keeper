@@ -3,7 +3,7 @@
 - name: Create a UserName Ubuntu
   become: true
   user:
-    name: nagios
-    group: www-data
-    #shell: /bin/bash
-    #home: /home/ubuntu
+    name: ubuntu
+    group: sudo
+    shell: /bin/bash
+    home: /home/ubuntu

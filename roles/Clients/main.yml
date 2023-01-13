@@ -105,6 +105,15 @@
     state: present
   register: DEBUG
 
+- name: Comment CDN
+  lineinfile:
+    path: "{{ destdir[2] }}"
+    regexp: '(^NUXT_ENV_CDN_URL=.*)'
+    line: '# \1'
+    backrefs: yes
+    state: present
+  register: DEBUG
+
 - name: Install NPM
   tags: node
   async: 3600

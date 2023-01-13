@@ -1,0 +1,12 @@
+---
+
+- name: Check Desk
+  set_facts:
+    mount_names: "{{ ansible_mounts | grep device }}"
+  debug: var=mount_names
+  when: 
+
+  
+- 
+    "mount": "/"
+  size_available

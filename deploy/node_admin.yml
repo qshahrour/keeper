@@ -18,7 +18,9 @@
     #- include_tasks: ../roles/common/updates.yml
 
   tasks:
-    - include_tasks: ../roles/MAIN/employee/main.yml
+
+    #- include_tasks: ../roles/MAIN/employee/main.yml
+    - include_tasks: ../roles/MAIN/employee/deploy.yml
     #- include_tasks: ../roles/nodejs/chknpm.yml
     #- include_tasks: ../roles/clone/client-node.yml
     #- include_tasks: ../roles/clone/admin-node.yml

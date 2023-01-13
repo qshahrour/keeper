@@ -36,7 +36,7 @@
   lineinfile:
     path: "{{ destdir[3] }}"
     regexp: '^NUXT_PORT='
-    line: NUXT_PORT=29998
+    line: NUXT_PORT=3002
     state: present
   register: NODE_PORT 
 
@@ -142,7 +142,7 @@
   tags: node_validate,node
   wait_for:
     host: "localhost"
-    port: "29998"
+    port: "3002"
     delay: "10"
     timeout: "30"
     state: started
