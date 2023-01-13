@@ -15,14 +15,14 @@
 
 - name: Laravel Scheduler
   cron: >
-    job="run-one php /var/www/laravel/artisan schedule:run 1>> /dev/null 2>&1"
+    job="run-one php /var/www/ingotbrokers/artisan schedule:run 1>> /dev/null 2>&1"
     state=present
     user=www-data
     name="php artisan schedule:run"
 
 - name: Laravel Queue Worker
   cron: >
-    job="run-one php /var/www/laravel/artisan queue:work --daemon --sleep=30 --delay=60 --tries=3 1>> /dev/null 2>&1"
+    job="run-one php /var/www/ingotbrokers/artisan queue:work --daemon --sleep=30 --delay=60 --tries=3 1>> /dev/null 2>&1"
     state=present
     user=www-data
     name="Laravel Queue Worker"
