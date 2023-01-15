@@ -1,11 +1,8 @@
 ---
 
-localpath:
-  - /home/ubuntu/underwater.png
-
-remotepath:
-  - /home/it/
-
+sync_dir:
+  - /home/ubuntu/sync/
+  - /etc/apache2/sites-available/
 task_name:
   - chkproc.yml
   - chkmem.yml

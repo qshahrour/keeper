@@ -1,0 +1,13 @@
+---
+
+- name: Copy files
+  become: true
+  synchronize:
+    src: /home/ubuntu/sync/
+    dest: "{{ sync_dir[0] }}"
+    dirs: yes
+    mode: push
+    recursive: ye
+    archive: no
+    checksum: yes
+  register: sync_sucess

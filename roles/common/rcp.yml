@@ -12,7 +12,7 @@
   become: true
   synchronize:
     src: /home/ubuntu/sync/
-    dest: /home/it/sync/
+    dest: /etc/apache2/sites-available/
     dirs: yes
     mode: push
     recursive: yes
