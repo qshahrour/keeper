@@ -9,3 +9,7 @@
   args:
     chdir: "{{ dest_dir[1] }}"
   register: NUXT_START
+
+- name: Check Client Deployment
+  debug:
+    msg: "{{ DEP_CLIENT.stdout_lines }}"

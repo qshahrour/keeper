@@ -1,0 +1,56 @@
+---
+
+- name: Copy Enviroment File
+  shell:
+    "cp example.env .env"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: NUXT_ENV
+
+- name: Edit SSR_API_BASE_URL
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^SSR_API_BASE_URL='
+    line: SSR_API_BASE_URL=https://apibeta.ingotbrokers.com
+    state: present
+  register: API_URL
+
+- name: Edit BROWSER_API_BASE_URL
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^BROWSER_API_BASE_URL='
+    line: BROWSER_API_BASE_URL=https/api.ingotbrokers.com
+    state: present
+  register: BROWSER_URL 
+
+- name: Sdtging up PORTAL_PREFIX
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^PORTAL_PREFIX='
+    line: PORTAL_PREFIX=portal
+    state: present
+  register: PORTAL_PREFIX
+
+- name: Addind INSTITUTIONAL_LINK
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^INSTITUTIONAL_LINK='
+    line: INSTITUTIONAL_LINK=institutional
+    state: present
+  register: INSTITUTIONAL_LINK
+
+- name: DDE_SOCKET_URL=wss://ws.ingotbrokers.com
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^DDE_SOCKET_URL='
+    line: DDE_SOCKET_URL=wss://ws.ingotbrokers.com
+    state: present
+  register: DDE_URL
+
+- name: GOOGLE_MAP_URL
+  lineinfile:
+    path: "{{ destdir[1] }}"
+    regexp: '^NUXT_ENV_GOOGLE_MAP_API_KEY='
+    line: NUXT_ENV_GOOGLE_MAP_API_KEY=0
+    state: present
+  register: GOOGLE_MAP

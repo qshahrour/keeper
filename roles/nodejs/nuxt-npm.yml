@@ -1,0 +1,18 @@
+---
+
+- name: NPM Installing
+  tags: NPM
+  async: 3600
+  poll: 10
+  shell:
+    "npm install"
+  args:
+    chdir: "{{ dest_dir[1] }}"
+  register: NPM_START
+
+- name: Debuging NPM installation
+  debug:
+    msg: "{{ NPM_START.stdout_lines }}"
+
+- name: Validate npm installation
+  debug: msg="Installation of node is Successfull"

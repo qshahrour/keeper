@@ -1,24 +1,8 @@
 ---
 
-- name: delete existing pm2 processes if running
-  command: "pm2 delete {{ server_id }}"
-  ignore_errors: True
-  become: true
-  become_user: "{{ ansible_user }}"
-
-- name: start pm2 process
-  command: 'pm2 start -x -i 4 --name "{{server_id}}" server.js'
-  become: yes
-  become_user: "{{ ansible_user }}"
-  environment:
-    NODE_ENV: "{{server_env}}"
-
-#pm2.ecosystem.config.js
-#pm2 reload app.js -i max
-#
-#module.exports = {
-#  apps : [{
-#    script: 'app.js',
-#    name: "My app"
-#  }],
-#};
+- name: PM2 Start
+  shell:
+    "pm2 --update-env"
+  args:
+    chdir: "{{ dest_dir[2] }}"
+  register: pmt start

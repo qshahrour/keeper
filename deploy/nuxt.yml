@@ -1,23 +1,23 @@
 ---
 
-- name:
-  hosts: [web_servers]
+- name: Nuxt Main Site Deployment Configurations
+  hosts: [front_servers]
   vars_files:
     - ../vars/main.yml
 
-  #handlers:
-    #- ../handlers/main.yml
-
   pre_tasks:
     #- include_tasks: ../roles/common/inventory_loop.yml
-    #- include_tasks: ../roles/common/cpu.yml
-    #- include_tasks: ../roles/common/mem.yml
-    #- include_tasks: ../roles/common/totalchk.yml
-    #- include_tasks: ../roles/common/assert.yml
-    #- include_tasks: ../roles/common/updates.yml
+    #- include_tasks: ../roles/common/chkproc.yml
+    #- include_tasks: ../roles/common/chkdsk.yml
+    #- include_tasks: ../roles/common/chkmem.yml
+    #- include_tasks: ../roles/common/chkmemp.yml
 
   tasks:
-    #- include_tasks: ../roles/Nuxt/main.yml
-    - include_tasks: ../roles/Nuxt/deploy.yml
-    #- include_tasks: ../roles/nodejs/deploy_npm.yml
-    #- incluse_tasks: ../roles/nodejs/start_nuxt.yml
+    #- include_tasks: ../roles/common/updates.yml
+    #- include_tasks: ../roles/nuxt/main.yml
+    #- include_tasks: ../roles/clone/nuxt-clone.yml
+    #- include_tasks: ../roles/nodejs/nuxt-env.yml
+    #- incluse_tasks: ../roles/nodejs/nuxt-npm.yml
+    #- include_tasks: ../roles/nodejs/nuxt-deploy.yml
+    #- include_tasks: ../roles/
+    #- include_tasks: ../roles/

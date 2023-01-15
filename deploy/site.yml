@@ -4,42 +4,29 @@
   hosts: [temp]
   vars_files: 
     - ../vars/main.yml
-    #- vars/mysql.yml
-
- #handlers:
-   #- handlers/main.yml
-    #- handlers/
-
   pre_tasks:
     #- include_tasks: ../roles/common/rcp.yml
-    #- include_tasks: roles/common/chktotal.yml
-    #- include_tasks: roles/common/chkcpu.yml
-    #- include_tasks: roles/common/chkmem.yml
-    #- include_tasks: roles/common/chkdisk.yml
-    #- include_tasks: roles/common/assert.yml
-    #- include_tasks: roles/common/failwhen.yml
-    #- include_tasks: roles/common/updates.yml
+    #- include_tasks: ../roles/common/chktotal.yml
+    #- include_tasks: ../roles/common/chkproc.yml
+    #- include_tasks: ../roles/common/chkmem.yml
+    #- include_tasks: ../roles/common/chkdsk.yml
+    #- include_tasks: ../roles/common/chkip.yml
+    #- include_tasks: ../roles/common/assert.yml
+    #- include_tasks: ../roles/common/failwhen.yml
+    #- include_tasks: ../roles/common/updates.yml
 
   tasks:
     #- include_tasks: ../roles/common/push.yml
     - include_tasks: ../roles/common/pull.yml
     #- include_tasks: ../roles/url/chkurl.yml
     #- include_tasks: ../roles/nodejs/cli.yml
-    #- include_tasks: roles/common/https2.yml
-    #- include_tasks: roles/common/user.yml
-    #- include_tasks: roles/PortalServer/packages.yml
-    #- include_tasks: roles/PortalServer/repo.yml
+    #- include_tasks: ../roles/common/https2.yml
+    #- include_tasks: ../roles/common/user.yml
     #- include_tasks: roles/PortalServer/composer.yml
-    #- include_tasks: roles/PortalServer/
-    #- include_tasks: roles/common/chkip.yml
-    #- include_tasks: roles/httpd/apachek.yml
-    #- include_tasks: roles/common/user.yml
-    #- include_tasks: roles/common/nagios.yml
-    #- include_tasks: roles/common/nrpe.yml
-    #- include_tasks: roles/mysql/
-    #- include_tasks: roles/mysql/
-    #- include_tasks: roles/mysql/
-    #- include_tasks: roles/mysql/
+    #- include_tasks: ../roles/httpd/apachek.yml
+    #- include_tasks: ../roles/common/nagios.yml
+    #- include_tasks: ../roles/common/nrpe.yml
+    #- include_tasks: ../roles/mysql/
 
   #post_tasks:
 
