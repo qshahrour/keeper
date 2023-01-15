@@ -21,3 +21,6 @@ portal ansible_host=172.20.10.243 ansible_user=it
 [services]
 cronjob ansible_host=172.20.10.248 ansible_user=it
 redis ansible_host=172.20.10.245 ansible_user=it
+
+[temp]
+vpn ansible_host=194.31.194.47 ansible_user=ubuntu
