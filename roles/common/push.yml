@@ -3,8 +3,8 @@
 - name: Copy files
   become: true
   synchronize:
-    src: /home/ubuntu/sync/
-    dest: "{{ sync_dir[0] }}"
+    src: "{{ sync_dir[0] }}"
+    dest: "{{ sync_dir[5] }}"
     dirs: yes
     mode: push
     recursive: ye
