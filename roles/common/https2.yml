@@ -1,0 +1,13 @@
+---
+
+- name: Check Endpoint
+  uri:
+    url: http://
+    method: GET
+    return_content: yes
+    return_content: yes
+  register: result
+
+- name: Print Response
+  debug:
+    var: result

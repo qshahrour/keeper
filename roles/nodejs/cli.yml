@@ -1,6 +1,7 @@
 ---
 
 - name: Create Directory
+  become: true
   file:
     dest: "{{ dest_dir[3] }}"
     state: directory
@@ -11,6 +12,7 @@
 - name: Clone Node Portal
   git:
     repo: "git@bitbucket.org:sigmaltd/ingotbrokers-admin.git"
+    accept_hostkey: yes
     key_file: "files/id_rsa"
     dest: "{{ dest_dir[3] }}"
 

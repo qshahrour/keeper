@@ -1,0 +1,50 @@
+---
+
+
+
+
+
+
+
+#- name: Check HTTPS endpoint
+# hosts: all
+# gather_facts: false
+# tasks:
+- name: Check endpoint
+  uri:
+    url: https://ingotbrokers.com
+    method: GET
+        return_content: yes
+        validate_certs: no
+    register: result
+
+- name: Print response
+  debug:
+    var: result
+
+define service{
+    use                             generic-service
+    host_name                       monitored-host
+    service_description             Load
+    check_command                   check_nrpe!check_load
+}
+
+
+
+    define command{
+    command_name    check_http
+    command_line    /usr/lib/nagios/plugins/check_http -H $HOSTADDRESS$ -u /
+}
+
+define command{
+    command_name    check_http
+    command_line    /usr/lib/nagios/plugins/check_http -H $HOSTADDRESS$ -u /
+}
+
+define service{
+    use                             generic-service
+    host_name                       monitored-host
+    service_description             HTTP
+    check_command                   check_http
+}
+

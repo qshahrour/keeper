@@ -1,0 +1,12 @@
+---
+
+- name: Loop through a list of integers
+  debug:
+    msg: "The current value is {{ item }}, the current index is {{ loop.index }} and total iteration is {{ loop.length }}"
+  with_items:
+    - 1
+    - 2
+    - 3
+    - 4
+    - 5
+

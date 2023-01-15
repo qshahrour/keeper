@@ -1,0 +1,16 @@
+---
+- name: Example with loop index
+  hosts: localhost
+  gather_facts: false
+  
+  tasks:
+    - name: Loop through a list of integers
+      debug:
+        msg: "The current value is {{ item }}, and the current index is {{ loop.index }}"
+      with_items:
+        - 1
+        - 2
+        - 3
+        - 4
+        - 5
+

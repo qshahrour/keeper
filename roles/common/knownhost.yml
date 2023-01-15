@@ -1,0 +1,15 @@
+---
+
+- name: Connect to AWS EC2 instance
+  hosts: localhost
+  connection: local
+  gather_facts: false
+  vars:
+    instance_ip: "instance_public_IP"
+    private_key: "path/to/private_key.pem"
+    tasks:
+      - name: Add the EC2 instance's ho
+        ssh_known_hosts:
+          name: "{{ instance_ip }}"
+      - name: Connect to the EC2 instanc
+        ansible.builtin.shell: |ssh -i "{{ private_key }}" ubuntu@{{ instance_ip }}

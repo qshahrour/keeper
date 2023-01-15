@@ -1,0 +1,16 @@
+---
+
+- name: Check for failure
+  assert:
+    that: my_result.failed
+  register: my_assert_result
+
+- name: Send Email on Failure
+  mail:
+    host: "smtp.office365.com"
+    port: "587"
+    username: "ingotdmin@ingotbrokers.com"
+    password: "Wax92237"
+    to: "q.shahrour@ingotbrokers.com"
+    body: "The task {{ task_name }} failed on host {{ inventory_hostname }}"
+  when: my_assert_result.failed

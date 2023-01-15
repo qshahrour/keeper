@@ -1,0 +1,18 @@
+---
+
+- name: Copy files to Remote Server
+  hosts: "{{ my_hosts }}"
+  vars:
+    my_hosts:
+      - host1
+      - host2
+      - host3
+    local_path: /path/to/local/files
+    remote_path: /path/to/remote/directory
+  tasks:
+    - name: Copy files
+      synchronize:
+        src: "{{ local_path }}"
+        dest: "{{ remote_path }}"
+        remote_user: root
+        mode: pull

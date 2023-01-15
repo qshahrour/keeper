@@ -2,9 +2,9 @@
 
 - name: Start PM2
   shell:
-    "cd /var/www/ingotbrokers-portal && pm2 start all"
+    "cd /var/www/"{{ dest_dir[0] }}" && pm2 start all"
   args:
-    chdir: "{{ dest_dir[3] }}"
+    chdir: "{{ dest_dir[0] }}"
   register: PM2
 
 - name: Debug PM2 Start

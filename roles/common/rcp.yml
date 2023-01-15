@@ -1,0 +1,25 @@
+---
+
+#- name: Copy All
+#  become: true
+#  become_user: root
+#  copy:
+#    src: /home/ubuntu/sync
+#    dest: /home/it/sync
+#    remote_dest: true
+
+- name: Copy files
+  become: true
+  synchronize:
+    stc: "/home/ubuntu/sync/"
+    dest: "/home/it/sync/"
+    dirs: yes
+    mode: pull
+    recursive: yes
+    archive: no
+    checksum: yes
+    delete: yes
+    #src: "{{ localpath[0] }}"
+    #    dest: "{{ remotepath[0] }}"
+    #    remote_user: it
+    #mode: pull

@@ -1,0 +1,23 @@
+---
+- name: Check URL with POST method
+  hosts: localhost
+  gather_facts: false
+  vars:
+    url: "http://example.com"
+    post_data:
+      key1: value1
+      key2: value2
+
+  tasks:
+  - name: Check URL
+    uri:
+      url: "{{ url }}"
+      method: POST
+      body: "{{ post_data|to_json }}"
+      return_content: yes
+    register: url_check
+
+  - name: Print status code
+    debug:
+      msg: "Status code: {{ url_check.status }}"
+

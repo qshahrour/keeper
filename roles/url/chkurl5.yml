@@ -1,0 +1,12 @@
+---  
+
+- name: Print response body
+  debug:
+    msg: "{{ url_check.results[loop.index0].content }}"
+  with_items: "{{ urls }}"
+  
+- name: Print status code
+  debug:
+    msg: "Status code for {{ item.url }}: {{ url_check.results[loop.index0].status_code }}"
+  with_items: "{{ urls }}"
+

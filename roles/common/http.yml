@@ -1,0 +1,32 @@
+- name: Check HTTP endpoint
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check endpoint
+      uri:
+        url: http://ingotbrokers.com.com
+        method: GET
+        return_content: yes
+      register: result
+    - name: Print response
+      debug:
+        var: result
+
+
+- name: Check HTTP endpoints
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check endpoint
+      uri:
+        url: "{{ item }}"
+        method: GET
+        return_content: yes
+      register: result
+      with_items:
+        - http://example1.com
+        - http://example2.com
+    - name: Print response
+      debug:
+        var: result
+

@@ -1,5 +1,17 @@
 ---
 
+localpath:
+  - /home/ubuntu/underwater.png
+
+remotepath:
+  - /home/it/
+
+task_name:
+  - chkproc.yml
+  - chkmem.yml
+  - chkdsk.yml
+  - chkmemp.yml
+
 repo_dest:
   - /var/www/ingotbrokers
   - /var/www/ingotbrokers-nuxt
