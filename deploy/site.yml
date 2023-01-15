@@ -21,8 +21,9 @@
     #- include_tasks: roles/common/updates.yml
 
   tasks:
-    - include_tasks: ../roles/url/chkurl.yml
-    #- include_tasks: roles/nodejs/cli.yml
+    - include_tasks: ../roles/common/rcp.yml
+    #- include_tasks: ../roles/url/chkurl.yml
+    #- include_tasks: ../roles/nodejs/cli.yml
     #- include_tasks: roles/common/https2.yml
     #- include_tasks: roles/common/user.yml
     #- include_tasks: roles/PortalServer/packages.yml
