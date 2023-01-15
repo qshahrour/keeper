@@ -1,0 +1,41 @@
+- name: Run PHP artisan command
+  include_role:
+    name: geerlingguy.php-versions
+  vars:
+    php_versions_commands:
+      - command: php /path/to/artisan {{ command }}
+        environment: "APP_ENV={{ app_env }}"
+
+    php_fpm_commands:
+      - command: php /path/to/artisan {{ command }}
+        environment: "APP_ENV={{ app_env }}"
+
+    php_commands:
+      - command: php /path/to/artisan {{ command }}
+        "APP_ENV={{ app_env }}"
+
+    laravel_artisan_commands:
+      - command: migrate
+        environment: production
+      - command: db:seed
+        environment: development
+
+    composer_command:
+      - command: run-script post-install-cmd -- php /path/to/artisan {{ command }}
+
+    php_cli_commands:
+       - command: php /path/to/artisan {{ command }}
+
+    php_enable_mods:
+      - cli
+
+    php_cli_settings:
+      memory_limit: -1
+      opcache.enable: 1
+      opcache.enable_cli: 1
+
+
+
+
+
+

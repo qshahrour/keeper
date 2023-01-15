@@ -1,12 +1,12 @@
 ---
 
-- name: Check Processor
+- name: Processor Cores
   debug: var=ansible_processor_cores
 
 - name: Processor Count
   debug: var=ansible_processor_count
 
-- name: Swaf Free
+- name: Swap Free
   debug: var=ansible_swapfree_mb
 
 - name: Swap Total
@@ -15,11 +15,11 @@
 - name: System
   debug: var=ansible_system
 
-- name: Sys Ccapabilities
+- name: User Directory
   debug: var=ansible_user_dir
 
-- name: User Dir
+- name: User ID
   debug: var=ansible_user_id
 
-- name: User ID
+- name: User Shell
   debug: var=ansible_user_shell

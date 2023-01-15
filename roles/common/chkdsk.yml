@@ -5,8 +5,6 @@
     mount_names: "{{ ansible_mounts | grep device }}"
   debug: var=mount_names
   when: 
-
-  
 - 
-    "mount": "/"
+"mount": "/"
   size_available

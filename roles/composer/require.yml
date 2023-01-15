@@ -1,0 +1,9 @@
+---
+
+- name: Require new package
+  include_role:
+    name: qoomon.composer
+  vars:
+    composer_command: require package/name
+    composer_working_dir: /
+

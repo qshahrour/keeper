@@ -1,18 +1,16 @@
 ---
 
-- name: "Health Check For All Servers"
-  tasks:
+- name: Health Status Check For All Servers
   hosts: all
-
   vars_files:
     - ../vars/main.yml
 
   tasks:
     - include_tasks: ../roles/common/chkcpu.yml
-    - include_tasks: ../roles/common/chkmem.yml
     #- include_tasks: ../roles/common/chkdisk.yml
-    - include_tasks: ../roles/common/chktotal.yml
-    - include_tasks: ../roles/common/chkdesk.yml
     - include_tasks: ../roles/common/chkproc.yml
+    - include_tasks: ../roles/common/chkmem.yml
+    - include_tasks: ../roles/common/chkdesk.yml
+    - include_tasks: ../roles/common/chkmemp.yml
     - include_tasks: ../roles/common/chkip.yml
-    - include_tasks: ../roles/common/mail.yml
+    #- include_tasks: ../roles/common/mail.yml

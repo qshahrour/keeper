@@ -1,0 +1,42 @@
+- name: Create a new migration
+  command: php /path/to/artisan make:migration create_my_table
+
+- name: Create a new model
+  command: php /path/to/artisan make:model MyModel
+
+- name: Create a new controller
+  command: php /path/to/artisan make:controller MyController
+
+- name: Run database seeds
+   command: php /path/to/artisan db:seed
+
+- name: Generate application key
+  command: php /path/to/artisan key:generate
+
+- name: Clear application cache
+    command: php /path/to/artisan cache:clear
+
+- name: Run Artisan command
+  command: php /path/to/artisan {{ command }}
+  args:
+    chdir: /path/to/project/root
+    environment: "APP_ENV": "{{ app_env }}"
+
+- name: Run database migrations
+   shell: php /path/to/artisan migrate --force
+
+
+- name: Run database migrations
+  command: php /path/to/artisan migrate
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,10 @@
+---
+
+- name: Install Composer dependencies
+  include_role:
+    name: ansiblebit.composer
+  vars:
+    composer_command: install
+    composer_working_dir: path
+    composer_optimize_autoloader: true
+    composer_no_dev: true

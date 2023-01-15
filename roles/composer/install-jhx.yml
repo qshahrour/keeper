@@ -1,0 +1,22 @@
+---
+
+- name: Install Composer dependencies
+  include_role:
+    name:
+  vars:
+    composer_command: install
+    composer_working_dir: /path/to/
+
+- name: Install Composer
+  include_role:
+    name: oefenweb.composer
+  vars:
+    composer_install_globally: true
+    composer_version: 2
+
+    name: mrlesmithjr.composer
+
+- name: Install composer
+  composer:
+  command: install
+    working_dir: /path/to/your/project

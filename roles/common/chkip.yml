@@ -4,10 +4,11 @@
   uri:
     url: https://checkip.amazonaws.com
     return_content: true
-  register: result
+  register: IP
 
-#- name: Creating a new variable to store this IP
-  #set_fact:
-    #publicip: "{{ result.content | trim() }}"
-#- debug:
-    #var: publicip
+- name: Creating a new variable to store this IP
+  set_fact:
+    publicip: "{{IP.content | trim()}}"
+
+- name: Public IP
+  debug: var=publicip

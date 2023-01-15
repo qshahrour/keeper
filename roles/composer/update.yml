@@ -1,0 +1,8 @@
+---
+
+- name: Update Composer dependencies
+  include_role:
+    name: geerlingguy.composer
+  vars:
+    composer_command: update
+    composer_working_dir: /path/to/
