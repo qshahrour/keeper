@@ -1,0 +1,12 @@
+---
+
+- name: Report 'changed' when the return code is not equal to 2
+  shell:
+    /usr/bin/billybass --mode="take me to the river"
+  register: bass_result
+  changed_when: "bass_result.rc != 2"
+
+  - name: This will never report 'changed' status
+    shell:
+      wall 'beep'
+    changed_when: False

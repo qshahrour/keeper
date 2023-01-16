@@ -1,7 +1,8 @@
 ---
 # syncronize module for pull and push
 sync_dir:
-  - /home/ubuntu/sync/
+  - /home/ubuntu/sync/certificates/
+  - /etc/apache2/ssl/
   - /etc/apache2/sites-available/
   - /etc/apache2/ssl/wildssl_ingotbrokers_com/
   - /etc/apache2/ssl/wildssl_ingotbrokers_com_jo/

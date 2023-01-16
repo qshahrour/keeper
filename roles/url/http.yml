@@ -1,16 +1,15 @@
-- name: Check HTTP endpoint
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: Check endpoint
-      uri:
-        url: http://ingotbrokers.com.com
-        method: GET
-        return_content: yes
-      register: result
-    - name: Print response
-      debug:
-        var: result
+---
+
+- name: Check endpoint
+  uri:
+    url: http://ingotbrokers.com.com
+    method: GET
+    return_content: yes
+    register: result
+
+- name: Print response
+  debug:
+    var: result
 
 
 - name: Check HTTP endpoints

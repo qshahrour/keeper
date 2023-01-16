@@ -1,0 +1,12 @@
+---
+
+- name: Checking
+  hosts: localhost
+
+  tasks:
+    - name: make a DELETE request
+      uri:
+        url: http://example.com/api/resource/1
+        method: DELETE
+        status_code: 204
+      register: response

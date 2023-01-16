@@ -1,0 +1,12 @@
+- name: Make an OPTIONS request with 
+  uri:
+    url: http://example.com/api/resource
+    method: OPTIONS
+    headers:
+      Authorization: 'Bearer {{ access_token }}'
+
+- name: Make an OPTIONS request
+  uri:
+    url: http://example.com/api/resource
+    method: OPTIONS
+

@@ -1,0 +1,17 @@
+---
+
+- name: Checking
+  hosts: localhost
+
+  tasks:
+    - name: make a POST request with JSON payload
+      uri:
+        url: http://example.com/api
+      method: POST
+      body: '{"name": "John", "age": 30}'
+      body_format: json
+      headers:
+        Content-Type: application/json
+      status_code: 201
+      return_content: yes
+    register: response

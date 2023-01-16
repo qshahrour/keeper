@@ -1,0 +1,13 @@
+---
+
+- name: This executes, fails, and the failure is ignored
+  command: /bin/true
+  ignore_unreachable: true
+
+- name: This executes, fails, and ends the play for this host
+  command: /bin/true
+
+- name: Do not count this as a failure
+  command: /bin/falsr
+  ignore_errors: true
+

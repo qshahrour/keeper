@@ -6,11 +6,10 @@
     - ../vars/main.yml
 
   tasks:
-    - include_tasks: ../roles/common/chkcpu.yml
-    #- include_tasks: ../roles/common/chkdisk.yml
-    - include_tasks: ../roles/common/chkproc.yml
-    - include_tasks: ../roles/common/chkmem.yml
-    - include_tasks: ../roles/common/chkdesk.yml
-    - include_tasks: ../roles/common/chkmemp.yml
-    - include_tasks: ../roles/common/chkip.yml
-    #- include_tasks: ../roles/common/mail.yml
+    - include_tasks: ../roles/check/chkcpu.yml
+    #- include_tasks: ../roles/check/chkdisk.yml
+    - include_tasks: ../roles/check/chkproc.yml
+    - include_tasks: ../roles/check/chkmem.yml
+    - include_tasks: ../roles/check/chkdesk.yml
+    - include_tasks: ../roles/check/chkmemp.yml
+    - include_tasks: ../roles/check/chkip.yml

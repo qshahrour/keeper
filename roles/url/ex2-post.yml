@@ -1,0 +1,24 @@
+- name:
+  uri:
+    url: https://{{ item }}.{{ domain }}/en/login
+    method: POST
+    body_format: json
+    body:
+    heasers:
+      content_type: "application/json"
+      Connection: "keep-alive"
+    status_code: 200
+    return_content: yes
+    validate_certs: no
+    delegate_to: localhost
+  failed_when: false
+  changed_when: fals
+  when: url_check.status !=200 and url_check.status != 500
+  register: url_check
+  with_items:
+    - portal
+    - campains
+
+- name: Print status code
+  debug:
+    msg: "Status code: {{ url_check.status }}"

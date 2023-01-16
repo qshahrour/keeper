@@ -1,0 +1,5 @@
+---
+
+- name: Run this command and ignore the result
+  shell:
+    /usr/bin/somecommand || /bin/true

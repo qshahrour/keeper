@@ -1,13 +1,13 @@
 ---
 
-- name: Copy files
+- name: Copy Files
   become: true
   synchronize:
     src: "{{ sync_dir[0] }}"
-    dest: "{{ sync_dir[5] }}"
+    dest: "{{ sync_dir[1] }}"
     dirs: yes
     mode: push
-    recursive: ye
+    recursive: yes
     archive: no
     checksum: yes
   register: sync_sucess

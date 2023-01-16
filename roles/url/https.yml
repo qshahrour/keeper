@@ -1,26 +1,20 @@
----
+---=
 
+- name: Check HTTPS endpoint
+  hosts: localhost
+  gather_facts: false
+  tasks:
 
-
-
-
-
-
-#- name: Check HTTPS endpoint
-# hosts: all
-# gather_facts: false
-# tasks:
-- name: Check endpoint
-  uri:
-    url: https://ingotbrokers.com
-    method: GET
+    - name: Check endpoint
+      uri:
+        url: https://www.ingotbrokers.com
+        method: GET
         return_content: yes
         validate_certs: no
-    register: result
+      register: result
 
-- name: Print response
-  debug:
-    var: result
+    - name: Print Response
+      debug: var=result
 
 define service{
     use                             generic-service

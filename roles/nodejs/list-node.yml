@@ -1,0 +1,15 @@
+---
+
+- name: List Node
+  vars:
+    acceptable_err_matches:
+      - the object has been modified
+      - have a resource type
+    match_regex: acceptable_err_matches |map('regex_escape') | join('|')
+    delegate_to: localhost
+    shell: kubectl get nodes
+    run_once: true
+    register: output_error
+    failed_when:
+      - output_error.stderr_lines | length > 0
+      - output_error.stderr is not regex(match_regex)
