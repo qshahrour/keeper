@@ -1,0 +1,13 @@
+---
+
+- name: Checking Connectivity
+  hosts: localhost
+
+  tasks:
+    - name: check the response body
+      uri:
+        url: https://portal.ingotbrokers.com
+        method: GET
+        return_content: yes
+      register: response
+      when: response.content.find("error") != -1

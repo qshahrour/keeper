@@ -1,0 +1,11 @@
+---
+
+- name: Checking Connectivity
+  hosts: localhost
+
+  tasks:
+    - name: check the status code of a URL
+      uri:
+        url: http://portal.ingotbrokers.com
+        method: GET
+      register: response
