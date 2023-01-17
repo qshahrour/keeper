@@ -1,7 +1,7 @@
 ---
 # For httpd Role
 - name: install packages
-  dnf:
+  apt:
     name:
       - httpd
       - mod_ssl

@@ -1,17 +1,11 @@
-# This Scriy 
-#
-#- name: Check HTTPS endpoint
-#hosts: all
-#gather_facts: false
-#tasks:
-    
+---
 
 - name: Check endpoint
   uri:
     url: https://example.com
     method: GET
     return_content: yes
-      validate_certs: no
+    validate_certs: no
   register: result
     
 - name: Print response

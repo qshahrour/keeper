@@ -28,15 +28,3 @@
 
 - name: Run database migrations
   command: php /path/to/artisan migrate
-
-
-
-
-
-
-
-
-
-
-
-

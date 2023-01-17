@@ -1,31 +1,37 @@
 ---
 
-- name: Check endpoint
+- name: Check if URL returns 404
   uri:
-    url: http://ingotbrokers.com.com
+    url: https://{{ item }}
+    status_code: [200,404]
+    headers:
+      Content-Type: "form-urlencoded"
+      Connection: "keep-alive"
+      Server: Apache/2.4.41 (Ubuntu)
+      Accept-Ranges: none
+      Cache-Control: no-cache
     method: GET
-    return_content: yes
-    register: result
+    return_content: false
+    follow_redirects: all
+    validate_certs: no
+  register: status_code   
+  with_items:
+    - www.ingotbrokers.com
+    #- www.ingotbrokers.com.jo
+    #- www.ingotbrokers.com.au
+    #- www.ingotbrokersafrica.com
+    #- www.ingotbrokersrsa.com
+    #- www.ingotbrokersllc.com
+  failed_when: false
 
-- name: Print response
+- name: Print Status
   debug:
-    var: result
+    msg: "HTTP/1.1 200 OK"
 
 
-- name: Check HTTP endpoints
-  hosts: all
-  gather_facts: false
-  tasks:
-    - name: Check endpoint
-      uri:
-        url: "{{ item }}"
-        method: GET
-        return_content: yes
-      register: result
-      with_items:
-        - http://example1.com
-        - http://example2.com
-    - name: Print response
-      debug:
-        var: result
+- name: Print Result
+  debug: var=status_code
 
+- name: If URL Returns 404
+  command: ./mail.sh
+  when: status_code != 404

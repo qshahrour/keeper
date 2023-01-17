@@ -1,0 +1,16 @@
+---
+
+- name: Copy Files
+  become: true
+  synchronize:
+    src: "{{ sync_dir[0] }}"
+    dest: "{{ sync_dir[7] }}"
+    dirs: yes
+    mode: push
+    archive: no
+
+- name: Copy a version of named.conf that is dependent on the OS.
+  become:
+  template:
+    src: ~/sync/nginx.conf.j2
+    dest: /etc/nginx/nginx.conf

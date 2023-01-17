@@ -1,9 +1,11 @@
 ---
 
 - name: Installation install software-properties-common
+  become: true
   apt: name=software-properties-common
 
 - name: "Repo PHP 8.0"
+  become: true
   apt_repository:
     repo:
       "ppa:ondrej/php"
@@ -12,59 +14,63 @@
 - name: "Updating the repo"
   apt: update_cache=yes
 
-- name: Installation PHP
+- name: Installation PHP v8.0
+  become: true
   apt: 
     name: php8.0
     state: present
 
 - name: install packages
-  sudo: true
+  become: true
   apt: name={{ item }} update_cache=yes state=latest
     with_items:
       - git
-      - mcrypt
       - nginx
-      - mbstring
-      - bcmath
-      - opcahe
-      - php8.0-common
-      - php8.0-cli
-      - php8.0-curl
-      - php8.0-fpm
-      - php8.0-intl
-      - php5-json
-      - php8.0-mcrypt
-      - php8.0-gd
-      - libapache2-mod-php8.0
+      - php8.1-mbstring
+      - php8.1-bcmath
+      - php8.1-opcache
+      - php8.1-common
+      - php8.1-cli
+      - php8.1-curl
+      - php8.1-fpm
+      - php8.1-intl
+      - php8.1-json
+      - php8.1-mcrypt
+      - php8.1-gd
+      - php8.1-mysql
+      - php8.1-raph
+      - php8.1-xml
+      - php8.1-bz2
     state: present
     update_cache: yes
 
-- name: ensure php5-fpm cgi.fix_pathinfo=0
-  lineinfile: dest=/etc/php5/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
+- name: ensure php8.1-fpm cgi.fix_pathinfo=0
+  lineinfile: dest=/etc/php/fpm/php.ini regexp='^(.*)cgi.fix_pathinfo=' line=cgi.fix_pathinfo=0
     notify:
-      - restart php5-fpm
+      - restart php8.1-fpm
       - restart nginx
 
-- name: enable php5 mcrypt module
-  shell: php5enmod mcrypt
+- name: enable php8.1 mcrypt module
+  shell: php8.1enmod mcrypt
     args:
     creates: /etc/php5/cli/conf.d/20-mcrypt.ini
 
 - name: Clone git repository
   git: >
-    dest=/var/www/laravel
+    dest=/var/www/ingot-api
     repo=https://github.com/laravel/laravel.git
     update=no
-  sudo: yes
-  sudo_user: www-data
+  user: "www-data"
+  group: "www-data"
+  mod: "0775"
   when: cloned|changed
 
-- name: install composer
+- name: Install Composer
   shell: curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
   args:
     creates: /usr/local/bin/composer
 
-- name: composer create-project
-  composer: command=create-project working_dir=/var/www/laravel optimize_autoloader=no
-  sudo: yes
-  sudo_user: www-dat
+- name: Composer Create-Project
+  composer: command=create-project working_dir=/var/www/ingot-api optimize_autoloader=no
+  become: yes
+  become_user: www-dat

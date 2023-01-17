@@ -1,9 +1,17 @@
 ---
 
+- name: Create Directory
+  file:
+    dest: "{{ dest_dir[3] }}"
+    state: directory
+    owner: {{ ansible_user }}
+    group: {{ ansible_user }}
+    mode: "0775"
+
 - name: Git ingotbrokers-admin Repo
   tags: clone,admin
   git:
     repo: "git@bitbucket.org:sigmaltd/ingot-api.git"
     accept_hostkey: yes
     key_file: "files/id_rsa_uat"
-    dest: "{{ dest_dir[5] }}"
+    dest: "{{ dest_dir[2] }}"
