@@ -1,0 +1,12 @@
+---
+#Check if a URL returns a 503 (Service Unavailable) status:
+- name: Check if URL is Down
+  uri:
+    url: http://example.com/
+    method: GET
+  register: url_check
+
+- name: If URL is Down
+  command: /bin/bash/mail.sh
+  when: url_check.status_code == 503
+

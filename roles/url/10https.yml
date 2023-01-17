@@ -1,0 +1,54 @@
+---
+
+- name: Check HTTPS Endpoint
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Check endpoint
+      uri:
+        url: https://{{ item }}
+        method: GET
+        headers:
+          Content-Type: "form-urlencoded"
+          Connection: "keep-alive"
+        return_content: false
+        follow_redirects: all
+        validate_certs: no
+        force: true
+        #status_code: [200,500]
+      register: status_code
+      #when: url_check != 200 and url_check != 500
+      with_items:
+        - www.ingotbrokers.com
+        - www.ingotbrokers.com.jo
+        - www.ingotbrokers.com.au
+        - portal.ingotbrokers.com
+        - portal.ingotbrokers.com.jo
+        - portal.ingotbrokers.com.au
+    #failed_when: false
+    # changed_when: false
+   
+    - name: Print Response
+      debug: var=status_code
+
+    - name: Failed When
+      fail:
+      #msg: "HTTP/1.1 200"
+      when: status_code != 404
+
+      #- name: Failure Assert
+      #  - assert:
+      # that: status_code.failed
+      #register: assert_result
+
+    - name: Send Email on Failure
+      mail:
+        host: smtp.office365.com
+        port: 587
+        username: ingotadmin@ingotbrokers.com
+        password: Wax92237
+        to: q.shahrour@ingotbrokers.com
+        body: "Website Checking Task has Failed on {{ item }}!!"
+      when: fail
+
+

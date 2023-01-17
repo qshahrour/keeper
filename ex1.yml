@@ -1,0 +1,39 @@
+---
+# Paced on the following syntax:
+- name: Place the result of the current item in the variable
+  shell: echo "{{ item }}"
+  loop:
+    - one
+    - two
+  register: echo
+  changed_when: echo.stdout != "one"
+
+#registered task that check for its own items status you will just have to do something like:
+#failed_when: "'must not contain special characters or whitespace' not in result.json.localizedMessage"
+
+
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - name:
+      uri:
+        url: "{{ item }}"
+      loop:
+        - https://httpbin.org/get
+        - https://httpbin.org/anything
+      register: result
+      failed_when: "result.json.url == 'https://httpbin.org/get'"
+
+
+- hosts: localhost
+  gather_facts: no
+
+  tasks:
+    - uri:
+        url: "{{ item }}"
+      loop:
+        - https://httpbin.org/get
+        - https://httpbin.org/anything
+      register: result
+      failed_when: "result.json.url == 'https://httpbin.org/anything'"

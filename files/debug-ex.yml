@@ -1,0 +1,49 @@
+---
+
+- name: Create instance - must not contain special characters or whitespace
+  uri:
+    url: "https://{{PROXY_ADDRESS}}/api/sol005/etsi/nslcm/v2/ns_instances"
+    status_code: 400
+    validate_certs: no
+    body_format: json
+    method: POST
+    headers:
+      Content-Type: application/json
+      Authorization: "{{'Bearer'+' '+access_token}}"
+      Version: "2.0.0"
+      Accept: "*/*"
+    body: >
+          { "nsdId": "instance::int::1.0",
+            "nsName": "{{ item }}",
+            "nsDescription": "Test instance with name containing invalid characters."
+          }
+  register: result
+- set_fact:
+  localizedMessage: "{{ result.results[0].json['localizedMessage'] }}"
+  with_itemes:
+    - "caesar:test"
+  failed_when: "'must not contain special characters or whitespace' not in result.results[0].json['localizedMessage']"
+
+
+- debug:
+     msg:
+       - "============ Printing result output ============"
+       - "Showing result type: {{ result | type_debug }}"
+       - "Showing result contents: {{ result}}"
+       - "Showing result.keys(): {{ item }}"
+    with_items: "{{ result.keys() }}"
+  - debug:
+      msg:
+        - "============ Printing result.results output ============"
+        - "Showing result.results type: {{ result.results | type_debug }}"
+        - "Showing result.results contents: {{ result.results }}"
+  - debug:
+      msg:
+        - "============ Printing result.results[0] output ============"
+        - "Showing result.results[0].type: {{ result.results[0] | type_debug }}"
+        - "Showing result.results[0].contents: {{ result.results[0] }}"
+        - "Showing result.results[0].keys(): {{ item }}"
+    with_items: "{{ result.results[0].keys() }}"
+    
+
+

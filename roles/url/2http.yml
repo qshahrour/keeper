@@ -1,0 +1,16 @@
+---
+#Check if a URL returns a 201 (Created) status after making a POST request:
+
+- name: Create resource on server
+  uri:
+    url: http://example.com/resources
+    method: POST
+    body: '{"name": "example_resource"}'
+    headers:
+      Content-Type: application/json
+  register: create_response
+
+- name: Resource Creation is Successful
+  command: /path/to/script
+  when: create_response.status_code == 201
+

@@ -1,0 +1,16 @@
+---
+
+- name: Ansible Script to Send Emails
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Send Email
+      mail:
+        host: smtp.office365.com
+        port: 587
+        username: ingotadmin@ingotbrokers.com
+        password: Wax92237
+        to: q.shahrour@ingotbrokers.com
+        subject: Ansible Alert Email
+        body: "This is Alert Email sent by Ansible, to inform you that Error 404 accured"
+        sender: ingotadmin@ingotbrokers.com

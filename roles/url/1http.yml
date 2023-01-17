@@ -1,0 +1,37 @@
+---
+
+- name: Check if URL returns 404
+  uri:
+    url: https://{{ item }}
+    status_code: [200,404]
+    headers:
+      Content-Type: "form-urlencoded"
+      Connection: "keep-alive"
+      Server: Apache/2.4.41 (Ubuntu)
+      Accept-Ranges: none
+      Cache-Control: no-cache
+    method: GET
+    return_content: false
+    follow_redirects: all
+    validate_certs: no
+  register: status_code   
+  with_items:
+    - www.ingotbrokers.com
+    #- www.ingotbrokers.com.jo
+    #- www.ingotbrokers.com.au
+    #- www.ingotbrokersafrica.com
+    #- www.ingotbrokersrsa.com
+    #- www.ingotbrokersllc.com
+  failed_when: false
+
+- name: Print Status
+  debug:
+    msg: "HTTP/1.1 200 OK"
+
+
+- name: Print Result
+  debug: var=status_code
+
+- name: If URL Returns 404
+  command: ./mail.sh
+  when: status_code != 404

@@ -1,0 +1,12 @@
+---
+
+- name: Check if URL is reachable
+  uri:
+    url: http://example.com
+    method: GET
+  register: url_check
+
+- name: Do something if URL is reachable
+  command: /path/to/script
+  when: url_check.status_code == 200
+

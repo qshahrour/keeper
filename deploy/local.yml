@@ -1,9 +1,12 @@
 ---
 
-- name: Checkink Jobs on LocalHoat
+- name: Checking Jobs on LocalHoat
   hosts: localhost
   vars_files:
-    - vars/main.yml
+    - ../vars/main.yml
 
   tasks:
-    - include_tasks: roles/check/chkdesk.yml
+    #- include_tasks: ../roles/check/chkdesk.yml
+    #- include_tasks: ../mail.yml
+    - include_tasks: ../1http.yml
+    #- include_tasks: ../6http.yml

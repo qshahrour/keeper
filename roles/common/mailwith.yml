@@ -1,0 +1,12 @@
+---
+
+- name: Send Email with Attachment
+  mail:
+    host: smtp.office365.com
+    port: 587
+    usernname: ingotadmin@ingotbrokers.com
+    password:
+    to: q.shahrour@ingotbrokers.com
+    subject: Ansible Alert Email
+    body: "This is a test email sent by Ansible."
+    attachments: ~/attachment.txt
