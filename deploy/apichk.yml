@@ -1,0 +1,40 @@
+---
+
+- name: API URL Check
+  hosts:
+  gather_facts: false
+
+  tasks:
+    - name: API Checking URL
+      uri:
+        url:
+          method: POS
+          body_format: jso
+          body: '{"name":"testting","email":"testting@gmail.com","message":"testting","phone_code":"123","phone_number":"123456789","contact_request_subject_id":"1"}'
+          headers:
+            content_type: "application/json"
+            entity: "www.ingotbrokers.com"
+            language: "en"
+            connection: "keep-alive"
+            Accept: "application/json"
+          follow_redirects: all
+          return_content: false
+          validate_certs: false
+          status_code: [422]
+        register: api_status
+
+    - name: Check API URL Status
+      assert:
+        that: api_status.status == 422
+
+    - name:
+      mail:
+        host:
+        port:
+        username:
+        password:
+        to:
+        subject:
+        body:
+        from:
+

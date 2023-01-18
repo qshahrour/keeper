@@ -1,0 +1,12 @@
+---
+
+- name: Template a file
+  ansible.builtin.template:
+    src: "{{ item }}"
+    dest: /etc/myapp/foo.conf
+  loop: "{{ query('first_found', { 'files': myfiles, 'paths': mypaths}) }}"
+  vars:
+    myfiles:
+      - "{{ ansible_facts['distribution'] }}.conf"
+      -  default.conf
+    mypaths: ['search_location_one/somedir/', '/opt/other_location/somedir/']
