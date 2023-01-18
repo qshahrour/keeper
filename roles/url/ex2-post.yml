@@ -1,9 +1,11 @@
-- name:
+---
+
+- name: POST ON URL
   uri:
-    url: https://{{ item }}.{{ domain }}/en/login
+    url: https://{{ item }}.{{ domain }}/en/login/
     method: POST
     body_format: json
-    body:
+    body: '{"email": "qshahrour@outlook.com", "password":"Rhsl$%2022"}'
     heasers:
       content_type: "application/json"
       Connection: "keep-alive"
@@ -11,8 +13,6 @@
     return_content: yes
     validate_certs: no
     delegate_to: localhost
-  failed_when: false
-  changed_when: fals
   when: url_check.status !=200 and url_check.status != 500
   register: url_check
   with_items:

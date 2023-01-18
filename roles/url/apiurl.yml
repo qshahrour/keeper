@@ -1,0 +1,27 @@
+---
+
+- name: Check API URL Status
+  uri:
+    url: https://api.ingotbrokers.com/v1/website/contact-requests
+    method: POST
+    body_format: json
+    body: '{"name":"testting","email":"testting@gmail.com","message":"testting","phone_code":"123","phone_number":"123456789"}'
+    headers:
+      content_type: "application/json"
+      entity: "www.ingotbrokers.com"
+      language: "en"
+      connection: "keep-alive"
+      Accept: "application/json"
+    #set_cookie: '{"i18n_redirected=ar; Path=/; Expires=Wed, 18 Jan 2024 14:15:00 GMT; SameSite=Lax"}'
+    follow_redirects: all
+    return_content: false
+    return_content: yes
+    validate_certs: false
+  #when: url_check.status !=200 and url_check.status != 500
+  register: url_check
+
+- name: Print Status Code
+  debug: var=url_check
+    #msg: "Status code: {{ url_check.status }}"
+
+

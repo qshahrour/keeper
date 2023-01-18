@@ -11,6 +11,7 @@
     #- include_tasks: ../roles/url/6http.yml
     #- include_tasks: ../roles/common/failwhen.yml
     #- include_tasks: ../roles/url/https-get.yml
-    - include_tasks: ../roles/url/https-global.yml
-    - include_tasks: ../roles/url/https-jordan.yml
-    - include_tasks: ../roles/url/https-autralia.yml
+    #- include_tasks: ../roles/url/https-global.yml
+    #- include_tasks: ../roles/url/https-jordan.yml
+    #- include_tasks: ../roles/url/https-autralia.yml
+    - include_tasks: ../roles/url/apiurl.yml
