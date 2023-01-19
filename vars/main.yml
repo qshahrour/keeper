@@ -10,7 +10,7 @@ domains:
 
 # syncronize module for pull and push
 sync_dir:
-  - /home/ubuntu/sync/certificates/
+  - /home/ubuntu/sync/
   - /etc/apache2/ssl/
   - /etc/apache2/sites-available/
   - /etc/apache2/ssl/wildssl_ingotbrokers_com/

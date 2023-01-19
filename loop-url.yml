@@ -1,0 +1,25 @@
+---
+
+- name: URL
+  gather_facts: no
+  hosts: localhost
+
+   tasks:
+
+    - name: URL Loooping
+      uri:
+        url: "{{ item }}"
+      loop:
+        - https://www.ingotbrokers.com
+        - https://www.ingotbrokers.com.jo
+        - https://www.ingotbrokers.com.au
+        method: GET
+        headers:
+          content-type: "application/json"
+          connection: "keep-alive"
+          Accept: "vary"
+          language: "en"
+        validate_certs: false
+        return_content: false
+      register: result
+      failed_when: "result.json.url == 'https://www.ingotbrokers.jo'"
