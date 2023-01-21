@@ -1,5 +1,9 @@
 ---
 
+sync_dir:
+  - /home/ubuntu/sync/
+  - /etc/apache2/sites-available/
+
 apps:
   - apache2
   - libapache2-mod-php8.0

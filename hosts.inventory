@@ -1,4 +1,4 @@
-[web_servers]
+[portal_servers]
 fportal ansible_host=172.31.29.76 ansible_user=ubuntu
 hportal ansible_host=172.31.13.230 ansible_user=ubuntu
 
@@ -7,7 +7,6 @@ ffront ansible_host=172.31.23.59 ansible_user=ubuntu
 
 [api_servers]
 fapi ansible_host=172.31.10.186 ansible_user=ubuntu
-
 
 [db_srvers]
 node1 ansible_host=172.31.33.208 ansible_user=ubuntu
@@ -22,3 +21,27 @@ crons ansible_host=172.31.6.115 ansible_user=ubuntu
 
 [redis]
 #redis ansible_host=172.31.21.99 ansible_user=ubuntu
+
+[aws]
+fportal ansible_host=172.31.29.76 ansible_user=ubuntu
+hportal ansible_host=172.31.13.230 ansible_user=ubuntu
+ffront ansible_host=172.31.23.59 ansible_user=ubuntu
+fapi ansible_host=172.31.10.186 ansible_user=ubuntu
+node1 ansible_host=172.31.33.208 ansible_user=ubuntu
+node2 ansible_host=172.31.11.5 ansible_user=ubuntu
+node3 ansible_host=172.31.20.218 ansible_user=ubuntu
+crons ansible_host=172.31.6.115 ansible_user=ubuntu
+
+[web_servers]
+fportal ansible_host=172.31.29.76 ansible_user=ubuntu
+hportal ansible_host=172.31.13.230 ansible_user=ubuntu
+ffront ansible_host=172.31.23.59 ansible_user=ubuntu
+
+[services]
+ws ansible_host=141.95.102.17 ansible_user=ubuntu
+crons ansible_host=172.31.6.115 ansible_user=ubuntu
+redis ansible_host=172.31.21.99 ansible_user=ubuntu
+vpn ansible_host=194.31.194.47 ansible_user=ubuntu
+
+[temp]
+vpn ansible_host=194.31.194.47 ansible_user=ubuntu
