@@ -1,0 +1,17 @@
+---
+
+- name: Memory Usage
+  debug: var=ansible_memory_mb
+  
+- name: Check Total RAM
+  debug:
+    msg: "total RAM is {{ ansible_memory_mb.real.total }}"
+  
+- name: Fails When
+  fail:
+    msg: "not enough RAM"
+  when: ansible_memory_mb.real.total < 4096
+
+- name: Check Swap RAM
+  debug: 
+    msg: "swap RAM is {{ ansible_memory_mb.swap.total }}"

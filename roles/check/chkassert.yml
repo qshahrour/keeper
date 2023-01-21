@@ -1,0 +1,9 @@
+---
+
+- assert:
+    that:
+      - ansible_memory_mb.real.total >= 4096
+
+- assert:
+    that:
+      - ansible_memory_mb.swap.total > 2048

@@ -1,0 +1,13 @@
+---
+
+- name: Copy Files From localhost to Remote
+  become: true
+  synchronize:
+    src: "{{ sync_dir[0] }}"
+    dest: "{{ sync_dir[0] }}"
+    dirs: yes
+    mode: push
+    recursive: yes
+    archive: no
+    checksum: yes
+  register: sync_sucess

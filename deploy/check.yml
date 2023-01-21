@@ -1,0 +1,14 @@
+---
+
+- name: General Check For Resources
+  hosts: all
+  vars_files:
+    - ../vars/main.yml
+
+  tasks:
+    - include_tasks: ../roles/check/chkcpu.yml
+    - include_tasks: ../roles/check/chkmem.yml
+    - include_tasks: ../roles/check/chkgen.yml
+    - include_tasks: ../roles/check/chkdsk.yml
+    - include_tasks: ../roles/check/chkmemb.yml
+    - include_tasks: ../roles/check/chkip.yml

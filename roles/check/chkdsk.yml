@@ -1,0 +1,17 @@
+---
+# Check The Available and Used Storage
+- name: Check Storage
+  shell:
+    "df -hT"
+  register: DESK
+
+- name: Used and Available
+  set_fact:
+    Used: "{{DESK.stdout_lines[1].split()[4]}}"
+    Avail: "{{DESK.stdout_lines[1].split()[5]}}"
+
+- name: Debuging Usage
+  debug:
+    msg:
+      - "Used Desk: {{Used}}"
+      - "Available Desk: {{Avail}}"

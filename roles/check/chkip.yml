@@ -1,0 +1,14 @@
+---
+
+- name: Check the outbound IP address
+  uri:
+    url: https://checkip.amazonaws.com
+    return_content: true
+  register: IP
+
+- name: Creating a new variable to store this IP
+  set_fact:
+    publicip: "{{IP.content | trim()}}"
+  
+- name: Debug Public IP    
+  debug: var=publicip

@@ -1,0 +1,13 @@
+---
+
+- name: Main Site Setup and Testing
+  hosts: [temp]
+  vars_files:
+    - ../vars/main.yml
+
+  tasks:
+    - include_tasks: ../roles/common/pull.yml
+    #- include_tasks: ../roles/php/artisanclear.yml
+    #- include_tasks: ../roles/pkginstall/main.yml
+    #- include_tasks: ../roles/chkip/main.yml
+
