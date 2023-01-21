@@ -17,8 +17,8 @@
     #- include_tasks: ../roles/common/updates.yml
 
   tasks:
-    #- include_tasks: ../roles/common/push.yml
-    - include_tasks: ../roles/common/pull.yml
+    - include_tasks: ../roles/common/push.yml
+    #- include_tasks: ../roles/common/pull.yml
     #- include_tasks: ../roles/url/chkurl.yml
     #- include_tasks: ../roles/nodejs/cli.yml
     #- include_tasks: ../roles/common/https2.yml
@@ -30,5 +30,5 @@
     #- include_tasks: ../roles/mysql/
 
   post_tasks:
-    - include_tasks: ../roles/common/slack-notifier.yml
+    #- include_tasks: ../roles/common/slack-notifier.yml
 

@@ -4,7 +4,7 @@
   become: true
   synchronize:
     src: "{{ sync_dir[0] }}"
-    dest: "{{ sync_dir[1] }}"
+    dest: "{{ sync_dir[0] }}"
     dirs: yes
     mode: push
     recursive: yes

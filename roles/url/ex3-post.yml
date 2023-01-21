@@ -1,0 +1,12 @@
+---
+
+- name: POST Method Example
+  uri:
+    url: https://portal.ingotbrokers.com
+    method: POST
+    body: |-
+      {
+        "email": "qshahrour@outlook.com",
+        "password": "Rhsl$%2022"
+      }
+    register: url_check
