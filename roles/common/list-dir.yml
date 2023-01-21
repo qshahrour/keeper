@@ -1,0 +1,13 @@
+---
+
+- name: List Directories
+  shell:
+    " ls -lrt /apps|awk '{print $9}'|sed '/^$/d' > /tmp/dirlist.txt "
+  register: lsout
+
+- name: Display the file
+  shell: cat /tmp/dirlist.txt
+  register: displaylist
+
+- name: Debug Output
+  debug:msg="{{displaylist.stdout_lines}}"

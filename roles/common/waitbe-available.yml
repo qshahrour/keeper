@@ -1,0 +1,11 @@
+---
+
+- name: Wait For the File to be Available
+  register: fileexists
+  file:
+    path: /tmp/myprocess.pid
+    state: file
+  until: fileexists is not failed
+  retries: 5
+  delay: 10
+  ignore_errors: true

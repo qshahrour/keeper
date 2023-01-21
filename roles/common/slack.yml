@@ -1,0 +1,13 @@
+---
+
+- name: Send notification message via Slack all options
+  community.general.slack:
+    token: thetoken/generatedby/slack
+    msg: '{{ inventory_hostname }} completed'
+    channel: '#ansible'
+    thread_id: '1539917263.000100'
+    username: 'Ansible on {{ inventory_hostname }}'
+    icon_url: http://www.example.com/some-image-file.png
+    link_names: 0
+    parse: 'none'
+  delegate_to: localhost

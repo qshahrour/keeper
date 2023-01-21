@@ -1,5 +1,13 @@
 ---
 
+#ansible_hostname:
+#  - ffront
+#  - fportal
+#  - hportal
+#  - percona
+
+#ansible_host:
+
 # Domains To Chaeck
 domains:
   - ingotbrokers.com
@@ -101,13 +109,6 @@ destdir:
   - /var/www/ingotbrokers-partners/.env
   - /var/www/ingotbrokers-auth/.env
   - /var/www/ingotbrokers-campains/.env
-# Extra Packages
-packages:
-  - sysstat
-  - net-tools
-  - lynx
-  - git
-  - zip
 # Directory Path of Projects on the Server.
 dest_dir:
   - /var/www/ingotbrokers
@@ -117,6 +118,13 @@ dest_dir:
   - /var/www/ingotbrokers-portal
   - /var/www/ingotbrokers-auth
   - /var/www/ingotbrokers-campains
+
+packages:
+  - sysstat
+  - net-tools
+  - lynx
+  - git
+  - zip
 # Setting the Result of std out as Variable.
 RESULT:
   STDOUT_LINES:

@@ -3,10 +3,11 @@
 - name: Pull Directory Files
   become: true
   synchronize:
-    src: "{{ destdir[1] }}"
+    src: "{{ sync_dir[0] }}"
     dest: "{{ sync_dir[0] }}"
     dirs: yes
     mode: pull
     recursive: yes
     archive: no
     checksum: yes
+  register: pull

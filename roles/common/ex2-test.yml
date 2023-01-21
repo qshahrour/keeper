@@ -1,0 +1,66 @@
+- name: Clear Cache and Restart tomcat
+  become: true
+  delay: 10
+  sync: 10
+  poll: 60
+  shell: |
+    echo -e "\n Change directory to the Tomcat"
+    cd tomcat8/
+
+    echo -e "\n Present working directory is" `pwd`
+        
+    echo -e "\n Stopping the tomcat instance"
+    bin/shutdown.sh
+      
+    echo -e "\n Clearning the tmp and work directory of tomcat"
+    rm -rfv tmp/*
+    rm -rfv work/*
+
+    echo -e "\nTruncate the log file"
+    > logs/catalina.out
+
+    echo -e "\nDirectory listing"
+    ls -lrtd logs/catalina.out
+
+    echo -e "\nStarting the instance"
+    bin/startup.sh
+          
+  args:
+    chdir: "/apps/tomcat/"
+  register: fileout
+  tags: fileout 
+
+  - debug: msg="{{ fileout.stdout_lines }}"- name: Clear Cache and Restart tomcat
+    become: yes
+    delay: 10
+    async: 10
+    poll: 60
+    shell: |
+
+      echo -e "\n Change directory to the Tomcat"
+      cd tomcat8/
+
+      echo -e "\n Present working directory is" `pwd`
+        
+      echo -e "\n Stopping the tomcat instance"
+      bin/shutdown.sh
+      
+      echo -e "\n Clearning the tmp and work directory of tomcat"
+      rm -rfv tmp/*
+      rm -rfv work/*
+
+      echo -e "\nTruncate the log file"
+      > logs/catalina.out
+
+      echo -e "\nDirectory listing"
+      ls -lrtd logs/catalina.out
+
+      echo -e "\nStarting the instance"
+      bin/startup.sh
+          
+    args:
+      chdir: "/apps/tomcat/"
+    register: fileout
+    tags: fileout 
+
+  - debug: msg="{{ fileout.stdout_lines }}"

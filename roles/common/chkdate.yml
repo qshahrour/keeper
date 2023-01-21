@@ -1,0 +1,9 @@
+---
+
+- name: Check Date with Shell command
+  shell:
+    "date"
+  register: datecmd
+
+- name: Debug Output
+  debug: msg="{{datecmd.stdout}}"

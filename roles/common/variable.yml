@@ -1,0 +1,12 @@
+---
+
+ - name: Start the DB batch upload
+   become: true
+   async: 10
+   poll: 0
+   shell:
+     "{{ script-to-start | quote }}"
+   args:
+     chdir: "/apps/dbscripts/"
+     creates: "startbatchupload.lock"
+   register: fileout

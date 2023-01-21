@@ -1,0 +1,8 @@
+---
+
+- name: Display the file
+  shell: cat /home/it/README.md
+  register: list
+
+- name: Debug Output
+  debug: msg="{{list.stdout_lines}}"
