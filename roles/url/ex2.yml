@@ -1,0 +1,10 @@
+- name: Send POST request with JSON data
+  uri:
+    url: http://example.com/api/resource
+    method: POST
+    json: 
+      name: "John Smith"
+      age: 30
+    content_type: "application/json"
+    status_code: 201
+    status_code_changed: false

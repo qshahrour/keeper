@@ -1,0 +1,77 @@
+---
+
+- name: check the response body
+  uri:
+    url: https://portal.ingotbrokers.com
+    method: GET
+    return_content: yes
+  register: response
+  when: response.content.find("error") != -1
+
+- name: check the status code of a URL
+  uri:
+    url: http://example.com
+    method: GET
+    status_code: 200
+    return_content: yes
+  register: response
+  when: response.status != 200
+  when_failed:
+    - name: notify that the URL is not responding
+      debug:
+        msg: "The URL is not responding. The status code is {{response.status}}"
+
+- name: check the status code of a URL
+  uri:
+    url: http://portal.ingotbrokers.com
+    method: GET
+  register: response
+
+- name: check if the status code is 200
+  assert:
+    that: response.status == 200
+
+- name: make a PUT request
+  uri:
+    url: http://example.com/api/resource/1
+    method: PUT
+    body: '{"name": "John Smith", "age": 35}'
+    body_format: json
+    headers:
+      Content-Type: application/json
+    status_code: 200
+    return_content: yes
+  register: response
+
+
+- name: make a POST request with JSON payload
+  uri:
+    url: http://example.com/api
+    method: POST
+    body: '{"name": "John", "age": 30}'
+    body_format: json
+    headers:
+      Content-Type: application/json
+    status_code: 201
+    return_content: yes
+  register: response
+
+- name: make a DELETE request
+  uri:
+    url: http://example.com/api/resource/1
+    method: DELETE
+    status_code: 204
+  register: response
+
+- name: make a PATCH request
+  uri:
+    url: http://example.com/api/resource/1
+    method: PATCH
+    body: '{"name": "John Smith"}'
+    body_format: json
+    headers:
+      Content-Type: application/json
+    status_code: 200
+    return_content: yes
+  register: response
+

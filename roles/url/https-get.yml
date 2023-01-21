@@ -1,0 +1,27 @@
+---
+
+- name: Checking Endpoint Status
+  uri:
+    url: https://www.ingotbrokers.com
+    method: GET
+    headers:
+      Content_Type: "form-urlencoded"
+      cache_control: "no-cache"
+    return_content: false
+    validate_certs: false
+  register: result
+
+- name: Print Response
+  debug: var=result
+
+- name: Result
+  mail:
+    host: "smtp.office365.com"
+    port: "587"
+    username: "ingotadmin@ingotbrokers.com"
+    password: "Wax92237"
+    to: "q.shahrour@ingotbrokers.com"
+    subject: "Alert status code200 email"
+    body: "This is Alert Email sent by Ansible, to that Error 404 accured"
+    sender: "ingotadmin@ingotbrokers.com"
+  when: result.status == 400

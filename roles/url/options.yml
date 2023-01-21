@@ -1,0 +1,12 @@
+- name: Make an OPTIONS request and save response body to a file
+  uri:
+    url: http://example.com/api/resource
+    method: OPTIONS
+    return_content: true
+  register: response
+
+- name: Save response body to file
+  copy:
+    content: "{{ response.content }}"
+    dest: /path/to/file.txt
+

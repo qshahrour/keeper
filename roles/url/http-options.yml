@@ -1,0 +1,9 @@
+- name: Make an OPTIONS request and get response headers
+  uri:
+    url: http://example.com/api/resource
+    method: OPTIONS
+  register: response
+
+- debug:
+      var: response.headers
+

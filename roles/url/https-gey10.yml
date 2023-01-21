@@ -1,0 +1,23 @@
+---
+
+- name: Check if URL Returns 500
+  uri:
+    url: https://{{ item }}
+    method: POST
+    data: '{"email": "qshahrour@outlook.com", "password": "Rhsl$%2022", "enter": "Login"}'
+    headers:
+      Content-type: "application/json"
+      Connection: "keep-alive"
+    return_content: false
+    follow_redirects: all
+    validate_certs: no
+  register: url_check
+  with_items:
+    - portal.ingotbrokers.com/en/login/
+    - portal.ingotbrokers.com.jo/en/login/
+  failed_when: false
+
+- name: If URL Returns 500
+  command: /bin/bash/mail.sh
+  when: url_check.status_code == 500
+                

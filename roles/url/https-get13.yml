@@ -1,0 +1,22 @@
+---
+#Check if a URL returns a 5xx status code
+- name: Check if URL returns 5xx
+  uri:
+    url: https://{{ item }}
+     method: GET
+     return_content: false
+     follow_redirects: all
+     validate_certs: no
+     status_code: 200,404,500,501,502
+  register: url_check
+  failed_when: url_check.status_code != 200
+  with_items:
+    - portal.ingotbrokers.com
+    - portal.ingotbrokers.com.jo
+    - portal.ingotbrokers.com.au
+
+
+- name: If URL Returns 5xx
+  command: /bin/bash/mail.yml
+  when: url_check.status_code >= 500 and url_check.status_code < 600
+

@@ -1,0 +1,38 @@
+---
+
+- name: Check URLs with POST method
+  hosts: localhost
+  gather_facts: false
+  vars:
+    urls:
+      - url: "https://portal.ingotbrokers.com/en/login"
+        post_data:
+          Email Address: "qshahrour@outlook.com"
+          Password: "Rhsl$%2022"
+          Enter: "Login"
+      - url: "https://portal.ingotbrokers.com.jo"
+        post_data:
+          Email Address: "qshahrour@outlook.com"
+          Password: "Rhsl$%2022"
+          Enter: "Login"
+
+  tasks:
+    - name: Check URLs
+      uri:
+        url: "{{ item.url }}"
+        headers:
+          Content-Type: application/json
+        method: POST
+        body: "{{ item.post_data|to_json }}"
+        body_format: json
+        validate_certs: no
+        return_content: yes
+      failed_when: false
+      register: url_check
+      with_items: "{{ urls }}"
+
+    - name: Print status code
+      debug:
+        msg: "Status code for {{ item.url }}: {{ url_check.results[loop.index0].status }}"
+      with_items: "{{ urls }}"
+

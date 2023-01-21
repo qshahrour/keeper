@@ -1,0 +1,9 @@
+---
+
+- name: Checking Connectivity
+  hosts: localhost
+
+  tasks:
+    - name: check if the status code is 200
+      assert:
+        that: response.status == 200

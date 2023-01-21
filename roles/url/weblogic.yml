@@ -1,0 +1,32 @@
+---
+
+- name: 1. Check maxCapacity value
+  uri:
+    url: https://{{ inventory_hostname }}:7002/management/weblogic/latest/edit/JDBCSystemResources/MyJDBCDataSource/JDBCResource/JDBCConnectionPoolParams?fields=maxCapacity
+    return_content: yes
+    user: "{{ weblogic_adm_user }}"
+    password: "{{ weblogic_adm_pwd }}"
+    headers:
+      Accept: application/json
+      X-Requested-By: MyAnsibleClient
+    register: getResult
+
+- name: 2. Display Content Result
+  debug:
+    var: getResult.json.maxCapacity
+
+- name: 3. Set maxCapacity value if changed
+  when: getResult.json.maxCapacity != newMaxCapacity
+  uri:
+    url: https://{{ inventory_hostname }}:7002/management/weblogic/latest/edit/JDBCSystemResources/MyJDBCDataSource/JDBCResource/JDBCConnectionPoolParams
+    user: "{{ weblogic_adm_user }}"
+    password: "{{ weblogic_adm_pwd }}"
+    method: POST
+    body_format: json
+    body:
+      maxCapacity: "{{ newMaxCapacity }}"
+    headers:
+      Content-Type: application/json
+      Accept: application/json
+      X-Requested-By: MyAnsibleClient
+    when: newMaxCapacity is defined

@@ -1,0 +1,21 @@
+---
+#Check if a URL returns a 401 (Unauthorized) status after making an authenticated request:
+- name: Check
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    - name: Auth
+      uri:
+        url: https://portal.ingotbrokers.com/en/login/
+        method: POST
+#        body: '{"email": "qshahrour@outlook.com", "password": "Rhsl$%2022", "enter": "Login"}'
+        body: '{"email": "qshahrour@outlook.com", "password": "Rhsl$%2022"}'
+        headers:
+#          Content-Type: form-urlencoded
+          status_code: [200,401]
+      return_content: no
+      register: status_code
+
+#    - name: If Authentication Fails
+#      command: ~/bash mail.sh
+#      when: status_code == 401

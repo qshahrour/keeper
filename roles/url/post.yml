@@ -1,0 +1,17 @@
+---
+# POST url link
+- name: MSTeams    
+  hosts: localhost
+  connection: local
+  gather_facts: false
+    
+  tasks:
+    
+    - name: MSTeams Sending
+      uri:
+        url:
+        method: POST
+        body: "{\"text\": \"**Header:** {{Header}}\n\n **Next Line Message1:** {{MESSAGE1}}\n\n **Next Line Message2:** '{{ MESSAGE2 }}'\", \"themeColor\": \"{{COLOR}}\"}"
+        body_format: json
+        headers:
+          Content-Type: "application/json"
