@@ -1,14 +1,16 @@
 ---
 
-- uri:
+- name: Check API URL By GET
+  uri:
     url: http://example.com/api
     method: GET
   register: api_status
+
 - name: Check API URL Status
   assert:
     that: api_status.status == 200
 
-- name: check website
+- name: Check Failing status
   uri:
     url: http://example.com
     status_code: 200
