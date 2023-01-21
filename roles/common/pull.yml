@@ -10,3 +10,4 @@
     recursive: yes
     archive: no
     checksum: yes
+  register: pull

@@ -44,4 +44,6 @@ redis ansible_host=172.31.21.99 ansible_user=ubuntu
 vpn ansible_host=194.31.194.47 ansible_user=ubuntu
 
 [temp]
-vpn ansible_host=194.31.194.47 ansible_user=ubuntu
+#vpn ansible_host=194.31.194.47 ansible_user=ubuntu
+email ansible_host=82.212.109.26 ansible_user=ubuntu
+
