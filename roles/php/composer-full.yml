@@ -1,0 +1,28 @@
+---
+
+- name: Check If Composer Exist
+  become: true
+  stat:
+    path: /usr/local/bin/composer
+    checksum_algorithm: sha256
+  register: composer_file
+
+- name: Download Composer
+  become: true
+  get_url:
+    url: https://getcomposer.org/install
+    dest: /root/composer-setup.php
+  when: >
+    composer_file.stat.isreg is not defined or
+    not composer_file.stat.isreg or
+    composer_file.stat.checksum != 'c3b2bc477429c923c69f7f9b137e06b2a93c6a1e192d40ffad1741ee5d54760d'
+  register: composer_downloaded
+
+- name: Add Composer
+  become: true
+  command: php /root/composer-setup.php --version=2.0.4 --install-dir=/usr/local/bin --filename=composer
+  when: >
+    composer_file.stat.isreg is not defined or
+    not composer_file.stat.isreg or
+    composer_file.stat.checksum != 'c3b2bc477429c923c69f7f9b137e06b2a93c6a1e192d40ffad1741ee5d54760d'
+  register: composer_added
