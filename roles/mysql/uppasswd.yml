@@ -1,6 +1,6 @@
 ---
 
-- name: update mysql root password for all root accounts
+- name: Update MySQL root Password for all root Accounts
   mysql_user:
     name: root
     host: "{{ item }}"
