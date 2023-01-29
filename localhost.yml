@@ -1,0 +1,14 @@
+---
+
+- name: Main Site Setup and Testing
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - ../vars/main.yml
+
+  tasks:
+    #- include_tasks: roles/common/smail.yml
+    #- include_tasks: roles/url/apiurl.yml
+    - include_tasks: roles/url/chkurl.yml
+    #- include_tasks: ../roles/check/main.yml
+

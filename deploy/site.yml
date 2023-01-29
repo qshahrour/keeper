@@ -6,6 +6,7 @@
     - ../vars/main.yml
 
   tasks:
+    - include_tasks: ../roles/common/smail.yml
     - include_tasks: ../roles/common/pull.yml
     #- include_tasks: ../roles/php/artisanclear.yml
     #- include_tasks: ../roles/pkginstall/main.yml

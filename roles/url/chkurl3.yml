@@ -1,7 +1,10 @@
-  - name: Print response body
-    debug:
-      msg: "{{ url_check.content }}"
-  - name: Print status code
-    debug:
-      msg: "Status code: {{ url_check.status_code }}"
+---
+
+- name: Print Response Body
+  debug:
+    msg: "{{ url_check.content }}"
+      
+- name: Print status code
+  debug:
+    msg: "Status code: {{ url_check.status_code }}"
 

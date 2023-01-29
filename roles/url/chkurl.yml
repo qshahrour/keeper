@@ -5,25 +5,23 @@
     #url: "https://{{ item }}.{{ domain_name }}/en/login"
     url: "https://portal.ingotbrokers.com/en/login"
     headers:
-      #Content-Type: application/json
+      Content-Type: "application/json"
       #Content-Type: text/html; charset=UTF-8
-      Connection: keep-alive
+      Connection: "keep-alive"
     method: POST
-    status_code: 200,500
+    status_code: [200,500]
     body_format: json
-    validate_certs: no
+    validate_certs: false
    # body: '{"Email Address":"{{ User_Name[0] }}","Password":"{{ User_Password[0] }}","Enter":"Login"}'
-    body: '{"Email Address":"qshahrour@outlook.com","Password":"Rhsl$%2022","Enter":"Login"}'
-  delegate_to: localhost
+    body: '{"email":"qshahrour@outlook.com", "password":"Rhsl$%2022", "submit":"Login"}'
+  #delegate_to: localhost
   register: url_check
   failed_when: false
   changed_when: false
   #when: url_check.status !=200 and url_check.status != 500
   #with_items: "{{ ping_servers }}"
   #no_log: yes
-  #
 
 - name: Print status code
   debug:
     msg: "Status code: {{ url_check.status }}"
-

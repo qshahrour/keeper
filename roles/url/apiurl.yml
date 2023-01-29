@@ -26,6 +26,18 @@
   assert:
     that: api_status.status == 422
 
+- name: Ansible Script to Send Emails
+  mail:
+    host: smtp.office365.com
+    port: 587
+    username: ingotadmin@ingotbrokers.com
+    password: Wax92237
+    to: q.shahrour@ingotbrokers.com
+    subject: Ansible Alert Email
+    body: "This is Alert Email sent by Ansible, to inform you that Error 404 accured"
+    sender: ingotadmin@ingotbrokers.com
+  register: mail_sent
+
 
   #- name: Print Status Code
   #debug:
